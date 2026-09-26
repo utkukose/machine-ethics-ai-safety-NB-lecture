@@ -1,0 +1,440 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Week 1: Foundations of Machine Ethics and AI Safety | Machine Ethics and Artificial Intelligence Safety</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Literata:opsz,wght@7..72,400;7..72,600&display=swap" rel="stylesheet"><style>:root{
+  --ink:#15313D; --paper:#EEF3F4; --panel:#FFFFFF; --steel:#566A73; --line:#CCD8DC;
+  --signal:#B97813; --ok:#2B7553; --bad:#A33F39; --band:rgba(185,120,19,.10);
+  --c1:#1D5B78; --c2:#C0801A; --c3:#5F8A2E; --c4:#86497A;
+  --sans:'Atkinson Hyperlegible',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  --serif:'Literata',Georgia,'Times New Roman',serif;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root{
+  --ink:#E2EBEE; --paper:#0E1A1F; --panel:#14242B; --steel:#9FB2BA; --line:#27404A;
+  --signal:#E0A340; --ok:#5DBB8C; --bad:#E07A72; --band:rgba(224,163,64,.14);
+  --c1:#6DB2D2; --c2:#E0A340; --c3:#9CC66A; --c4:#C98BBE;
+}}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font:17px/1.6 var(--sans)}
+a{color:var(--c1);text-underline-offset:3px}
+:focus-visible{outline:3px solid var(--signal);outline-offset:2px}
+.wrap{max-width:900px;margin:0 auto;padding:28px 20px 64px}
+header.top{border-bottom:1px solid var(--line);padding-bottom:18px;margin-bottom:22px}
+header.top .course{margin:0;color:var(--steel);font-size:.95rem}
+header.top h1{font-family:var(--serif);font-weight:600;font-size:clamp(1.6rem,3.6vw,2.35rem);line-height:1.2;margin:.25rem 0 .4rem}
+header.top .who{margin:0;font-size:.9rem;color:var(--steel)}
+header.top nav a{margin-right:14px;font-size:.95rem}
+h2{font-family:var(--serif);font-weight:600;font-size:1.45rem;margin:1.6rem 0 .5rem}
+h3{font-size:1.08rem;margin:1.2rem 0 .4rem}
+.lead{max-width:70ch;color:var(--ink)}
+.small{font-size:.88rem;color:var(--steel)}
+.tabs{display:flex;gap:4px;border-bottom:2px solid var(--line);flex-wrap:wrap}
+.tabs button{font:inherit;background:none;border:0;border-bottom:3px solid transparent;margin-bottom:-2px;padding:10px 14px;color:var(--steel);cursor:pointer}
+.tabs button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--signal);font-weight:700}
+.instrument{background:var(--panel);border:1px solid var(--line);border-left:5px solid var(--signal);padding:18px 18px 12px;margin:14px 0 8px}
+.ctl{display:grid;grid-template-columns:minmax(150px,1.2fr) 2fr 70px;align-items:center;gap:10px;margin:6px 0}
+.ctl label{font-size:.95rem}
+.ctl output{font-family:var(--mono);font-size:.9rem;text-align:right}
+.ctl select,.ctl input[type=range]{width:100%}
+.ctl.tog{grid-template-columns:auto 1fr}
+.row{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0}
+.btn{font:inherit;font-weight:700;background:var(--c1);color:#fff;border:0;padding:9px 16px;border-radius:4px;cursor:pointer;text-decoration:none;display:inline-block}
+.btn.ghost{background:transparent;color:var(--c1);border:1.5px solid var(--c1)}
+@media (prefers-color-scheme:dark){.btn{color:#0E1A1F}}
+select,input[type=text],textarea{font:inherit;color:var(--ink);background:var(--panel);border:1px solid var(--line);border-radius:4px;padding:6px 8px}
+textarea{width:100%;resize:vertical}
+svg.plot{width:100%;height:auto;display:block;margin:8px 0;background:
+  linear-gradient(var(--panel),var(--panel))}
+svg.plot .grid{stroke:var(--line);stroke-width:1}
+svg.plot .axis{stroke:var(--steel);stroke-width:1.2}
+svg.plot .mark{stroke:var(--signal);stroke-width:1.6;stroke-dasharray:5 4}
+svg.plot .band{fill:var(--band)}
+svg.plot text{fill:var(--steel);font:12px var(--sans)}
+svg.plot .lab{fill:var(--ink);font-size:13px}
+.result{font-weight:700;min-height:1.4em}
+.readout{font-family:var(--mono);font-size:.92rem;white-space:pre-wrap;background:var(--paper);border:1px solid var(--line);padding:10px;margin:8px 0}
+table.data{border-collapse:collapse;width:100%;font-size:.93rem;margin:8px 0}
+table.data th,table.data td{border-bottom:1px solid var(--line);padding:6px 8px;text-align:left}
+table.data td.num,table.data th.num{text-align:right;font-family:var(--mono)}
+fieldset.q{border:1px solid var(--line);background:var(--panel);margin:14px 0;padding:12px 16px}
+fieldset.q legend{font-weight:700;padding:0 6px;max-width:100%}
+fieldset.q.ok{border-color:var(--ok);box-shadow:inset 4px 0 0 var(--ok)}
+fieldset.q.bad{border-color:var(--bad);box-shadow:inset 4px 0 0 var(--bad)}
+.opt{display:flex;gap:10px;align-items:flex-start;padding:4px 0;cursor:pointer}
+.opt input{margin-top:.35em}
+.conf{margin-top:8px}
+.fb{font-size:.93rem;margin-top:6px}
+.summary{font-weight:700;margin:12px 0;max-width:70ch}
+.sorter{display:grid;gap:8px;margin:10px 0}
+.srow{display:grid;grid-template-columns:1fr minmax(160px,240px);gap:10px;align-items:center;border:1px solid var(--line);background:var(--panel);padding:8px 10px}
+.srow .fb{grid-column:1 / -1;margin:0}
+.srow.ok{box-shadow:inset 4px 0 0 var(--ok)} .srow.bad{box-shadow:inset 4px 0 0 var(--bad)}
+.rf{margin:14px 0} .rf label{display:block;font-weight:700;margin-bottom:6px}
+.task{border-top:2px solid var(--line);margin-top:20px}
+.grid-canvas{display:grid;gap:2px;margin:10px 0;max-width:420px}
+.grid-canvas div{aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:.8rem;border:1px solid var(--line);background:var(--panel)}
+footer.sig{margin-top:40px;padding-top:16px;border-top:1px solid var(--line);font-size:.88rem;color:var(--steel)}
+/* Lecture pages */
+article.lecture{font-family:var(--serif);font-size:1.06rem;line-height:1.72}
+article.lecture p,article.lecture li{max-width:72ch}
+article.lecture blockquote{margin:1.2rem 0;padding:.4rem 1rem;border-left:4px solid var(--signal);background:var(--panel)}
+article.lecture img{max-width:100%;height:auto;border:1px solid var(--line);background:#fff}
+article.lecture table{border-collapse:collapse;font-family:var(--sans);font-size:.93rem}
+article.lecture th,article.lecture td{border-bottom:1px solid var(--line);padding:6px 10px;text-align:left}
+article.lecture pre.mermaid{background:var(--panel);border:1px solid var(--line);padding:12px;overflow-x:auto}
+article.lecture code{font-family:var(--mono);font-size:.9em}
+/* Dashboard */
+ol.weeks{list-style:none;padding:0;margin:0;counter-reset:w}
+ol.weeks li{display:grid;grid-template-columns:3.2rem 1fr;gap:4px 12px;padding:14px 0;border-bottom:1px solid var(--line)}
+ol.weeks .n{font-family:var(--serif);font-size:1.5rem;color:var(--signal);line-height:1.1}
+ol.weeks .t{font-weight:700}
+ol.weeks .links{grid-column:2;font-size:.95rem}
+ol.weeks .links a{margin-right:14px}
+ol.weeks .st{grid-column:2;font-size:.85rem;color:var(--steel)}
+@media (max-width:620px){.ctl{grid-template-columns:1fr 60px}.ctl label{grid-column:1 / -1}.srow{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+/* interactive reading */
+article.lecture img{max-width:100%;height:auto}
+.lec-tools{position:sticky;top:0;z-index:5;background:var(--paper, Canvas);padding:.45rem 0;border-bottom:1px solid rgba(128,128,128,.25);margin:0 0 1rem}
+.lec-prog{display:flex;align-items:center;gap:.7rem;font-size:.9rem}
+.lec-bar{flex:0 0 180px;height:8px;border-radius:4px;background:rgba(128,128,128,.25);overflow:hidden}
+.lec-bar i{display:block;height:100%;width:0;background:#1D5B78;transition:width .3s}
+.kc{border:1px solid rgba(29,91,120,.35);border-left:4px solid #1D5B78;border-radius:8px;padding:.8rem 1rem;margin:1.2rem 0;background:rgba(29,91,120,.05)}
+.kc-tag{display:block;font-size:.72rem;letter-spacing:.05em;text-transform:uppercase;color:#1D5B78;font-weight:700;margin-bottom:.25rem}
+.kc-opts{display:grid;gap:.4rem;margin:.6rem 0}
+.kc-opt{text-align:left;padding:.5rem .75rem;border-radius:6px;border:1px solid rgba(128,128,128,.45);background:transparent;color:inherit;font:inherit;cursor:pointer}
+.kc-opt:hover:not(:disabled){border-color:#1D5B78;background:rgba(29,91,120,.06)}
+.kc-opt:disabled{cursor:default}
+.kc-opt.ok{border-color:#2e7d32;background:rgba(46,125,50,.14)}
+.kc-opt.no{border-color:#c62828;background:rgba(198,40,40,.12)}
+.kc-fb.good{color:#2e7d32;font-weight:600}.kc-fb.bad{color:#c62828;font-weight:600}
+.explore{border:1px dashed rgba(185,120,19,.65);border-radius:8px;padding:.8rem 1rem;margin:1.2rem 0;background:rgba(185,120,19,.06)}
+.inline-lab iframe{width:100%;height:80vh;border:1px solid rgba(128,128,128,.4);border-radius:8px;margin-top:.6rem}
+body.study .wrap{margin-right:50vw;max-width:none}
+#study-pane{position:fixed;top:0;right:0;width:50vw;height:100vh;display:flex;flex-direction:column;border-left:2px solid #1D5B78;background:var(--paper, Canvas);z-index:20}
+#study-pane iframe{flex:1;border:0;width:100%}
+.study-bar{display:flex;justify-content:space-between;align-items:center;padding:.4rem .8rem;border-bottom:1px solid rgba(128,128,128,.3)}
+@media (max-width:1000px){.wide-only{display:none}body.study .wrap{margin-right:0}#study-pane{display:none}}
+.mstep{display:flex;flex-wrap:wrap;gap:.4rem;align-items:center;margin:.4rem 0 1rem}
+.mstep-view{overflow-x:auto;margin-bottom:1rem}
+.cite{border-bottom:1px dotted currentColor;cursor:help}
+.cite-pop{display:block;font-size:.85rem;border:1px solid rgba(128,128,128,.4);border-radius:6px;padding:.5rem .7rem;margin:.3rem 0;background:rgba(128,128,128,.08);white-space:pre-line}
+.cards{border:1px solid rgba(128,128,128,.35);border-radius:8px;padding:.8rem 1rem;margin:1.2rem 0}
+.card{min-height:5.5rem;border-radius:8px;padding:1rem 1.1rem;background:rgba(29,91,120,.08);cursor:pointer;display:flex;align-items:center}
+.card.back{background:rgba(46,125,50,.12)}
+</style></head><body><div class="wrap"><header class="top"><p class="course">Machine Ethics and Artificial Intelligence Safety (11118BLG001), week 1 of 14</p><h1>Foundations of Machine Ethics and AI Safety</h1><p class="who">Prof. Dr. Utku Kose, Süleyman Demirel University</p><nav><a href="../../index.html">Course home</a><a href="lab.html">Interactive lab</a><a href="https://colab.research.google.com/github/utkukose/machine-ethics-ai-safety-NB-lecture/blob/main/weeks/week-01/NB01_foundations.ipynb">Colab notebook</a><a href="Week01_Lecture_Notes.pdf">PDF notes</a><a href="Week01_Lecture_Notes.docx">Word notes</a></nav></header><div class="lec-tools"><div class="lec-prog"><span class="lec-bar"><i></i></span><span class="lec-txt" aria-live="polite"></span></div></div><article class="lecture"><h2>Overview</h2>
+<p>The course opens with a question that has accompanied computing since its early decades: What happens when machines act on objectives that their designers only partly understand? This week traces the question from Wiener's warning about automation to present research programmes in machine ethics and AI safety, and it introduces the vocabulary used throughout the course [1, 2, 3].</p>
+<p><strong>Estimated study time:</strong> 6 to 8 hours.</p>
+<h2>Learning outcomes</h2>
+<p>By the end of the week, students are expected to distinguish machine ethics from AI safety, AI security and AI alignment, to classify artificial agents with Moor's four-level typology, to explain why rule lists such as Asimov's laws fail as a design method, and to describe the research agendas that structure the rest of the course.</p>
+<h2>Study path</h2>
+<table>
+<thead>
+<tr>
+<th>Step</th>
+<th>Activity</th>
+<th>Suggested time</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Read the lecture below or the <a href="Week01_Lecture_Notes.pdf">PDF version</a>, also available as a <a href="Week01_Lecture_Notes.docx">Word file</a></td>
+<td>90 minutes</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Explore the <a href="lab.html">interactive lab</a></td>
+<td>45 minutes</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Work through the <a href="https://colab.research.google.com/github/utkukose/machine-ethics-ai-safety-NB-lecture/blob/main/weeks/week-01/NB01_foundations.ipynb">Colab notebook</a> and its exercises</td>
+<td>2 to 3 hours</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Take the self-assessment in the lab (tab: Check yourself)</td>
+<td>20 minutes</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Write the reflection, export the learning log and complete the weekly task</td>
+<td>60 minutes</td>
+</tr>
+</tbody>
+</table>
+<h2>Week at a glance</h2>
+<pre class="mermaid">flowchart LR
+  Q[&quot;Will intelligent systems act as intended?&quot;] --&gt; ME[&quot;Machine ethics: which values, and how to reason with them&quot;]
+  Q --&gt; AS[&quot;AI safety: failure modes of learning systems&quot;]
+  ME --&gt; T[&quot;Moor's four types of ethical agents&quot;]
+  ME --&gt; R[&quot;Rules versus learning: top-down, bottom-up, hybrid&quot;]
+  AS --&gt; P[&quot;Side effects, reward hacking, oversight, robustness&quot;]
+  T --&gt; G[&quot;Accountability and governance&quot;]
+  R --&gt; G
+  P --&gt; G
+</pre>
+<div class="mstep"><button type="button" class="btn ghost" data-act="mstep-start">Build the diagram step by step</button><button type="button" class="btn ghost" data-act="mstep-prev" hidden>Previous step</button><button type="button" class="btn ghost" data-act="mstep-next" hidden>Next step</button><button type="button" class="btn ghost" data-act="mstep-all" hidden>Show the whole diagram</button><span class="mstep-info"></span></div>
+
+<h2>Lecture</h2>
+<h3>Two fields with a shared origin</h3>
+<p>In 1960, Norbert Wiener argued that machines able to learn could pursue their programmed purposes in ways their users would not have chosen, and that the speed of such machines could leave too little time for human correction [1]. The same concern now appears under two research labels. Machine ethics asks how artificial agents can represent and apply moral considerations when they act [2, 4]. AI safety asks how learning systems can be kept from unintended and harmful behaviour, especially when their objectives, training data or operating conditions are imperfect [3, 5].</p>
+<p>The two labels overlap but emphasise different questions. Machine ethics is closer to moral philosophy: It studies which values a system should respect and how moral reasoning can be implemented. AI safety is closer to engineering and statistics: It studies failure modes such as reward hacking, distribution shift and adversarial manipulation. Kose argued that the two agendas belong together, since dystopic scenarios, moral dilemmas and technical failure modes all bear on the practical question of whether future intelligent systems will be safe enough [6]. Two further terms complete the vocabulary. AI security concerns deliberate attacks on AI systems by adversaries. AI alignment concerns the match between what a system pursues and what its principals intend [7, 8].</p>
+<p><img alt="Selected milestones discussed this week, from Asimov and Wiener to the EU AI Act and the International AI Safety Report {cite:asimov1950,wiener1960,moor2006,amodei2016,kose2018brain,euaiact2024,iaisr2025}." src="figures/w01_fig1.png" /></p>
+<p><em>Figure 1.1. Selected milestones discussed this week, from Asimov and Wiener to the EU AI Act and the International AI Safety Report [1, 2, 3, 6, 9, 10, 11].</em></p>
+<div class="kc" data-answer="1" data-id="s1"><p class="kc-q"><span class="kc-tag">Check your understanding</span>Which description best captures the usual division between machine ethics and AI safety?</p><div class="kc-opts"><button type="button" class="kc-opt" data-i="0">Machine ethics studies hardware reliability and AI safety studies software licences</button><button type="button" class="kc-opt" data-i="1">Machine ethics asks how machines can reason about moral considerations, and AI safety asks how to prevent unintended harm from AI systems</button><button type="button" class="kc-opt" data-i="2">The two terms are exact synonyms</button><button type="button" class="kc-opt" data-i="3">AI safety is concerned only with science fiction scenarios</button></div><p class="kc-fb" hidden></p><p class="kc-why" hidden>The fields share an origin and overlap, but their primary questions differ.</p></div>
+
+<div class="explore"><p><strong>Explore while reading.</strong> The interactive lab of this week can be opened inside this page or next to the text, so that ideas can be tried out as they are introduced.</p><p><button type="button" class="btn" data-act="inline-lab">Open the lab here</button> <button type="button" class="btn ghost wide-only" data-act="study">Study side by side</button></p><div class="inline-lab"></div></div>
+
+<h3>Moor's typology of ethical agents</h3>
+<p>Moor proposed four levels that remain useful for classifying systems [2]. An ethical impact agent affects people morally without representing ethics at all, as in his example of robot jockeys that replaced children in camel races. An implicit ethical agent has safety or fairness built into its design, for example an autopilot whose protections prevent dangerous manoeuvres. An explicit ethical agent represents ethical categories and reasons with them to select actions. A full ethical agent would exercise moral judgment with the understanding and responsibility attributed to adult humans. Most deployed systems are ethical impact agents or implicit ethical agents, whereas much of machine ethics research aims at explicit agents [4, 12].</p>
+<p>The typology also clarifies responsibility. The moral behaviour of an implicit ethical agent is fixed by its designers, so accountability for failures stays with the people who specify its constraints. Explicit ethical agents raise harder questions, because their decisions follow from internal reasoning that designers do not fully script. Floridi and Sanders argued that artificial agents can be sources of moral action even when they are not morally responsible in the human sense, which separates accountability from blame [13].</p>
+<blockquote>
+<p><strong>Pause and reflect.</strong> Pick two systems used every day, such as a navigation application and a language model assistant. Where does each belong in Moor's typology, and which feature of the system decides the answer?</p>
+</blockquote>
+<div class="kc" data-answer="2" data-id="s2"><p class="kc-q"><span class="kc-tag">Check your understanding</span>In Moor&#x27;s typology, an agent that represents ethical principles explicitly and reasons with them is</p><div class="kc-opts"><button type="button" class="kc-opt" data-i="0">an ethical impact agent</button><button type="button" class="kc-opt" data-i="1">an implicit ethical agent</button><button type="button" class="kc-opt" data-i="2">an explicit ethical agent</button><button type="button" class="kc-opt" data-i="3">a full ethical agent</button></div><p class="kc-fb" hidden></p><p class="kc-why" hidden>Explicit ethical agents reason with ethical categories. Full ethical agents would also need capacities such as consciousness and free will.</p></div>
+
+<h3>Why rule lists are not enough</h3>
+<p>Asimov's Three Laws of Robotics are often cited as a first attempt to specify machine ethics, although Asimov used them as a narrative device whose loopholes drove the plots of his stories [9]. The laws illustrate three recurring problems. First, natural-language terms such as harm are vague, so every application requires interpretation. Second, rules conflict, and a fixed priority order produces counterintuitive results in edge cases. Third, rules are silent about situations their authors did not anticipate. Yigit, Kose and Sengoz examined how such rules translate into robotics rights and ethics rules and found the same tension between clarity and coverage [14].</p>
+<p>These problems are not confined to fiction. Allen, Smit and Wallach described top-down approaches, which derive behaviour from explicit principles, and bottom-up approaches, which learn behaviour from experience, and argued that neither is sufficient alone [15]. The same tension reappears in AI safety as the gap between a specified objective and the behaviour that designers actually wanted [3]. The lab and the notebook of this week make the conflict problem concrete: A small robot follows three prioritised rules, and changing the order of the rules changes its verdicts in ways that are easy to predict for some cases and surprising for others.</p>
+<div class="kc" data-answer="0" data-id="s3"><p class="kc-q"><span class="kc-tag">Check your understanding</span>Why are fixed rule lists, such as Asimov&#x27;s laws, not enough to guarantee ethical behaviour?</p><div class="kc-opts"><button type="button" class="kc-opt" data-i="0">Rules conflict, contain vague terms and cannot anticipate every situation</button><button type="button" class="kc-opt" data-i="1">Computers cannot store rules</button><button type="button" class="kc-opt" data-i="2">Rules are too expensive to execute</button><button type="button" class="kc-opt" data-i="3">Rules always work but make systems slow</button></div><p class="kc-fb" hidden></p><p class="kc-why" hidden>Interpreting and prioritising rules in new situations requires judgement that the rules themselves do not supply.</p></div>
+
+<h3>A research map for the course</h3>
+<p>Amodei and colleagues grouped concrete technical problems into avoiding negative side effects, avoiding reward hacking, scalable oversight, safe exploration and robustness to distributional shift [3]. Hendrycks and colleagues later organised open problems into robustness, monitoring, alignment and systemic safety [5]. Russell, Dewey and Tegmark had earlier set out research priorities that combined short-term questions about law, economics and verification with long-term questions about control [16]. Kose offered an introduction to AI safety for a broad audience [17], and Kose and Vasant proposed a fading intelligence theory in which the operational lifetime of a system is limited so that newer and safer generations can replace it [18].</p>
+<p>The course follows this map. Weeks 2 to 4 cover normative foundations, implementations of machine ethics and the aggregation of moral preferences. Weeks 5 and 6 address fairness. Weeks 7 to 10 cover specification, robustness, uncertainty and interpretability. Weeks 11 to 13 examine the alignment of large language models, their security and advanced risks such as deceptive behaviour. Week 14 closes with governance, standards and auditing.</p>
+<div class="kc" data-answer="3" data-id="s4"><p class="kc-q"><span class="kc-tag">Check your understanding</span>Which question belongs to the robustness theme of AI safety?</p><div class="kc-opts"><button type="button" class="kc-opt" data-i="0">Which moral theory should the system follow?</button><button type="button" class="kc-opt" data-i="1">Who owns the copyright of generated outputs?</button><button type="button" class="kc-opt" data-i="2">How many parameters does the model have?</button><button type="button" class="kc-opt" data-i="3">Does the system keep working correctly under perturbations and distribution shift?</button></div><p class="kc-fb" hidden></p><p class="kc-why" hidden>Robustness concerns reliable behaviour when inputs differ from training conditions or are manipulated on purpose.</p></div>
+
+<h2>Interactive lab</h2>
+<p>Part A asks for Moor's level of eight systems and explains each case after checking. Part B gives a service robot three prioritised rules. Changing the priority order shows how strongly each verdict depends on it [2, 9].</p>
+<p><a href="lab.html">Open the interactive lab</a></p>
+<p><img alt="Screenshot of the Week 1 interactive lab" src="screenshots/lab.png" /></p>
+<h2>Colab notebook</h2>
+<p>The notebook implements the three-rule robot of the lab, enumerates all six priority orders and compares a lexicographic agent with a weighted-sum agent. The comparison shows that a ranking of rules and a weighting of rules are different design commitments [15].</p>
+<p><a href="https://colab.research.google.com/github/utkukose/machine-ethics-ai-safety-NB-lecture/blob/main/weeks/week-01/NB01_foundations.ipynb"><img alt="Open in Colab" src="https://colab.research.google.com/assets/colab-badge.svg" /></a></p>
+<p>Screenshots of the executed notebook:</p>
+<p><img alt="Output 1 of the Week 1 notebook" src="screenshots/nb_1.png" /></p>
+<h2>Self-assessment and reflection</h2>
+<p>The lab contains a 6-question self-assessment with instant feedback and a confidence rating for each answer. A confident but wrong answer marks the first topic to revisit. The reflection prompts below are also available in the lab, where answers are saved in the browser and can be exported as a learning log.</p>
+<ol>
+<li>Describe one AI system that you use or develop. Which level of Moor's typology does it occupy, and who is accountable when it fails?</li>
+<li>Which problem of rule lists (vagueness, conflict or unanticipated situations) seems most dangerous in your research area, and why?</li>
+<li>Write down one question about machine ethics or AI safety that you expect this course to answer. Keep it and revisit it in Week 14.</li>
+</ol>
+<div class="cards"></div>
+
+<h2>Weekly task and submission</h2>
+<p>Write a position statement of about 400 words that defines machine ethics, AI safety, AI security and AI alignment in your own words and applies Moor's typology to a system from your own field. Cite at least three works from this week's references in square brackets and attach the notebook with both exercises completed.</p>
+<p>The weekly task supports self-learning and builds a personal portfolio. When the course is followed with the instructor during an active semester, the task can be sent together with the exported learning log to utkukose@sdu.edu.tr or utkukose@gmail.com for evaluation.</p>
+<h2>Research and report assignment (optional)</h2>
+<p><strong>Definitions in practice.</strong> Compare how an international organisation, a national AI strategy and one AI developer define AI safety and the ethics of AI systems [19, 20]. Identify what each definition includes and leaves out, and relate the differences to the distinctions of this week.</p>
+<p>This research assignment is optional and supports self-learning. When the related weeks are followed within the course during an active semester, the report can be sent to utkukose@sdu.edu.tr or utkukose@gmail.com for evaluation. Unless the assignment states otherwise, a report has 1500 to 2500 words, follows the structure of an academic paper, cites at least six scholarly or official sources in square brackets and ends with a reference list.</p>
+<h2>References</h2>
+<p>[1] Wiener, N. (1960). Some moral and technical consequences of automation. <em>Science</em>, 131(3410), 1355-1358. <a href="https://doi.org/10.1126/science.131.3410.1355">https://doi.org/10.1126/science.131.3410.1355</a></p>
+<p>[2] Moor, J. H. (2006). The nature, importance, and difficulty of machine ethics. <em>IEEE Intelligent Systems</em>, 21(4), 18-21. <a href="https://doi.org/10.1109/MIS.2006.80">https://doi.org/10.1109/MIS.2006.80</a></p>
+<p>[3] Amodei, D., Olah, C., Steinhardt, J., Christiano, P., Schulman, J., &amp; Mané, D. (2016). Concrete problems in AI safety. arXiv preprint arXiv:1606.06565. <a href="https://arxiv.org/abs/1606.06565">https://arxiv.org/abs/1606.06565</a></p>
+<p>[4] Anderson, M., &amp; Anderson, S. L. (Eds.) (2011). <em>Machine Ethics</em>. Cambridge University Press.</p>
+<p>[5] Hendrycks, D., Carlini, N., Schulman, J., &amp; Steinhardt, J. (2021). Unsolved problems in ML safety. arXiv preprint arXiv:2109.13916. <a href="https://arxiv.org/abs/2109.13916">https://arxiv.org/abs/2109.13916</a></p>
+<p>[6] Kose, U. (2018). Are we safe enough in the future of artificial intelligence? A discussion on machine ethics and artificial intelligence safety. <em>BRAIN. Broad Research in Artificial Intelligence and Neuroscience</em>, 9(2), 184-197.</p>
+<p>[7] Gabriel, I. (2020). Artificial intelligence, values, and alignment. <em>Minds and Machines</em>, 30(3), 411-437. <a href="https://doi.org/10.1007/s11023-020-09539-2">https://doi.org/10.1007/s11023-020-09539-2</a></p>
+<p>[8] Russell, S. (2019). <em>Human Compatible: Artificial Intelligence and the Problem of Control</em>. Viking.</p>
+<p>[9] Asimov, I. (1950). <em>I, Robot</em>. Gnome Press.</p>
+<p>[10] European Parliament and Council of the European Union (2024). <em>Regulation (EU) 2024/1689 laying down harmonised rules on artificial intelligence (Artificial Intelligence Act)</em>. Official Journal of the European Union, L series, 12 July 2024. <a href="https://eur-lex.europa.eu/eli/reg/2024/1689/oj">https://eur-lex.europa.eu/eli/reg/2024/1689/oj</a></p>
+<p>[11] Bengio, Y., Mindermann, S., Privitera, D., et al. (2025). International AI safety report. arXiv preprint arXiv:2501.17805. <a href="https://arxiv.org/abs/2501.17805">https://arxiv.org/abs/2501.17805</a></p>
+<p>[12] Wallach, W., &amp; Allen, C. (2009). <em>Moral Machines: Teaching Robots Right from Wrong</em>. Oxford University Press.</p>
+<p>[13] Floridi, L., &amp; Sanders, J. W. (2004). On the morality of artificial agents. <em>Minds and Machines</em>, 14(3), 349-379. <a href="https://doi.org/10.1023/B:MIND.0000035461.63578.9d">https://doi.org/10.1023/B:MIND.0000035461.63578.9d</a></p>
+<p>[14] Yigit, T., Kose, U., &amp; Sengoz, N. (2018). Robotics rights and ethics rules. <em>Journal of Multidisciplinary Developments</em>, 3(1), 30-37.</p>
+<p>[15] Allen, C., Smit, I., &amp; Wallach, W. (2005). Artificial morality: Top-down, bottom-up, and hybrid approaches. <em>Ethics and Information Technology</em>, 7(3), 149-155. <a href="https://doi.org/10.1007/s10676-006-0004-4">https://doi.org/10.1007/s10676-006-0004-4</a></p>
+<p>[16] Russell, S., Dewey, D., &amp; Tegmark, M. (2015). Research priorities for robust and beneficial artificial intelligence. <em>AI Magazine</em>, 36(4), 105-114. <a href="https://doi.org/10.1609/aimag.v36i4.2577">https://doi.org/10.1609/aimag.v36i4.2577</a></p>
+<p>[17] Kose, U. (2017). An introduction to artificial intelligence safety. <em>Journal of Multidisciplinary Developments</em>, 2(1), 28-32.</p>
+<p>[18] Kose, U., &amp; Vasant, P. (2017). Fading intelligence theory: A theory on keeping artificial intelligence safety for the future. In <em>2017 International Artificial Intelligence and Data Processing Symposium (IDAP)</em>. IEEE. <a href="https://doi.org/10.1109/IDAP.2017.8090235">https://doi.org/10.1109/IDAP.2017.8090235</a></p>
+<p>[19] OECD (2019). <em>Recommendation of the Council on Artificial Intelligence (OECD/LEGAL/0449)</em>. Organisation for Economic Co-operation and Development. Amended in 2024.</p>
+<p>[20] Presidency of the Republic of Türkiye Digital Transformation Office, &amp; Ministry of Industry and Technology (2021). <em>National Artificial Intelligence Strategy 2021-2025 (Ulusal Yapay Zekâ Stratejisi 2021-2025)</em>. Ankara. Action plan updated for 2024-2025. <a href="https://www.cbddo.gov.tr/UYZS">https://www.cbddo.gov.tr/UYZS</a></p></article><footer class="sig"><p><strong>Prof. Dr. Utku Kose</strong><br>Full Professor, Department of Computer Engineering, Süleyman Demirel University, Isparta, Türkiye<br>Founding Director, AI Application and Research Center (YAZEM), Süleyman Demirel University<br>Head of the Computer Science Division, Department of Computer Engineering, Süleyman Demirel University<br>Additional affiliations: University of North Dakota (USA), Universidad Panamericana (Mexico City, Mexico), Vel Tech University (Chennai, India)<br><a href="https://orcid.org/0000-0002-9652-6415">ORCID 0000-0002-9652-6415</a>, <a href="https://www.utkukose.com">utkukose.com</a>, <a href="https://github.com/utkukose">github.com/utkukose</a><br><a href="mailto:utkukose@sdu.edu.tr">utkukose@sdu.edu.tr</a>, <a href="mailto:utku.kose@und.edu">utku.kose@und.edu</a>, <a href="mailto:ukose@up.edu.mx">ukose@up.edu.mx</a>, <a href="mailto:utkukose@gmail.com">utkukose@gmail.com</a></p><p>This course is updated in line with current developments in the field. Last update: September 2026. Course materials licensed under CC BY 4.0. Code licensed under MIT.</p></footer></div><script type="module">import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";window.mermaid=mermaid;mermaid.initialize({startOnLoad:true,theme:matchMedia("(prefers-color-scheme: dark)").matches?"dark":"neutral"});</script><script>window.LEC={key:"MEAIS:lec:w1"};</script><script>(function () {
+  "use strict";
+  var KEY = (window.LEC && window.LEC.key) || "lecture";
+  var state = {};
+  try { state = JSON.parse(localStorage.getItem(KEY) || "{}") || {}; } catch (e) { state = {}; }
+  function save() { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {} }
+  var article = document.querySelector("article.lecture");
+  var boxes = Array.prototype.slice.call(document.querySelectorAll(".kc"));
+  var bar = document.querySelector(".lec-bar i"), txt = document.querySelector(".lec-txt");
+
+  function update() {
+    var answered = 0, correct = 0;
+    boxes.forEach(function (b) { var r = state[b.dataset.id]; if (r) { answered++; if (r.ok) { correct++; } } });
+    state.total = boxes.length; state.answered = answered; state.correct = correct; save();
+    if (bar) { bar.style.width = (boxes.length ? 100 * answered / boxes.length : 0) + "%"; }
+    if (txt) { txt.textContent = "Reading checks: " + answered + " of " + boxes.length + " answered, " + correct + " correct"; }
+  }
+
+  boxes.forEach(function (box) {
+    var ans = +box.dataset.answer, id = box.dataset.id;
+    var opts = Array.prototype.slice.call(box.querySelectorAll(".kc-opt"));
+    var fb = box.querySelector(".kc-fb"), why = box.querySelector(".kc-why");
+    var retry = document.createElement("button");
+    retry.type = "button"; retry.className = "btn ghost kc-retry"; retry.textContent = "Try again"; retry.hidden = true;
+    box.appendChild(retry);
+    function show(i) {
+      opts.forEach(function (o, j) { o.disabled = true; o.classList.toggle("ok", j === ans); o.classList.toggle("no", j === i && i !== ans); });
+      fb.textContent = i === ans ? "Correct." : "Not quite. The correct option is highlighted.";
+      fb.className = "kc-fb " + (i === ans ? "good" : "bad");
+      fb.hidden = false; why.hidden = false; retry.hidden = false;
+    }
+    opts.forEach(function (o, i) {
+      o.addEventListener("click", function () { state[id] = { ok: i === ans, choice: i }; show(i); update(); });
+    });
+    retry.addEventListener("click", function () {
+      opts.forEach(function (o) { o.disabled = false; o.classList.remove("ok", "no"); });
+      fb.hidden = true; why.hidden = true; retry.hidden = true; delete state[id]; update();
+    });
+    if (state[id] && typeof state[id].choice === "number") { show(state[id].choice); }
+  });
+  update();
+
+  function toggleStudy() {
+    var pane = document.getElementById("study-pane");
+    if (pane) { pane.parentNode.removeChild(pane); document.body.classList.remove("study"); return; }
+    pane = document.createElement("aside");
+    pane.id = "study-pane";
+    pane.innerHTML = '<div class="study-bar"><strong>Interactive lab</strong><button type="button" class="btn ghost" data-act="study">Close</button></div>' +
+      '<iframe src="lab.html" title="Interactive lab"></iframe>';
+    document.body.appendChild(pane);
+    document.body.classList.add("study");
+  }
+
+  document.addEventListener("click", function (ev) {
+    var t = ev.target && ev.target.closest ? ev.target.closest("[data-act]") : null;
+    if (!t) { return; }
+    var act = t.dataset.act;
+    if (act === "inline-lab") {
+      var holder = t.closest(".explore").querySelector(".inline-lab");
+      if (holder.firstChild) { holder.innerHTML = ""; t.textContent = "Open the lab here"; }
+      else { holder.innerHTML = '<iframe src="lab.html" title="Interactive lab" loading="lazy"></iframe>'; t.textContent = "Close the embedded lab"; }
+    } else if (act === "study") { toggleStudy(); }
+    else if (act.indexOf("mstep") === 0) { mstep(act); }
+    else if (act.indexOf("card") === 0) { card(act); }
+  });
+
+  var refs = {};
+  var heads = article ? Array.prototype.slice.call(article.querySelectorAll("h2")) : [];
+  var refHead = heads.filter(function (h) { return h.textContent.trim() === "References"; })[0];
+  if (refHead) {
+    for (var el = refHead.nextElementSibling; el && el.tagName !== "H2"; el = el.nextElementSibling) {
+      var m = el.textContent.match(/^\[(\d+)\]\s*([\s\S]*)$/);
+      if (m) { refs[m[1]] = m[2].trim(); }
+    }
+  }
+  if (refHead && Object.keys(refs).length) {
+    var walker = document.createTreeWalker(article, NodeFilter.SHOW_TEXT, null), nodes = [];
+    while (walker.nextNode()) {
+      var n = walker.currentNode;
+      if (/\[\d+(?:,\s*\d+)*\]/.test(n.nodeValue) && (n.compareDocumentPosition(refHead) & Node.DOCUMENT_POSITION_FOLLOWING) &&
+          !n.parentNode.closest("pre, .kc, h1, h2, h3")) { nodes.push(n); }
+    }
+    nodes.forEach(function (node) {
+      var frag = document.createDocumentFragment(), s = node.nodeValue, re = /\[(\d+(?:,\s*\d+)*)\]/g, last = 0, mm;
+      while ((mm = re.exec(s))) {
+        frag.appendChild(document.createTextNode(s.slice(last, mm.index)));
+        var span = document.createElement("span");
+        span.className = "cite"; span.tabIndex = 0; span.textContent = mm[0];
+        span.dataset.ref = mm[1].split(/,\s*/).map(function (k) { return "[" + k + "] " + (refs[k] || ""); }).join("\n");
+        span.title = span.dataset.ref;
+        frag.appendChild(span);
+        last = mm.index + mm[0].length;
+      }
+      frag.appendChild(document.createTextNode(s.slice(last)));
+      node.parentNode.replaceChild(frag, node);
+    });
+    document.addEventListener("click", function (ev) {
+      var c = ev.target && ev.target.closest ? ev.target.closest(".cite") : null;
+      var open = document.querySelector(".cite-pop");
+      var same = open && c && open.dataset.for === c.dataset.ref;
+      if (open) { open.parentNode.removeChild(open); }
+      if (!c || same) { return; }
+      var pop = document.createElement("span");
+      pop.className = "cite-pop"; pop.textContent = c.dataset.ref; pop.dataset.for = c.dataset.ref;
+      c.parentNode.insertBefore(pop, c.nextSibling);
+    });
+  }
+
+  var merPre = document.querySelector("pre.mermaid");
+  var merSrc = merPre ? merPre.textContent : "";
+  var ms = null, mk = 0, mcount = 0;
+  function msteps() {
+    var lines = merSrc.split("\n").filter(function (l) { return l.trim(); });
+    var styleRe = /^\s*(classDef|class\s|style\s|linkStyle|%%)/;
+    var body = lines.slice(1);
+    var content = body.filter(function (l) { return !styleRe.test(l); });
+    var idx = [];
+    content.forEach(function (l, i) { var s = l.trim(); if (s !== "end" && s.indexOf("subgraph") !== 0 && s.indexOf("direction") !== 0) { idx.push(i); } });
+    return { head: lines[0], styles: body.filter(function (l) { return styleRe.test(l); }), content: content, idx: idx };
+  }
+  function partial(k) {
+    var sel = ms.content.slice(0, ms.idx[k - 1] + 1), open = 0;
+    sel.forEach(function (l) { var s = l.trim(); if (s.indexOf("subgraph") === 0) { open++; } else if (s === "end") { open--; } });
+    for (var i = 0; i < open; i++) { sel.push("end"); }
+    return [ms.head].concat(sel, ms.styles).join("\n");
+  }
+  function mview() {
+    var v = document.querySelector(".mstep-view");
+    if (!v) { v = document.createElement("div"); v.className = "mstep-view"; var ctl = document.querySelector(".mstep"); ctl.parentNode.insertBefore(v, ctl.nextSibling); }
+    return v;
+  }
+  function minfo(t) { var i = document.querySelector(".mstep-info"); if (i) { i.textContent = t; } }
+  function mrender(k, dir) {
+    if (!window.mermaid || !window.mermaid.render) { minfo("The diagram library is still loading. Try again in a moment."); return; }
+    window.mermaid.render("mstep" + (++mcount), partial(k)).then(function (out) {
+      mview().innerHTML = out.svg; mk = k;
+      minfo("Step " + k + " of " + ms.idx.length);
+    }).catch(function () {
+      var nk = k + (dir || 1);
+      if (nk >= 1 && nk <= ms.idx.length) { mrender(nk, dir); }
+    });
+  }
+  function mstep(act) {
+    if (!merPre) { return; }
+    if (!ms) { ms = msteps(); }
+    function btn(a) { return document.querySelector('[data-act="' + a + '"]'); }
+    if (act === "mstep-start") {
+      merPre.style.display = "none";
+      ["mstep-prev", "mstep-next", "mstep-all"].forEach(function (a) { btn(a).hidden = false; });
+      btn("mstep-start").hidden = true;
+      mrender(1, 1);
+    } else if (act === "mstep-next") { if (mk < ms.idx.length) { mrender(mk + 1, 1); } }
+    else if (act === "mstep-prev") { if (mk > 1) { mrender(mk - 1, -1); } }
+    else if (act === "mstep-all") {
+      var v = document.querySelector(".mstep-view"); if (v) { v.innerHTML = ""; }
+      merPre.style.display = "";
+      ["mstep-prev", "mstep-next", "mstep-all"].forEach(function (a) { btn(a).hidden = true; });
+      btn("mstep-start").hidden = false; minfo(""); mk = 0;
+    }
+  }
+
+  var host = document.querySelector(".cards");
+  var cards = boxes.map(function (b) {
+    var o = b.querySelectorAll(".kc-opt");
+    return { q: b.querySelector(".kc-q").lastChild.textContent, a: o[+b.dataset.answer].textContent, why: b.querySelector(".kc-why").textContent };
+  });
+  var ci = 0, flipped = false;
+  function drawCard() {
+    var c = cards[ci];
+    host.querySelector(".card-face").textContent = flipped ? (c.a + ". " + c.why) : c.q;
+    host.querySelector(".card").classList.toggle("back", flipped);
+    host.querySelector(".card-n").textContent = "Card " + (ci + 1) + " of " + cards.length + (flipped ? ", answer" : ", question");
+  }
+  function card(act) {
+    if (!host || !cards.length) { return; }
+    if (act === "card-flip") { flipped = !flipped; }
+    else { ci = (ci + (act === "card-next" ? 1 : cards.length - 1)) % cards.length; flipped = false; }
+    drawCard();
+  }
+  if (host && cards.length) {
+    host.innerHTML = '<h3>Review cards</h3><p>Recall the answer to each question before turning the card.</p>' +
+      '<div class="card" data-act="card-flip" tabindex="0" role="button"><div class="card-face"></div></div>' +
+      '<p class="card-nav"><button type="button" class="btn ghost" data-act="card-prev">Previous</button> ' +
+      '<button type="button" class="btn" data-act="card-flip">Turn the card</button> ' +
+      '<button type="button" class="btn ghost" data-act="card-next">Next</button> <span class="card-n"></span></p>';
+    drawCard();
+    host.querySelector(".card").addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); card("card-flip"); } });
+  }
+})();
+</script></body></html>
