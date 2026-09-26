@@ -1,0 +1,438 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Week 14: Governance, Standards and Auditing | Machine Ethics and Artificial Intelligence Safety</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Literata:opsz,wght@7..72,400;7..72,600&display=swap" rel="stylesheet"><style>:root{
+  --ink:#15313D; --paper:#EEF3F4; --panel:#FFFFFF; --steel:#566A73; --line:#CCD8DC;
+  --signal:#B97813; --ok:#2B7553; --bad:#A33F39; --band:rgba(185,120,19,.10);
+  --c1:#1D5B78; --c2:#C0801A; --c3:#5F8A2E; --c4:#86497A;
+  --sans:'Atkinson Hyperlegible',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  --serif:'Literata',Georgia,'Times New Roman',serif;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root{
+  --ink:#E2EBEE; --paper:#0E1A1F; --panel:#14242B; --steel:#9FB2BA; --line:#27404A;
+  --signal:#E0A340; --ok:#5DBB8C; --bad:#E07A72; --band:rgba(224,163,64,.14);
+  --c1:#6DB2D2; --c2:#E0A340; --c3:#9CC66A; --c4:#C98BBE;
+}}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font:17px/1.6 var(--sans)}
+a{color:var(--c1);text-underline-offset:3px}
+:focus-visible{outline:3px solid var(--signal);outline-offset:2px}
+.wrap{max-width:900px;margin:0 auto;padding:28px 20px 64px}
+header.top{border-bottom:1px solid var(--line);padding-bottom:18px;margin-bottom:22px}
+header.top .course{margin:0;color:var(--steel);font-size:.95rem}
+header.top h1{font-family:var(--serif);font-weight:600;font-size:clamp(1.6rem,3.6vw,2.35rem);line-height:1.2;margin:.25rem 0 .4rem}
+header.top .who{margin:0;font-size:.9rem;color:var(--steel)}
+header.top nav a{margin-right:14px;font-size:.95rem}
+h2{font-family:var(--serif);font-weight:600;font-size:1.45rem;margin:1.6rem 0 .5rem}
+h3{font-size:1.08rem;margin:1.2rem 0 .4rem}
+.lead{max-width:70ch;color:var(--ink)}
+.small{font-size:.88rem;color:var(--steel)}
+.tabs{display:flex;gap:4px;border-bottom:2px solid var(--line);flex-wrap:wrap}
+.tabs button{font:inherit;background:none;border:0;border-bottom:3px solid transparent;margin-bottom:-2px;padding:10px 14px;color:var(--steel);cursor:pointer}
+.tabs button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--signal);font-weight:700}
+.instrument{background:var(--panel);border:1px solid var(--line);border-left:5px solid var(--signal);padding:18px 18px 12px;margin:14px 0 8px}
+.ctl{display:grid;grid-template-columns:minmax(150px,1.2fr) 2fr 70px;align-items:center;gap:10px;margin:6px 0}
+.ctl label{font-size:.95rem}
+.ctl output{font-family:var(--mono);font-size:.9rem;text-align:right}
+.ctl select,.ctl input[type=range]{width:100%}
+.ctl.tog{grid-template-columns:auto 1fr}
+.row{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0}
+.btn{font:inherit;font-weight:700;background:var(--c1);color:#fff;border:0;padding:9px 16px;border-radius:4px;cursor:pointer;text-decoration:none;display:inline-block}
+.btn.ghost{background:transparent;color:var(--c1);border:1.5px solid var(--c1)}
+@media (prefers-color-scheme:dark){.btn{color:#0E1A1F}}
+select,input[type=text],textarea{font:inherit;color:var(--ink);background:var(--panel);border:1px solid var(--line);border-radius:4px;padding:6px 8px}
+textarea{width:100%;resize:vertical}
+svg.plot{width:100%;height:auto;display:block;margin:8px 0;background:
+  linear-gradient(var(--panel),var(--panel))}
+svg.plot .grid{stroke:var(--line);stroke-width:1}
+svg.plot .axis{stroke:var(--steel);stroke-width:1.2}
+svg.plot .mark{stroke:var(--signal);stroke-width:1.6;stroke-dasharray:5 4}
+svg.plot .band{fill:var(--band)}
+svg.plot text{fill:var(--steel);font:12px var(--sans)}
+svg.plot .lab{fill:var(--ink);font-size:13px}
+.result{font-weight:700;min-height:1.4em}
+.readout{font-family:var(--mono);font-size:.92rem;white-space:pre-wrap;background:var(--paper);border:1px solid var(--line);padding:10px;margin:8px 0}
+table.data{border-collapse:collapse;width:100%;font-size:.93rem;margin:8px 0}
+table.data th,table.data td{border-bottom:1px solid var(--line);padding:6px 8px;text-align:left}
+table.data td.num,table.data th.num{text-align:right;font-family:var(--mono)}
+fieldset.q{border:1px solid var(--line);background:var(--panel);margin:14px 0;padding:12px 16px}
+fieldset.q legend{font-weight:700;padding:0 6px;max-width:100%}
+fieldset.q.ok{border-color:var(--ok);box-shadow:inset 4px 0 0 var(--ok)}
+fieldset.q.bad{border-color:var(--bad);box-shadow:inset 4px 0 0 var(--bad)}
+.opt{display:flex;gap:10px;align-items:flex-start;padding:4px 0;cursor:pointer}
+.opt input{margin-top:.35em}
+.conf{margin-top:8px}
+.fb{font-size:.93rem;margin-top:6px}
+.summary{font-weight:700;margin:12px 0;max-width:70ch}
+.sorter{display:grid;gap:8px;margin:10px 0}
+.srow{display:grid;grid-template-columns:1fr minmax(160px,240px);gap:10px;align-items:center;border:1px solid var(--line);background:var(--panel);padding:8px 10px}
+.srow .fb{grid-column:1 / -1;margin:0}
+.srow.ok{box-shadow:inset 4px 0 0 var(--ok)} .srow.bad{box-shadow:inset 4px 0 0 var(--bad)}
+.rf{margin:14px 0} .rf label{display:block;font-weight:700;margin-bottom:6px}
+.task{border-top:2px solid var(--line);margin-top:20px}
+.grid-canvas{display:grid;gap:2px;margin:10px 0;max-width:420px}
+.grid-canvas div{aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:.8rem;border:1px solid var(--line);background:var(--panel)}
+footer.sig{margin-top:40px;padding-top:16px;border-top:1px solid var(--line);font-size:.88rem;color:var(--steel)}
+/* Lecture pages */
+article.lecture{font-family:var(--serif);font-size:1.06rem;line-height:1.72}
+article.lecture p,article.lecture li{max-width:72ch}
+article.lecture blockquote{margin:1.2rem 0;padding:.4rem 1rem;border-left:4px solid var(--signal);background:var(--panel)}
+article.lecture img{max-width:100%;height:auto;border:1px solid var(--line);background:#fff}
+article.lecture table{border-collapse:collapse;font-family:var(--sans);font-size:.93rem}
+article.lecture th,article.lecture td{border-bottom:1px solid var(--line);padding:6px 10px;text-align:left}
+article.lecture pre.mermaid{background:var(--panel);border:1px solid var(--line);padding:12px;overflow-x:auto}
+article.lecture code{font-family:var(--mono);font-size:.9em}
+/* Dashboard */
+ol.weeks{list-style:none;padding:0;margin:0;counter-reset:w}
+ol.weeks li{display:grid;grid-template-columns:3.2rem 1fr;gap:4px 12px;padding:14px 0;border-bottom:1px solid var(--line)}
+ol.weeks .n{font-family:var(--serif);font-size:1.5rem;color:var(--signal);line-height:1.1}
+ol.weeks .t{font-weight:700}
+ol.weeks .links{grid-column:2;font-size:.95rem}
+ol.weeks .links a{margin-right:14px}
+ol.weeks .st{grid-column:2;font-size:.85rem;color:var(--steel)}
+@media (max-width:620px){.ctl{grid-template-columns:1fr 60px}.ctl label{grid-column:1 / -1}.srow{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+/* interactive reading */
+article.lecture img{max-width:100%;height:auto}
+.lec-tools{position:sticky;top:0;z-index:5;background:var(--paper, Canvas);padding:.45rem 0;border-bottom:1px solid rgba(128,128,128,.25);margin:0 0 1rem}
+.lec-prog{display:flex;align-items:center;gap:.7rem;font-size:.9rem}
+.lec-bar{flex:0 0 180px;height:8px;border-radius:4px;background:rgba(128,128,128,.25);overflow:hidden}
+.lec-bar i{display:block;height:100%;width:0;background:#1D5B78;transition:width .3s}
+.kc{border:1px solid rgba(29,91,120,.35);border-left:4px solid #1D5B78;border-radius:8px;padding:.8rem 1rem;margin:1.2rem 0;background:rgba(29,91,120,.05)}
+.kc-tag{display:block;font-size:.72rem;letter-spacing:.05em;text-transform:uppercase;color:#1D5B78;font-weight:700;margin-bottom:.25rem}
+.kc-opts{display:grid;gap:.4rem;margin:.6rem 0}
+.kc-opt{text-align:left;padding:.5rem .75rem;border-radius:6px;border:1px solid rgba(128,128,128,.45);background:transparent;color:inherit;font:inherit;cursor:pointer}
+.kc-opt:hover:not(:disabled){border-color:#1D5B78;background:rgba(29,91,120,.06)}
+.kc-opt:disabled{cursor:default}
+.kc-opt.ok{border-color:#2e7d32;background:rgba(46,125,50,.14)}
+.kc-opt.no{border-color:#c62828;background:rgba(198,40,40,.12)}
+.kc-fb.good{color:#2e7d32;font-weight:600}.kc-fb.bad{color:#c62828;font-weight:600}
+.explore{border:1px dashed rgba(185,120,19,.65);border-radius:8px;padding:.8rem 1rem;margin:1.2rem 0;background:rgba(185,120,19,.06)}
+.inline-lab iframe{width:100%;height:80vh;border:1px solid rgba(128,128,128,.4);border-radius:8px;margin-top:.6rem}
+body.study .wrap{margin-right:50vw;max-width:none}
+#study-pane{position:fixed;top:0;right:0;width:50vw;height:100vh;display:flex;flex-direction:column;border-left:2px solid #1D5B78;background:var(--paper, Canvas);z-index:20}
+#study-pane iframe{flex:1;border:0;width:100%}
+.study-bar{display:flex;justify-content:space-between;align-items:center;padding:.4rem .8rem;border-bottom:1px solid rgba(128,128,128,.3)}
+@media (max-width:1000px){.wide-only{display:none}body.study .wrap{margin-right:0}#study-pane{display:none}}
+.mstep{display:flex;flex-wrap:wrap;gap:.4rem;align-items:center;margin:.4rem 0 1rem}
+.mstep-view{overflow-x:auto;margin-bottom:1rem}
+.cite{border-bottom:1px dotted currentColor;cursor:help}
+.cite-pop{display:block;font-size:.85rem;border:1px solid rgba(128,128,128,.4);border-radius:6px;padding:.5rem .7rem;margin:.3rem 0;background:rgba(128,128,128,.08);white-space:pre-line}
+.cards{border:1px solid rgba(128,128,128,.35);border-radius:8px;padding:.8rem 1rem;margin:1.2rem 0}
+.card{min-height:5.5rem;border-radius:8px;padding:1rem 1.1rem;background:rgba(29,91,120,.08);cursor:pointer;display:flex;align-items:center}
+.card.back{background:rgba(46,125,50,.12)}
+</style></head><body><div class="wrap"><header class="top"><p class="course">Machine Ethics and Artificial Intelligence Safety (11118BLG001), week 14 of 14</p><h1>Governance, Standards and Auditing</h1><p class="who">Prof. Dr. Utku Kose, Süleyman Demirel University</p><nav><a href="../../index.html">Course home</a><a href="lab.html">Interactive lab</a><a href="https://colab.research.google.com/github/utkukose/machine-ethics-ai-safety-NB-lecture/blob/main/weeks/week-14/NB14_governance.ipynb">Colab notebook</a><a href="Week14_Lecture_Notes.docx">Word notes</a></nav></header><div class="lec-tools"><div class="lec-prog"><span class="lec-bar"><i></i></span><span class="lec-txt" aria-live="polite"></span></div></div><article class="lecture"><h2>Overview</h2>
+<p>Technical safeguards need institutions around them. This final week moves from ethics principles to binding law, international instruments, risk management frameworks and management system standards, and it closes with documentation and auditing practices that make safety claims checkable [1, 2, 3, 4].</p>
+<p><strong>Estimated study time:</strong> 6 to 8 hours.</p>
+<h2>Learning outcomes</h2>
+<p>By the end of the week, students are expected to explain why principles alone cannot guarantee ethical AI, to describe the risk-based structure of the EU AI Act and the role of international instruments including those relevant to Türkiye, to apply the functions of the NIST AI Risk Management Framework, and to produce a model card and an audit plan for a system.</p>
+<h2>Study path</h2>
+<table>
+<thead>
+<tr>
+<th>Step</th>
+<th>Activity</th>
+<th>Suggested time</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Read the lecture below or the <a href="Week14_Lecture_Notes.docx">Word version</a></td>
+<td>90 minutes</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Explore the <a href="lab.html">interactive lab</a></td>
+<td>45 minutes</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Work through the <a href="https://colab.research.google.com/github/utkukose/machine-ethics-ai-safety-NB-lecture/blob/main/weeks/week-14/NB14_governance.ipynb">Colab notebook</a> and its exercises</td>
+<td>2 to 3 hours</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Take the self-assessment in the lab (tab: Check yourself)</td>
+<td>20 minutes</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Write the reflection, export the learning log and complete the weekly task</td>
+<td>60 minutes</td>
+</tr>
+</tbody>
+</table>
+<h2>Week at a glance</h2>
+<pre class="mermaid">flowchart LR
+  P[&quot;Principles: transparency, fairness, non-maleficence&quot;] --&gt; L[&quot;Law: EU AI Act, Council of Europe Convention&quot;]
+  P --&gt; S[&quot;Soft law and strategies: OECD, UNESCO, national strategies&quot;]
+  L --&gt; R[&quot;Risk management: NIST AI RMF, ISO/IEC 42001&quot;]
+  S --&gt; R
+  R --&gt; D[&quot;Documentation: model cards, datasheets&quot;]
+  D --&gt; A[&quot;Audits: SMACTR, three layers&quot;]
+  A --&gt; SC[&quot;Safety case&quot;]
+</pre>
+<div class="mstep"><button type="button" class="btn ghost" data-act="mstep-start">Build the diagram step by step</button><button type="button" class="btn ghost" data-act="mstep-prev" hidden>Previous step</button><button type="button" class="btn ghost" data-act="mstep-next" hidden>Next step</button><button type="button" class="btn ghost" data-act="mstep-all" hidden>Show the whole diagram</button><span class="mstep-info"></span></div>
+
+<h2>Lecture</h2>
+<h3>From principles to practice</h3>
+<p>Jobin, Ienca and Vayena analysed 84 documents containing AI ethics guidelines and found convergence around five principles: transparency, justice and fairness, non-maleficence, responsibility and privacy [1]. They also found substantial divergence in how the principles were interpreted and how they should be implemented. Floridi and Cowls proposed a unified framework of five principles for AI in society: beneficence, non-maleficence, autonomy, justice and explicability [5].</p>
+<p>Mittelstadt argued that principles alone cannot guarantee ethical AI [6]. Compared with medicine, from which many principles were borrowed, AI development lacks common aims and fiduciary duties towards those affected, a professional history with established norms, proven methods to translate principles into practice and robust mechanisms of legal and professional accountability. The remaining sections of the week examine instruments that try to supply what principles lack.</p>
+<div class="kc" data-answer="2" data-id="s1"><p class="kc-q"><span class="kc-tag">Check your understanding</span>What is a common criticism of AI ethics principles?</p><div class="kc-opts"><button type="button" class="kc-opt" data-i="0">They are too technical</button><button type="button" class="kc-opt" data-i="1">They are legally binding everywhere</button><button type="button" class="kc-opt" data-i="2">They are abstract and hard to translate into concrete practice and accountability</button><button type="button" class="kc-opt" data-i="3">They focus only on robustness</button></div><p class="kc-fb" hidden></p><p class="kc-why" hidden>Principles need operational requirements, processes and oversight to have effect.</p></div>
+
+<div class="explore"><p><strong>Explore while reading.</strong> The interactive lab of this week can be opened inside this page or next to the text, so that ideas can be tried out as they are introduced.</p><p><button type="button" class="btn" data-act="inline-lab">Open the lab here</button> <button type="button" class="btn ghost wide-only" data-act="study">Study side by side</button></p><div class="inline-lab"></div></div>
+
+<h3>Law and international instruments</h3>
+<p>The EU AI Act, Regulation (EU) 2024/1689, follows a risk-based approach [2]. A list of practices is prohibited, including social scoring, manipulation that exploits vulnerabilities, untargeted scraping of facial images and emotion recognition in workplaces and educational institutions, with narrow exceptions. High-risk systems, which include safety components of regulated products and systems used in areas such as education, employment, access to essential services, law enforcement, migration and the administration of justice, must meet requirements on risk management, data governance, technical documentation, record-keeping, transparency to deployers, human oversight, accuracy, robustness and cybersecurity. Systems that interact with people or generate synthetic content carry transparency obligations, and general-purpose AI models have their own obligations, with additional duties for models with systemic risk. The regulation entered into force on 1 August 2024; its prohibitions applied from 2 February 2025 and the obligations for general-purpose models from 2 August 2025, while the remaining obligations are phased in later. Because the later timetable has been subject to amendment proposals, the current consolidated text should be checked before any practical use. Figure 14.1 summarises the structure.</p>
+<p>Other instruments complement the regulation. The Council of Europe Framework Convention on Artificial Intelligence and Human Rights, Democracy and the Rule of Law, opened for signature on 5 September 2024, is the first legally binding international treaty on AI [7]. The OECD Recommendation on AI, adopted in 2019 and amended in 2024, and the UNESCO Recommendation on the Ethics of AI, adopted in 2021, provide widely endorsed soft law [8, 9]. In Türkiye, the National Artificial Intelligence Strategy 2021-2025 was prepared by the Digital Transformation Office of the Presidency and the Ministry of Industry and Technology, and its action plan was updated for 2024-2025 [10].</p>
+<p><img alt="Simplified risk-based structure of the EU AI Act, with the separate track for general-purpose AI models. The figure is a teaching aid, not a legal summary {cite:euaiact2024}." src="figures/w14_fig1.png" /></p>
+<p><em>Figure 14.1. Simplified risk-based structure of the EU AI Act, with the separate track for general-purpose AI models. The figure is a teaching aid, not a legal summary [2].</em></p>
+<div class="kc" data-answer="0" data-id="s2"><p class="kc-q"><span class="kc-tag">Check your understanding</span>Which approach does the EU AI Act follow?</p><div class="kc-opts"><button type="button" class="kc-opt" data-i="0">A risk-based approach in which obligations depend on the risk category of the use</button><button type="button" class="kc-opt" data-i="1">A single rule for all AI systems</button><button type="button" class="kc-opt" data-i="2">Voluntary codes only</button><button type="button" class="kc-opt" data-i="3">A ban on all machine learning</button></div><p class="kc-fb" hidden></p><p class="kc-why" hidden>Prohibited practices, high-risk systems and transparency obligations form the main tiers.</p></div>
+
+<h3>Risk management and management systems</h3>
+<p>The NIST AI Risk Management Framework organises activities into four functions [3]. Govern establishes a culture, policies and accountability for AI risk. Map establishes the context and identifies risks. Measure analyses and tracks them with quantitative and qualitative methods. Manage prioritises risks and acts on them. The framework also describes characteristics of trustworthy AI, such as validity and reliability, safety, security and resilience, accountability and transparency, explainability and interpretability, privacy enhancement and fairness with harmful bias managed. Each earlier week of the course supplies methods for the Measure function.</p>
+<p>ISO/IEC 42001 specifies requirements for an AI management system, with which an organisation establishes, implements, maintains and continually improves its governance of AI, and conformity can be certified [11]. At the level of global science policy, the International AI Safety Report synthesised the evidence on the capabilities and risks of general-purpose AI for policymakers [12].</p>
+<div class="kc" data-answer="1" data-id="s3"><p class="kc-q"><span class="kc-tag">Check your understanding</span>What does ISO/IEC 42001 specify?</p><div class="kc-opts"><button type="button" class="kc-opt" data-i="0">A neural network architecture</button><button type="button" class="kc-opt" data-i="1">Requirements for an AI management system in an organisation</button><button type="button" class="kc-opt" data-i="2">A programming language</button><button type="button" class="kc-opt" data-i="3">A fairness metric</button></div><p class="kc-fb" hidden></p><p class="kc-why" hidden>Like other management system standards, it can be certified and audited.</p></div>
+
+<h3>Documentation and auditing</h3>
+<p>Documentation makes claims checkable. Model cards report a model's intended use, the factors and metrics used for evaluation, performance across relevant groups and conditions, ethical considerations and caveats [13]. Datasheets for datasets document the motivation, composition, collection process, preprocessing, uses, distribution and maintenance of a data set [14]. Weidinger and colleagues provided a taxonomy of risks posed by language models, which helps auditors decide what to test [15].</p>
+<p>Raji and colleagues proposed SMACTR, an end-to-end framework for internal algorithmic auditing with five stages: scoping, mapping, artifact collection, testing and reflection [4]. Mökander and colleagues proposed a three-layered approach for large language models: governance audits of the providers, model audits before release and application audits of the downstream uses [16]. A safety case, a structured argument supported by evidence that a system is acceptably safe for a specific use in a specific context, is a natural way to assemble the results of such audits. The final task of the course asks for one.</p>
+<blockquote>
+<p><strong>Pause and reflect.</strong> Return to the question written down in Week 1. Has the course answered it, and which governance instrument from this week would matter most for the system it concerns?</p>
+</blockquote>
+<div class="kc" data-answer="3" data-id="s4"><p class="kc-q"><span class="kc-tag">Check your understanding</span>What does an internal algorithmic audit framework provide?</p><div class="kc-opts"><button type="button" class="kc-opt" data-i="0">A guarantee of safety</button><button type="button" class="kc-opt" data-i="1">A replacement for regulation</button><button type="button" class="kc-opt" data-i="2">A ranking of vendors</button><button type="button" class="kc-opt" data-i="3">A structured review across the development life cycle, with documented artefacts at each stage</button></div><p class="kc-fb" hidden></p><p class="kc-why" hidden>Documented artefacts make decisions traceable for later scrutiny.</p></div>
+
+<h2>Interactive lab</h2>
+<p>Part A walks through simplified questions about the EU AI Act and lists the obligations that may apply. It is a teaching aid, not legal advice. Part B drafts a model card in the structure of Mitchell and colleagues and exports it as a Markdown file [2, 13].</p>
+<p><a href="lab.html">Open the interactive lab</a></p>
+<p><img alt="Screenshot of the Week 14 interactive lab" src="screenshots/lab.png" /></p>
+<h2>Colab notebook</h2>
+<p>The notebook runs a small audit of the lending model from Week 5: performance, group metrics and robustness to input noise. It then generates a model card from the results and builds a risk register mapped to the NIST AI RMF functions [3, 4, 13].</p>
+<p><a href="https://colab.research.google.com/github/utkukose/machine-ethics-ai-safety-NB-lecture/blob/main/weeks/week-14/NB14_governance.ipynb"><img alt="Open in Colab" src="https://colab.research.google.com/assets/colab-badge.svg" /></a></p>
+<p>Screenshots of the executed notebook:</p>
+<p><img alt="Output 1 of the Week 14 notebook" src="screenshots/nb_1.png" /></p>
+<h2>Self-assessment and reflection</h2>
+<p>The lab contains a 6-question self-assessment with instant feedback and a confidence rating for each answer. A confident but wrong answer marks the first topic to revisit. The reflection prompts below are also available in the lab, where answers are saved in the browser and can be exported as a learning log.</p>
+<ol>
+<li>Which obligations from Part A of the lab would apply to a system in your field, and who in your organisation would carry them?</li>
+<li>Which of Mittelstadt's missing elements is most absent in your field, and what could replace it?</li>
+<li>Revisit your question from Week 1. Write your answer as it stands now and note what remains open.</li>
+</ol>
+<div class="cards"></div>
+
+<h2>Weekly task and submission</h2>
+<p>Final portfolio task: Write a safety case of 1500 to 2000 words for an AI system from your field. State the system, its intended use and its risk classification under the EU AI Act; present claims about fairness, robustness, uncertainty, interpretability and security, each supported by evidence produced with the methods of this course; include a model card and a risk register mapped to the NIST AI RMF; and close with the limitations of the evidence. Submit it together with the learning logs of all fourteen weeks.</p>
+<p>The weekly task supports self-learning and builds a personal portfolio. When the course is followed with the instructor during an active semester, the task can be sent together with the exported learning log to utkukose@sdu.edu.tr or utkukose@gmail.com for evaluation.</p>
+<h2>Research and report assignment (optional)</h2>
+<p><strong>Obligations for one high-risk system.</strong> Take one high-risk use case and derive the obligations it would face under the EU AI Act, the NIST AI Risk Management Framework and ISO/IEC 42001 [2, 3, 11]. Identify overlaps and gaps between the three.</p>
+<p>This research assignment is optional and supports self-learning. When the related weeks are followed within the course during an active semester, the report can be sent to utkukose@sdu.edu.tr or utkukose@gmail.com for evaluation. Unless the assignment states otherwise, a report has 1500 to 2500 words, follows the structure of an academic paper, cites at least six scholarly or official sources in square brackets and ends with a reference list.</p>
+<h2>Final capstone</h2>
+<p>This week closes the course with the <a href="../../exams/final/index.html">Final Capstone: Building and Auditing a Safer AI System</a>.</p>
+<p>This capstone also supports self-learning and can be completed at any pace. When the course is taught actively in a semester, the final capstone is sent by e-mail to utkukose@sdu.edu.tr or utkukose@gmail.com no later than 23:53 (Türkiye time) on the last Sunday of Week 14, with the report and all code files attached or linked.</p>
+<h2>References</h2>
+<p>[1] Jobin, A., Ienca, M., &amp; Vayena, E. (2019). The global landscape of AI ethics guidelines. <em>Nature Machine Intelligence</em>, 1(9), 389-399. <a href="https://doi.org/10.1038/s42256-019-0088-2">https://doi.org/10.1038/s42256-019-0088-2</a></p>
+<p>[2] European Parliament and Council of the European Union (2024). <em>Regulation (EU) 2024/1689 laying down harmonised rules on artificial intelligence (Artificial Intelligence Act)</em>. Official Journal of the European Union, L series, 12 July 2024. <a href="https://eur-lex.europa.eu/eli/reg/2024/1689/oj">https://eur-lex.europa.eu/eli/reg/2024/1689/oj</a></p>
+<p>[3] National Institute of Standards and Technology (2023). <em>Artificial Intelligence Risk Management Framework (AI RMF 1.0), NIST AI 100-1</em>. U.S. Department of Commerce. <a href="https://doi.org/10.6028/NIST.AI.100-1">https://doi.org/10.6028/NIST.AI.100-1</a></p>
+<p>[4] Raji, I. D., Smart, A., White, R. N., Mitchell, M., Gebru, T., Hutchinson, B., Smith-Loud, J., Theron, D., &amp; Barnes, P. (2020). Closing the AI accountability gap: Defining an end-to-end framework for internal algorithmic auditing. In <em>Proceedings of the 2020 Conference on Fairness, Accountability, and Transparency (FAT</em> '20)* (pp. 33-44). ACM. <a href="https://doi.org/10.1145/3351095.3372873">https://doi.org/10.1145/3351095.3372873</a></p>
+<p>[5] Floridi, L., &amp; Cowls, J. (2019). A unified framework of five principles for AI in society. <em>Harvard Data Science Review</em>, 1(1). <a href="https://doi.org/10.1162/99608f92.8cd550d1">https://doi.org/10.1162/99608f92.8cd550d1</a></p>
+<p>[6] Mittelstadt, B. (2019). Principles alone cannot guarantee ethical AI. <em>Nature Machine Intelligence</em>, 1(11), 501-507. <a href="https://doi.org/10.1038/s42256-019-0114-4">https://doi.org/10.1038/s42256-019-0114-4</a></p>
+<p>[7] Council of Europe (2024). <em>Council of Europe Framework Convention on Artificial Intelligence and Human Rights, Democracy and the Rule of Law (CETS No. 225)</em>. Council of Europe.</p>
+<p>[8] OECD (2019). <em>Recommendation of the Council on Artificial Intelligence (OECD/LEGAL/0449)</em>. Organisation for Economic Co-operation and Development. Amended in 2024.</p>
+<p>[9] UNESCO (2021). <em>Recommendation on the Ethics of Artificial Intelligence</em>. United Nations Educational, Scientific and Cultural Organization.</p>
+<p>[10] Presidency of the Republic of Türkiye Digital Transformation Office, &amp; Ministry of Industry and Technology (2021). <em>National Artificial Intelligence Strategy 2021-2025 (Ulusal Yapay Zekâ Stratejisi 2021-2025)</em>. Ankara. Action plan updated for 2024-2025. <a href="https://www.cbddo.gov.tr/UYZS">https://www.cbddo.gov.tr/UYZS</a></p>
+<p>[11] International Organization for Standardization (2023). <em>ISO/IEC 42001:2023 Information technology, Artificial intelligence, Management system</em>. ISO.</p>
+<p>[12] Bengio, Y., Mindermann, S., Privitera, D., et al. (2025). International AI safety report. arXiv preprint arXiv:2501.17805. <a href="https://arxiv.org/abs/2501.17805">https://arxiv.org/abs/2501.17805</a></p>
+<p>[13] Mitchell, M., Wu, S., Zaldivar, A., Barnes, P., Vasserman, L., Hutchinson, B., Spitzer, E., Raji, I. D., &amp; Gebru, T. (2019). Model cards for model reporting. In <em>Proceedings of the Conference on Fairness, Accountability, and Transparency (FAT</em> '19)* (pp. 220-229). ACM. <a href="https://doi.org/10.1145/3287560.3287596">https://doi.org/10.1145/3287560.3287596</a></p>
+<p>[14] Gebru, T., Morgenstern, J., Vecchione, B., Wortman Vaughan, J., Wallach, H., Daumé III, H., &amp; Crawford, K. (2021). Datasheets for datasets. <em>Communications of the ACM</em>, 64(12), 86-92. <a href="https://doi.org/10.1145/3458723">https://doi.org/10.1145/3458723</a></p>
+<p>[15] Weidinger, L., Uesato, J., Rauh, M., et al. (2022). Taxonomy of risks posed by language models. In <em>Proceedings of the 2022 ACM Conference on Fairness, Accountability, and Transparency (FAccT '22)</em> (pp. 214-229). ACM. <a href="https://doi.org/10.1145/3531146.3533088">https://doi.org/10.1145/3531146.3533088</a></p>
+<p>[16] Mökander, J., Schuett, J., Kirk, H. R., &amp; Floridi, L. (2024). Auditing large language models: A three-layered approach. <em>AI and Ethics</em>, 4(4), 1085-1115. <a href="https://doi.org/10.1007/s43681-023-00289-2">https://doi.org/10.1007/s43681-023-00289-2</a></p></article><footer class="sig"><p><strong>Prof. Dr. Utku Kose</strong><br>Full Professor, Department of Computer Engineering, Süleyman Demirel University, Isparta, Türkiye<br>Founding Director, AI Application and Research Center (YAZEM), Süleyman Demirel University<br>Head of the Computer Science Division, Department of Computer Engineering, Süleyman Demirel University<br>Additional affiliations: University of North Dakota (USA), Universidad Panamericana (Mexico City, Mexico), Vel Tech University (Chennai, India)<br><a href="https://orcid.org/0000-0002-9652-6415">ORCID 0000-0002-9652-6415</a>, <a href="https://www.utkukose.com">utkukose.com</a>, <a href="https://github.com/utkukose">github.com/utkukose</a><br><a href="mailto:utkukose@sdu.edu.tr">utkukose@sdu.edu.tr</a>, <a href="mailto:utku.kose@und.edu">utku.kose@und.edu</a>, <a href="mailto:ukose@up.edu.mx">ukose@up.edu.mx</a>, <a href="mailto:utkukose@gmail.com">utkukose@gmail.com</a></p><p>This course is updated in line with current developments in the field. Last update: September 2026. Course materials licensed under CC BY 4.0. Code licensed under MIT.</p></footer></div><script type="module">import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";window.mermaid=mermaid;mermaid.initialize({startOnLoad:true,theme:matchMedia("(prefers-color-scheme: dark)").matches?"dark":"neutral"});</script><script>window.LEC={key:"MEAIS:lec:w14"};</script><script>(function () {
+  "use strict";
+  var KEY = (window.LEC && window.LEC.key) || "lecture";
+  var state = {};
+  try { state = JSON.parse(localStorage.getItem(KEY) || "{}") || {}; } catch (e) { state = {}; }
+  function save() { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {} }
+  var article = document.querySelector("article.lecture");
+  var boxes = Array.prototype.slice.call(document.querySelectorAll(".kc"));
+  var bar = document.querySelector(".lec-bar i"), txt = document.querySelector(".lec-txt");
+
+  function update() {
+    var answered = 0, correct = 0;
+    boxes.forEach(function (b) { var r = state[b.dataset.id]; if (r) { answered++; if (r.ok) { correct++; } } });
+    state.total = boxes.length; state.answered = answered; state.correct = correct; save();
+    if (bar) { bar.style.width = (boxes.length ? 100 * answered / boxes.length : 0) + "%"; }
+    if (txt) { txt.textContent = "Reading checks: " + answered + " of " + boxes.length + " answered, " + correct + " correct"; }
+  }
+
+  boxes.forEach(function (box) {
+    var ans = +box.dataset.answer, id = box.dataset.id;
+    var opts = Array.prototype.slice.call(box.querySelectorAll(".kc-opt"));
+    var fb = box.querySelector(".kc-fb"), why = box.querySelector(".kc-why");
+    var retry = document.createElement("button");
+    retry.type = "button"; retry.className = "btn ghost kc-retry"; retry.textContent = "Try again"; retry.hidden = true;
+    box.appendChild(retry);
+    function show(i) {
+      opts.forEach(function (o, j) { o.disabled = true; o.classList.toggle("ok", j === ans); o.classList.toggle("no", j === i && i !== ans); });
+      fb.textContent = i === ans ? "Correct." : "Not quite. The correct option is highlighted.";
+      fb.className = "kc-fb " + (i === ans ? "good" : "bad");
+      fb.hidden = false; why.hidden = false; retry.hidden = false;
+    }
+    opts.forEach(function (o, i) {
+      o.addEventListener("click", function () { state[id] = { ok: i === ans, choice: i }; show(i); update(); });
+    });
+    retry.addEventListener("click", function () {
+      opts.forEach(function (o) { o.disabled = false; o.classList.remove("ok", "no"); });
+      fb.hidden = true; why.hidden = true; retry.hidden = true; delete state[id]; update();
+    });
+    if (state[id] && typeof state[id].choice === "number") { show(state[id].choice); }
+  });
+  update();
+
+  function toggleStudy() {
+    var pane = document.getElementById("study-pane");
+    if (pane) { pane.parentNode.removeChild(pane); document.body.classList.remove("study"); return; }
+    pane = document.createElement("aside");
+    pane.id = "study-pane";
+    pane.innerHTML = '<div class="study-bar"><strong>Interactive lab</strong><button type="button" class="btn ghost" data-act="study">Close</button></div>' +
+      '<iframe src="lab.html" title="Interactive lab"></iframe>';
+    document.body.appendChild(pane);
+    document.body.classList.add("study");
+  }
+
+  document.addEventListener("click", function (ev) {
+    var t = ev.target && ev.target.closest ? ev.target.closest("[data-act]") : null;
+    if (!t) { return; }
+    var act = t.dataset.act;
+    if (act === "inline-lab") {
+      var holder = t.closest(".explore").querySelector(".inline-lab");
+      if (holder.firstChild) { holder.innerHTML = ""; t.textContent = "Open the lab here"; }
+      else { holder.innerHTML = '<iframe src="lab.html" title="Interactive lab" loading="lazy"></iframe>'; t.textContent = "Close the embedded lab"; }
+    } else if (act === "study") { toggleStudy(); }
+    else if (act.indexOf("mstep") === 0) { mstep(act); }
+    else if (act.indexOf("card") === 0) { card(act); }
+  });
+
+  var refs = {};
+  var heads = article ? Array.prototype.slice.call(article.querySelectorAll("h2")) : [];
+  var refHead = heads.filter(function (h) { return h.textContent.trim() === "References"; })[0];
+  if (refHead) {
+    for (var el = refHead.nextElementSibling; el && el.tagName !== "H2"; el = el.nextElementSibling) {
+      var m = el.textContent.match(/^\[(\d+)\]\s*([\s\S]*)$/);
+      if (m) { refs[m[1]] = m[2].trim(); }
+    }
+  }
+  if (refHead && Object.keys(refs).length) {
+    var walker = document.createTreeWalker(article, NodeFilter.SHOW_TEXT, null), nodes = [];
+    while (walker.nextNode()) {
+      var n = walker.currentNode;
+      if (/\[\d+(?:,\s*\d+)*\]/.test(n.nodeValue) && (n.compareDocumentPosition(refHead) & Node.DOCUMENT_POSITION_FOLLOWING) &&
+          !n.parentNode.closest("pre, .kc, h1, h2, h3")) { nodes.push(n); }
+    }
+    nodes.forEach(function (node) {
+      var frag = document.createDocumentFragment(), s = node.nodeValue, re = /\[(\d+(?:,\s*\d+)*)\]/g, last = 0, mm;
+      while ((mm = re.exec(s))) {
+        frag.appendChild(document.createTextNode(s.slice(last, mm.index)));
+        var span = document.createElement("span");
+        span.className = "cite"; span.tabIndex = 0; span.textContent = mm[0];
+        span.dataset.ref = mm[1].split(/,\s*/).map(function (k) { return "[" + k + "] " + (refs[k] || ""); }).join("\n");
+        span.title = span.dataset.ref;
+        frag.appendChild(span);
+        last = mm.index + mm[0].length;
+      }
+      frag.appendChild(document.createTextNode(s.slice(last)));
+      node.parentNode.replaceChild(frag, node);
+    });
+    document.addEventListener("click", function (ev) {
+      var c = ev.target && ev.target.closest ? ev.target.closest(".cite") : null;
+      var open = document.querySelector(".cite-pop");
+      var same = open && c && open.dataset.for === c.dataset.ref;
+      if (open) { open.parentNode.removeChild(open); }
+      if (!c || same) { return; }
+      var pop = document.createElement("span");
+      pop.className = "cite-pop"; pop.textContent = c.dataset.ref; pop.dataset.for = c.dataset.ref;
+      c.parentNode.insertBefore(pop, c.nextSibling);
+    });
+  }
+
+  var merPre = document.querySelector("pre.mermaid");
+  var merSrc = merPre ? merPre.textContent : "";
+  var ms = null, mk = 0, mcount = 0;
+  function msteps() {
+    var lines = merSrc.split("\n").filter(function (l) { return l.trim(); });
+    var styleRe = /^\s*(classDef|class\s|style\s|linkStyle|%%)/;
+    var body = lines.slice(1);
+    var content = body.filter(function (l) { return !styleRe.test(l); });
+    var idx = [];
+    content.forEach(function (l, i) { var s = l.trim(); if (s !== "end" && s.indexOf("subgraph") !== 0 && s.indexOf("direction") !== 0) { idx.push(i); } });
+    return { head: lines[0], styles: body.filter(function (l) { return styleRe.test(l); }), content: content, idx: idx };
+  }
+  function partial(k) {
+    var sel = ms.content.slice(0, ms.idx[k - 1] + 1), open = 0;
+    sel.forEach(function (l) { var s = l.trim(); if (s.indexOf("subgraph") === 0) { open++; } else if (s === "end") { open--; } });
+    for (var i = 0; i < open; i++) { sel.push("end"); }
+    return [ms.head].concat(sel, ms.styles).join("\n");
+  }
+  function mview() {
+    var v = document.querySelector(".mstep-view");
+    if (!v) { v = document.createElement("div"); v.className = "mstep-view"; var ctl = document.querySelector(".mstep"); ctl.parentNode.insertBefore(v, ctl.nextSibling); }
+    return v;
+  }
+  function minfo(t) { var i = document.querySelector(".mstep-info"); if (i) { i.textContent = t; } }
+  function mrender(k, dir) {
+    if (!window.mermaid || !window.mermaid.render) { minfo("The diagram library is still loading. Try again in a moment."); return; }
+    window.mermaid.render("mstep" + (++mcount), partial(k)).then(function (out) {
+      mview().innerHTML = out.svg; mk = k;
+      minfo("Step " + k + " of " + ms.idx.length);
+    }).catch(function () {
+      var nk = k + (dir || 1);
+      if (nk >= 1 && nk <= ms.idx.length) { mrender(nk, dir); }
+    });
+  }
+  function mstep(act) {
+    if (!merPre) { return; }
+    if (!ms) { ms = msteps(); }
+    function btn(a) { return document.querySelector('[data-act="' + a + '"]'); }
+    if (act === "mstep-start") {
+      merPre.style.display = "none";
+      ["mstep-prev", "mstep-next", "mstep-all"].forEach(function (a) { btn(a).hidden = false; });
+      btn("mstep-start").hidden = true;
+      mrender(1, 1);
+    } else if (act === "mstep-next") { if (mk < ms.idx.length) { mrender(mk + 1, 1); } }
+    else if (act === "mstep-prev") { if (mk > 1) { mrender(mk - 1, -1); } }
+    else if (act === "mstep-all") {
+      var v = document.querySelector(".mstep-view"); if (v) { v.innerHTML = ""; }
+      merPre.style.display = "";
+      ["mstep-prev", "mstep-next", "mstep-all"].forEach(function (a) { btn(a).hidden = true; });
+      btn("mstep-start").hidden = false; minfo(""); mk = 0;
+    }
+  }
+
+  var host = document.querySelector(".cards");
+  var cards = boxes.map(function (b) {
+    var o = b.querySelectorAll(".kc-opt");
+    return { q: b.querySelector(".kc-q").lastChild.textContent, a: o[+b.dataset.answer].textContent, why: b.querySelector(".kc-why").textContent };
+  });
+  var ci = 0, flipped = false;
+  function drawCard() {
+    var c = cards[ci];
+    host.querySelector(".card-face").textContent = flipped ? (c.a + ". " + c.why) : c.q;
+    host.querySelector(".card").classList.toggle("back", flipped);
+    host.querySelector(".card-n").textContent = "Card " + (ci + 1) + " of " + cards.length + (flipped ? ", answer" : ", question");
+  }
+  function card(act) {
+    if (!host || !cards.length) { return; }
+    if (act === "card-flip") { flipped = !flipped; }
+    else { ci = (ci + (act === "card-next" ? 1 : cards.length - 1)) % cards.length; flipped = false; }
+    drawCard();
+  }
+  if (host && cards.length) {
+    host.innerHTML = '<h3>Review cards</h3><p>Recall the answer to each question before turning the card.</p>' +
+      '<div class="card" data-act="card-flip" tabindex="0" role="button"><div class="card-face"></div></div>' +
+      '<p class="card-nav"><button type="button" class="btn ghost" data-act="card-prev">Previous</button> ' +
+      '<button type="button" class="btn" data-act="card-flip">Turn the card</button> ' +
+      '<button type="button" class="btn ghost" data-act="card-next">Next</button> <span class="card-n"></span></p>';
+    drawCard();
+    host.querySelector(".card").addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); card("card-flip"); } });
+  }
+})();
+</script></body></html>
