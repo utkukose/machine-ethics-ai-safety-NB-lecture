@@ -1,0 +1,124 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Machine Ethics and Artificial Intelligence Safety</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Literata:opsz,wght@7..72,400;7..72,600&display=swap" rel="stylesheet"><style>:root{
+  --ink:#15313D; --paper:#EEF3F4; --panel:#FFFFFF; --steel:#566A73; --line:#CCD8DC;
+  --signal:#B97813; --ok:#2B7553; --bad:#A33F39; --band:rgba(185,120,19,.10);
+  --c1:#1D5B78; --c2:#C0801A; --c3:#5F8A2E; --c4:#86497A;
+  --sans:'Atkinson Hyperlegible',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  --serif:'Literata',Georgia,'Times New Roman',serif;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root{
+  --ink:#E2EBEE; --paper:#0E1A1F; --panel:#14242B; --steel:#9FB2BA; --line:#27404A;
+  --signal:#E0A340; --ok:#5DBB8C; --bad:#E07A72; --band:rgba(224,163,64,.14);
+  --c1:#6DB2D2; --c2:#E0A340; --c3:#9CC66A; --c4:#C98BBE;
+}}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font:17px/1.6 var(--sans)}
+a{color:var(--c1);text-underline-offset:3px}
+:focus-visible{outline:3px solid var(--signal);outline-offset:2px}
+.wrap{max-width:900px;margin:0 auto;padding:28px 20px 64px}
+header.top{border-bottom:1px solid var(--line);padding-bottom:18px;margin-bottom:22px}
+header.top .course{margin:0;color:var(--steel);font-size:.95rem}
+header.top h1{font-family:var(--serif);font-weight:600;font-size:clamp(1.6rem,3.6vw,2.35rem);line-height:1.2;margin:.25rem 0 .4rem}
+header.top .who{margin:0;font-size:.9rem;color:var(--steel)}
+header.top nav a{margin-right:14px;font-size:.95rem}
+h2{font-family:var(--serif);font-weight:600;font-size:1.45rem;margin:1.6rem 0 .5rem}
+h3{font-size:1.08rem;margin:1.2rem 0 .4rem}
+.lead{max-width:70ch;color:var(--ink)}
+.small{font-size:.88rem;color:var(--steel)}
+.tabs{display:flex;gap:4px;border-bottom:2px solid var(--line);flex-wrap:wrap}
+.tabs button{font:inherit;background:none;border:0;border-bottom:3px solid transparent;margin-bottom:-2px;padding:10px 14px;color:var(--steel);cursor:pointer}
+.tabs button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--signal);font-weight:700}
+.instrument{background:var(--panel);border:1px solid var(--line);border-left:5px solid var(--signal);padding:18px 18px 12px;margin:14px 0 8px}
+.ctl{display:grid;grid-template-columns:minmax(150px,1.2fr) 2fr 70px;align-items:center;gap:10px;margin:6px 0}
+.ctl label{font-size:.95rem}
+.ctl output{font-family:var(--mono);font-size:.9rem;text-align:right}
+.ctl select,.ctl input[type=range]{width:100%}
+.ctl.tog{grid-template-columns:auto 1fr}
+.row{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0}
+.btn{font:inherit;font-weight:700;background:var(--c1);color:#fff;border:0;padding:9px 16px;border-radius:4px;cursor:pointer;text-decoration:none;display:inline-block}
+.btn.ghost{background:transparent;color:var(--c1);border:1.5px solid var(--c1)}
+@media (prefers-color-scheme:dark){.btn{color:#0E1A1F}}
+select,input[type=text],textarea{font:inherit;color:var(--ink);background:var(--panel);border:1px solid var(--line);border-radius:4px;padding:6px 8px}
+textarea{width:100%;resize:vertical}
+svg.plot{width:100%;height:auto;display:block;margin:8px 0;background:
+  linear-gradient(var(--panel),var(--panel))}
+svg.plot .grid{stroke:var(--line);stroke-width:1}
+svg.plot .axis{stroke:var(--steel);stroke-width:1.2}
+svg.plot .mark{stroke:var(--signal);stroke-width:1.6;stroke-dasharray:5 4}
+svg.plot .band{fill:var(--band)}
+svg.plot text{fill:var(--steel);font:12px var(--sans)}
+svg.plot .lab{fill:var(--ink);font-size:13px}
+.result{font-weight:700;min-height:1.4em}
+.readout{font-family:var(--mono);font-size:.92rem;white-space:pre-wrap;background:var(--paper);border:1px solid var(--line);padding:10px;margin:8px 0}
+table.data{border-collapse:collapse;width:100%;font-size:.93rem;margin:8px 0}
+table.data th,table.data td{border-bottom:1px solid var(--line);padding:6px 8px;text-align:left}
+table.data td.num,table.data th.num{text-align:right;font-family:var(--mono)}
+fieldset.q{border:1px solid var(--line);background:var(--panel);margin:14px 0;padding:12px 16px}
+fieldset.q legend{font-weight:700;padding:0 6px;max-width:100%}
+fieldset.q.ok{border-color:var(--ok);box-shadow:inset 4px 0 0 var(--ok)}
+fieldset.q.bad{border-color:var(--bad);box-shadow:inset 4px 0 0 var(--bad)}
+.opt{display:flex;gap:10px;align-items:flex-start;padding:4px 0;cursor:pointer}
+.opt input{margin-top:.35em}
+.conf{margin-top:8px}
+.fb{font-size:.93rem;margin-top:6px}
+.summary{font-weight:700;margin:12px 0;max-width:70ch}
+.sorter{display:grid;gap:8px;margin:10px 0}
+.srow{display:grid;grid-template-columns:1fr minmax(160px,240px);gap:10px;align-items:center;border:1px solid var(--line);background:var(--panel);padding:8px 10px}
+.srow .fb{grid-column:1 / -1;margin:0}
+.srow.ok{box-shadow:inset 4px 0 0 var(--ok)} .srow.bad{box-shadow:inset 4px 0 0 var(--bad)}
+.rf{margin:14px 0} .rf label{display:block;font-weight:700;margin-bottom:6px}
+.task{border-top:2px solid var(--line);margin-top:20px}
+.grid-canvas{display:grid;gap:2px;margin:10px 0;max-width:420px}
+.grid-canvas div{aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:.8rem;border:1px solid var(--line);background:var(--panel)}
+footer.sig{margin-top:40px;padding-top:16px;border-top:1px solid var(--line);font-size:.88rem;color:var(--steel)}
+/* Lecture pages */
+article.lecture{font-family:var(--serif);font-size:1.06rem;line-height:1.72}
+article.lecture p,article.lecture li{max-width:72ch}
+article.lecture blockquote{margin:1.2rem 0;padding:.4rem 1rem;border-left:4px solid var(--signal);background:var(--panel)}
+article.lecture img{max-width:100%;height:auto;border:1px solid var(--line);background:#fff}
+article.lecture table{border-collapse:collapse;font-family:var(--sans);font-size:.93rem}
+article.lecture th,article.lecture td{border-bottom:1px solid var(--line);padding:6px 10px;text-align:left}
+article.lecture pre.mermaid{background:var(--panel);border:1px solid var(--line);padding:12px;overflow-x:auto}
+article.lecture code{font-family:var(--mono);font-size:.9em}
+/* Dashboard */
+ol.weeks{list-style:none;padding:0;margin:0;counter-reset:w}
+ol.weeks li{display:grid;grid-template-columns:3.2rem 1fr;gap:4px 12px;padding:14px 0;border-bottom:1px solid var(--line)}
+ol.weeks .n{font-family:var(--serif);font-size:1.5rem;color:var(--signal);line-height:1.1}
+ol.weeks .t{font-weight:700}
+ol.weeks .links{grid-column:2;font-size:.95rem}
+ol.weeks .links a{margin-right:14px}
+ol.weeks .st{grid-column:2;font-size:.85rem;color:var(--steel)}
+@media (max-width:620px){.ctl{grid-template-columns:1fr 60px}.ctl label{grid-column:1 / -1}.srow{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+/* interactive reading */
+article.lecture img{max-width:100%;height:auto}
+.lec-tools{position:sticky;top:0;z-index:5;background:var(--paper, Canvas);padding:.45rem 0;border-bottom:1px solid rgba(128,128,128,.25);margin:0 0 1rem}
+.lec-prog{display:flex;align-items:center;gap:.7rem;font-size:.9rem}
+.lec-bar{flex:0 0 180px;height:8px;border-radius:4px;background:rgba(128,128,128,.25);overflow:hidden}
+.lec-bar i{display:block;height:100%;width:0;background:#1D5B78;transition:width .3s}
+.kc{border:1px solid rgba(29,91,120,.35);border-left:4px solid #1D5B78;border-radius:8px;padding:.8rem 1rem;margin:1.2rem 0;background:rgba(29,91,120,.05)}
+.kc-tag{display:block;font-size:.72rem;letter-spacing:.05em;text-transform:uppercase;color:#1D5B78;font-weight:700;margin-bottom:.25rem}
+.kc-opts{display:grid;gap:.4rem;margin:.6rem 0}
+.kc-opt{text-align:left;padding:.5rem .75rem;border-radius:6px;border:1px solid rgba(128,128,128,.45);background:transparent;color:inherit;font:inherit;cursor:pointer}
+.kc-opt:hover:not(:disabled){border-color:#1D5B78;background:rgba(29,91,120,.06)}
+.kc-opt:disabled{cursor:default}
+.kc-opt.ok{border-color:#2e7d32;background:rgba(46,125,50,.14)}
+.kc-opt.no{border-color:#c62828;background:rgba(198,40,40,.12)}
+.kc-fb.good{color:#2e7d32;font-weight:600}.kc-fb.bad{color:#c62828;font-weight:600}
+.explore{border:1px dashed rgba(185,120,19,.65);border-radius:8px;padding:.8rem 1rem;margin:1.2rem 0;background:rgba(185,120,19,.06)}
+.inline-lab iframe{width:100%;height:80vh;border:1px solid rgba(128,128,128,.4);border-radius:8px;margin-top:.6rem}
+body.study .wrap{margin-right:50vw;max-width:none}
+#study-pane{position:fixed;top:0;right:0;width:50vw;height:100vh;display:flex;flex-direction:column;border-left:2px solid #1D5B78;background:var(--paper, Canvas);z-index:20}
+#study-pane iframe{flex:1;border:0;width:100%}
+.study-bar{display:flex;justify-content:space-between;align-items:center;padding:.4rem .8rem;border-bottom:1px solid rgba(128,128,128,.3)}
+@media (max-width:1000px){.wide-only{display:none}body.study .wrap{margin-right:0}#study-pane{display:none}}
+.mstep{display:flex;flex-wrap:wrap;gap:.4rem;align-items:center;margin:.4rem 0 1rem}
+.mstep-view{overflow-x:auto;margin-bottom:1rem}
+.cite{border-bottom:1px dotted currentColor;cursor:help}
+.cite-pop{display:block;font-size:.85rem;border:1px solid rgba(128,128,128,.4);border-radius:6px;padding:.5rem .7rem;margin:.3rem 0;background:rgba(128,128,128,.08);white-space:pre-line}
+.cards{border:1px solid rgba(128,128,128,.35);border-radius:8px;padding:.8rem 1rem;margin:1.2rem 0}
+.card{min-height:5.5rem;border-radius:8px;padding:1rem 1.1rem;background:rgba(29,91,120,.08);cursor:pointer;display:flex;align-items:center}
+.card.back{background:rgba(46,125,50,.12)}
+</style></head><body><div class="wrap"><header class="top"><p class="course">Graduate course 11118BLG001, asynchronous, 14 weeks</p><h1>Machine Ethics and Artificial Intelligence Safety</h1><p class="who">Prof. Dr. Utku Kose, Süleyman Demirel University</p><nav><a href="https://github.com/utkukose/machine-ethics-ai-safety-NB-lecture">GitHub repository</a><a href="https://github.com/utkukose/machine-ethics-ai-safety-NB-lecture/blob/main/SYLLABUS.md">Syllabus</a><a href="mailto:utkukose@sdu.edu.tr">Contact</a></nav></header><p class="lead">A 14-week asynchronous graduate course with lecture notes, interactive labs, Colab notebooks and weekly self-assessment</p><p class="lead">Each week combines lecture notes, an interactive lab that runs in the browser, a Colab notebook with self-checking exercises and a self-assessment with confidence ratings. Progress is stored only in this browser.</p><p class="lead"><strong>This course is updated in line with current developments in the field. Last update: September 2026.</strong></p><p class="lead">These materials were prepared for the graduate course 11118BLG001 Machine Ethics and Artificial Intelligence Safety at Süleyman Demirel University. They are openly available: Anyone may use and adapt them in courses of related scope, with attribution, under the CC BY 4.0 licence for content and the MIT licence for code.</p><h2>Weekly modules</h2><ol class="weeks"><li data-w="1"><span class="n">01</span><span class="t">Foundations of Machine Ethics and AI Safety</span><span class="links"><a href="weeks/week-01/lecture.html">Lecture</a><a href="weeks/week-01/lab.html">Interactive lab</a><a href="https://colab.research.google.com/github/utkukose/machine-ethics-ai-safety-NB-lecture/blob/main/weeks/week-01/NB01_foundations.ipynb">Colab notebook</a><a href="weeks/week-01/Week01_Lecture_Notes.pdf">PDF notes</a></span><span class="st">Not started</span></li><li data-w="2"><span class="n">02</span><span class="t">Normative Ethics as Decision Procedures</span><span class="links"><a href="weeks/week-02/lecture.html">Lecture</a><a href="weeks/week-02/lab.html">Interactive lab</a><a href="https://colab.research.google.com/github/utkukose/machine-ethics-ai-safety-NB-lecture/blob/main/weeks/week-02/NB02_normative_theories.ipynb">Colab notebook</a><a href="weeks/week-02/Week02_Lecture_Notes.pdf">PDF notes</a></span><span class="st">Not started</span></li><li data-w="3"><span class="n">03</span><span class="t">Implementing Artificial Moral Agents</span><span class="links"><a href="weeks/week-03/lecture.html">Lecture</a><a href="weeks/week-03/lab.html">Interactive lab</a><a href="https://colab.research.google.com/github/utkukose/machine-ethics-ai-safety-NB-lecture/blob/main/weeks/week-03/NB03_artificial_moral_agents.ipynb">Colab notebook</a><a href="weeks/week-03/Week03_Lecture_Notes.pdf">PDF notes</a></span><span class="st">Not started</span></li><li data-w="4"><span class="n">04</span><span class="t">Moral Dilemmas, Pluralism and Social Choice</span><span class="links"><a href="weeks/week-04/lecture.html">Lecture</a><a href="weeks/week-04/lab.html">Interactive lab</a><a href="https://colab.research.google.com/github/utkukose/machine-ethics-ai-safety-NB-lecture/blob/main/weeks/week-04/NB04_dilemmas_social_choice.ipynb">Colab notebook</a><a href="weeks/week-04/Week04_Lecture_Notes.pdf">PDF notes</a></span><span class="st">Not started</span></li><li data-w="5"><span class="n">05</span><span class="t">Algorithmic Fairness I: Harms, Metrics and Impossibility</span><span class="links"><a href="weeks/week-05/lecture.html">Lecture</a><a href="weeks/week-05/lab.html">Interactive lab</a><a href="https://colab.research.google.com/github/utkukose/machine-ethics-ai-safety-NB-lecture/blob/main/weeks/week-05/NB05_fairness_metrics.ipynb">Colab notebook</a><a href="weeks/week-05/Week05_Lecture_Notes.pdf">PDF notes</a></span><span class="st">Not started</span></li><li data-w="6"><span class="n">06</span><span class="t">Algorithmic Fairness II: Mitigation and Representational Harms</span><span class="links"><a href="weeks/week-06/lecture.html">Lecture</a><a href="weeks/week-06/lab.html">Interactive lab</a><a href="https://colab.research.google.com/github/utkukose/machine-ethics-ai-safety-NB-lecture/blob/main/weeks/week-06/NB06_fairness_mitigation.ipynb">Colab notebook</a><a href="weeks/week-06/Week06_Lecture_Notes.pdf">PDF notes</a></span><span class="st">Not started</span></li><li data-w="7"><span class="n">07</span><span class="t">Specification Problems: Reward Hacking, Side Effects and Goodhart&#x27;s Law</span><span class="links"><a href="weeks/week-07/lecture.html">Lecture</a><a href="weeks/week-07/lab.html">Interactive lab</a><a href="https://colab.research.google.com/github/utkukose/machine-ethics-ai-safety-NB-lecture/blob/main/weeks/week-07/NB07_specification.ipynb">Colab notebook</a><a href="weeks/week-07/Week07_Lecture_Notes.pdf">PDF notes</a></span><span class="st">Not started</span></li><li data-w="8"><span class="n">08</span><span class="t">Robustness: Adversarial Examples, Poisoning and Backdoors</span><span class="links"><a href="weeks/week-08/lecture.html">Lecture</a><a href="weeks/week-08/lab.html">Interactive lab</a><a href="https://colab.research.google.com/github/utkukose/machine-ethics-ai-safety-NB-lecture/blob/main/weeks/week-08/NB08_robustness.ipynb">Colab notebook</a><a href="weeks/week-08/Week08_Lecture_Notes.pdf">PDF notes</a></span><span class="st">Not started</span></li><li data-w="9"><span class="n">09</span><span class="t">Uncertainty, Calibration and Distribution Shift</span><span class="links"><a href="weeks/week-09/lecture.html">Lecture</a><a href="weeks/week-09/lab.html">Interactive lab</a><a href="https://colab.research.google.com/github/utkukose/machine-ethics-ai-safety-NB-lecture/blob/main/weeks/week-09/NB09_uncertainty.ipynb">Colab notebook</a><a href="weeks/week-09/Week09_Lecture_Notes.pdf">PDF notes</a></span><span class="st">Not started</span></li><li data-w="10"><span class="n">10</span><span class="t">Interpretability and Transparency for Safety</span><span class="links"><a href="weeks/week-10/lecture.html">Lecture</a><a href="weeks/week-10/lab.html">Interactive lab</a><a href="https://colab.research.google.com/github/utkukose/machine-ethics-ai-safety-NB-lecture/blob/main/weeks/week-10/NB10_interpretability.ipynb">Colab notebook</a><a href="weeks/week-10/Week10_Lecture_Notes.pdf">PDF notes</a></span><span class="st">Not started</span></li><li data-w="11"><span class="n">11</span><span class="t">Aligning Language Models: Preferences, Feedback and Oversight</span><span class="links"><a href="weeks/week-11/lecture.html">Lecture</a><a href="weeks/week-11/lab.html">Interactive lab</a><a href="https://colab.research.google.com/github/utkukose/machine-ethics-ai-safety-NB-lecture/blob/main/weeks/week-11/NB11_alignment_llms.ipynb">Colab notebook</a><a href="weeks/week-11/Week11_Lecture_Notes.pdf">PDF notes</a></span><span class="st">Not started</span></li><li data-w="12"><span class="n">12</span><span class="t">Security of LLM Applications: Prompt Injection, Jailbreaks and Data Extraction</span><span class="links"><a href="weeks/week-12/lecture.html">Lecture</a><a href="weeks/week-12/lab.html">Interactive lab</a><a href="https://colab.research.google.com/github/utkukose/machine-ethics-ai-safety-NB-lecture/blob/main/weeks/week-12/NB12_llm_security.ipynb">Colab notebook</a><a href="weeks/week-12/Week12_Lecture_Notes.pdf">PDF notes</a></span><span class="st">Not started</span></li><li data-w="13"><span class="n">13</span><span class="t">Advanced Risks: Goal Misgeneralization, Power-Seeking and Deception</span><span class="links"><a href="weeks/week-13/lecture.html">Lecture</a><a href="weeks/week-13/lab.html">Interactive lab</a><a href="https://colab.research.google.com/github/utkukose/machine-ethics-ai-safety-NB-lecture/blob/main/weeks/week-13/NB13_advanced_risks.ipynb">Colab notebook</a><a href="weeks/week-13/Week13_Lecture_Notes.pdf">PDF notes</a></span><span class="st">Not started</span></li><li data-w="14"><span class="n">14</span><span class="t">Governance, Standards and Auditing</span><span class="links"><a href="weeks/week-14/lecture.html">Lecture</a><a href="weeks/week-14/lab.html">Interactive lab</a><a href="https://colab.research.google.com/github/utkukose/machine-ethics-ai-safety-NB-lecture/blob/main/weeks/week-14/NB14_governance.ipynb">Colab notebook</a><a href="weeks/week-14/Week14_Lecture_Notes.pdf">PDF notes</a></span><span class="st">Not started</span></li></ol><h2>Midterm and final capstones</h2><ol class="weeks"><li><span class="n">MT</span><span class="t">Midterm Capstone: Ethics, Fairness and Specification in Practice</span><span class="links"><a href="exams/midterm/index.html">Capstone page</a></span><span class="st">End of Week 7</span></li><li><span class="n">FN</span><span class="t">Final Capstone: Building and Auditing a Safer AI System</span><span class="links"><a href="exams/final/index.html">Capstone page</a></span><span class="st">End of Week 14</span></li></ol><footer class="sig"><p><strong>Prof. Dr. Utku Kose</strong><br>Full Professor, Department of Computer Engineering, Süleyman Demirel University, Isparta, Türkiye<br>Founding Director, AI Application and Research Center (YAZEM), Süleyman Demirel University<br>Head of the Computer Science Division, Department of Computer Engineering, Süleyman Demirel University<br>Additional affiliations: University of North Dakota (USA), Universidad Panamericana (Mexico City, Mexico), Vel Tech University (Chennai, India)<br><a href="https://orcid.org/0000-0002-9652-6415">ORCID 0000-0002-9652-6415</a>, <a href="https://www.utkukose.com">utkukose.com</a>, <a href="https://github.com/utkukose">github.com/utkukose</a><br><a href="mailto:utkukose@sdu.edu.tr">utkukose@sdu.edu.tr</a>, <a href="mailto:utku.kose@und.edu">utku.kose@und.edu</a>, <a href="mailto:ukose@up.edu.mx">ukose@up.edu.mx</a>, <a href="mailto:utkukose@gmail.com">utkukose@gmail.com</a></p><p>This course is updated in line with current developments in the field. Last update: September 2026. Course materials licensed under CC BY 4.0. Code licensed under MIT.</p></footer></div><script>document.querySelectorAll('ol.weeks li').forEach(li=>{let p=null;try{p=JSON.parse(localStorage.getItem('MEAIS:w'+li.dataset.w))}catch(e){}const s=li.querySelector('.st');if(p){s.textContent=(p.total?('Self-assessment: '+p.score+' of '+p.total):'Self-assessment not taken')+(p.reflected?', reflection saved':'')+(p.updated?', last activity '+new Date(p.updated).toLocaleDateString():'');}});</script><script>document.querySelectorAll('ol.weeks li[data-w]').forEach(function(li){var p=null;try{p=JSON.parse(localStorage.getItem('MEAIS:lec:w'+li.dataset.w))}catch(e){}if(p&&p.answered){var s=li.querySelector('.st');var t='reading checks '+p.correct+' of '+p.total+' correct';s.textContent=(s.textContent==='Not started'?'Reading checks: '+p.correct+' of '+p.total+' correct':s.textContent+'; '+t);}});</script></body></html>
