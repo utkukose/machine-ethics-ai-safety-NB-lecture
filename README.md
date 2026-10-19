@@ -142,6 +142,10 @@ Course text, figures and interactive labs are licensed under the Creative Common
 
 [9] Arrow, K. J. (1951). *Social Choice and Individual Values*. John Wiley & Sons.
 
+## Human-AI collaboration
+
+This course was developed through human-AI collaboration. Human intellectual knowledge and expertise are the fundamental starting point of the course. The course author guides and supervises every stage of its development. The final version is presented only after the course author's review and approval.
+
 ---
 
 <div align="center">
