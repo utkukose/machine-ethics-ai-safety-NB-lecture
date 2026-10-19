@@ -17,7 +17,7 @@ Explanations can reveal spurious features, support audits and help people decide
 
 ## Learning outcomes
 
-By the end of the week, students are expected to state what an explanation is for and how it can be evaluated, to implement a local surrogate explanation and measure its fidelity, to run permutation importance and GEMEX on a tabular model, to perform a model randomisation sanity check, and to describe circuits, superposition, dictionary learning and probing.
+By the end of the week, students are expected to state what an explanation is for and how it can be evaluated. They should be able to implement a local surrogate explanation, measure its fidelity and run permutation importance and GEMEX on a tabular model. They should also be able to perform a model randomisation sanity check and to describe circuits, superposition, dictionary learning and probing.
 
 ## Study path
 
@@ -26,8 +26,8 @@ By the end of the week, students are expected to state what an explanation is fo
 | 1 | Read the lecture below or the [PDF version](Week10_Lecture_Notes.pdf) | 90 minutes |
 | 2 | Explore the [interactive lab](https://utkukose.github.io/machine-ethics-ai-safety-NB-lecture/weeks/week-10/lab.html) | 45 minutes |
 | 3 | Work through the [Colab notebook](https://colab.research.google.com/github/utkukose/machine-ethics-ai-safety-NB-lecture/blob/main/weeks/week-10/NB10_interpretability.ipynb) and its exercises | 2 to 3 hours |
-| 4 | Take the self-assessment in the lab (tab: Check yourself) | 20 minutes |
-| 5 | Write the reflection, export the learning log and complete the weekly task | 60 minutes |
+| 4 | Take the self-assessment in the interactive lab (tab: Check yourself) | 20 minutes |
+| 5 | Answer the reflection prompts in the interactive lab, export the learning log and complete the weekly task | 60 minutes |
 
 ## Week at a glance
 
@@ -47,7 +47,7 @@ flowchart TD
 
 Doshi-Velez and Kim defined interpretability as the ability to explain or present in understandable terms to a human, and proposed three levels of evaluation [1]. Application-grounded evaluation tests explanations with experts on the real task, human-grounded evaluation uses simplified tasks with lay people and functionally-grounded evaluation uses formal proxies without humans. For safety, explanations serve several purposes: debugging, detecting reliance on spurious features, supporting audits and appeals, and calibrating the trust that users place in a system.
 
-Rudin argued that for high-stakes decisions, inherently interpretable models should be preferred over black boxes with post-hoc explanations, because such explanations can be unfaithful to the model they describe and because interpretable models are often nearly as accurate [2]. The volume edited by Kose, Sengoz, Chen and Marmolejo Saucedo collects methods and applications of explainable AI in healthcare, where both positions are argued in practice [4].
+Rudin argued that inherently interpretable models should be preferred over black boxes with post-hoc explanations for high-stakes decisions [2]. Post-hoc explanations can be unfaithful to the model they describe, and interpretable models are often nearly as accurate. The volume edited by Kose, Sengoz, Chen and Marmolejo Saucedo collects methods and applications of explainable AI in healthcare, where both positions are argued in practice [4].
 
 <details>
 <summary><b>Check your understanding.</b> Why are explanations needed in safety-critical settings?</summary>
@@ -63,11 +63,11 @@ D. To replace evaluation
 
 ### Post-hoc attribution
 
-Ribeiro, Singh and Guestrin introduced LIME, which explains one prediction by sampling perturbations around the instance, weighting them by proximity and fitting a simple interpretable model, usually a sparse linear model, to the black box's outputs [5]. The surrogate's weights form the explanation, and its fit in the neighbourhood, the fidelity, indicates how far the explanation can be trusted. Lundberg and Lee showed that several attribution methods belong to one class of additive feature attributions and that Shapley values from cooperative game theory are the unique member satisfying local accuracy, missingness and consistency; their SHAP framework estimates these values efficiently [6]. Permutation importance is a simpler global method: It measures how much performance drops when one feature's values are shuffled.
+Ribeiro, Singh and Guestrin introduced LIME, which explains one prediction at a time [5]. It samples perturbations around the instance and weights them by proximity. It then fits a simple interpretable model, usually a sparse linear model, to the black box's outputs. The surrogate's weights form the explanation, and its fit in the neighbourhood, the fidelity, indicates how far the explanation can be trusted. Lundberg and Lee showed that several attribution methods belong to one class of additive feature attributions. Within this class, Shapley values from cooperative game theory are the unique member that satisfies local accuracy, missingness and consistency. Their SHAP framework estimates these values efficiently [6]. Permutation importance is a simpler global method: It measures how much performance drops when one feature's values are shuffled.
 
-GEMEX, a model-agnostic Python package developed by Kose, takes a geometric route [3]. It treats the prediction surface of a model as a curved manifold described with Riemannian information geometry, computes feature attributions along geodesic paths instead of straight lines and reports additional quantities such as curvature, which it links to the uncertainty of the explanation. The notebook applies GEMEX in its simplest configuration and compares its ranking with permutation importance and a local surrogate. Figure 10.1 illustrates the local surrogate idea.
+GEMEX, a model-agnostic Python package developed by Kose, takes a geometric route [3]. It treats the prediction surface of a model as a curved manifold described with Riemannian information geometry. Feature attributions are computed along geodesic paths instead of straight lines. GEMEX also reports additional quantities such as curvature, which it links to the uncertainty of the explanation. The Colab notebook applies GEMEX in its simplest configuration and compares its ranking with permutation importance and a local surrogate. Figure 10.1 illustrates the local surrogate idea.
 
-![A local surrogate explanation. Perturbed samples near the instance are weighted by proximity, and a weighted linear model fitted to the model's outputs gives the local feature weights {cite:ribeiro2016}.](figures/w10_fig1.png)
+![A local surrogate explanation. Perturbed samples near the instance are weighted by proximity, and a weighted linear model fitted to the model's outputs gives the local feature weights.](figures/w10_fig1.png)
 
 *Figure 10.1. A local surrogate explanation. Perturbed samples near the instance are weighted by proximity, and a weighted linear model fitted to the model's outputs gives the local feature weights [5].*
 
@@ -87,7 +87,7 @@ D. the depth of a decision tree
 
 Adebayo and colleagues proposed sanity checks for saliency maps [7]. In the model parameter randomisation test, the weights of a trained network are progressively randomised; in the data randomisation test, a model is trained on permuted labels. An explanation method that produces nearly the same output for the trained and the randomised model cannot be explaining what the model learned. Several popular methods failed these tests and behaved more like edge detectors applied to the input.
 
-Local surrogates face a related problem of stability: Two runs with different random perturbations can yield different explanations for the same instance, as the lab shows. A careful practitioner therefore reports fidelity and stability along with the explanation and repeats sanity checks whenever a method is used in an audit.
+Local surrogates face a related problem of stability: Two runs with different random perturbations can yield different explanations for the same instance, as the interactive lab shows. A careful practitioner therefore reports fidelity and stability along with the explanation and repeats sanity checks whenever a method is used in an audit.
 
 <details>
 <summary><b>Check your understanding.</b> What did the model randomisation sanity check reveal about some saliency methods?</summary>
@@ -103,7 +103,7 @@ D. They produce similar maps even for a model with randomised weights
 
 ### Mechanistic interpretability
 
-Mechanistic interpretability tries to reverse-engineer the computations inside a network. Olah and colleagues proposed that features and the circuits connecting them are meaningful units, and they traced circuits such as curve detectors in vision models [8]. Elhage and colleagues showed with toy models that networks can represent more features than they have dimensions by storing them in superposition, which explains why many neurons respond to unrelated concepts [9]. Bricken and colleagues used dictionary learning with sparse autoencoders to decompose the activations of a small transformer into many features that were more interpretable than individual neurons [10]. Alain and Bengio introduced linear probes, classifiers trained on intermediate activations to test which information is linearly decodable [11]. A probe shows that information is present, not that the model uses it.
+Mechanistic interpretability tries to reverse-engineer the computations inside a network. Olah and colleagues proposed that features and the circuits connecting them are meaningful units, and they traced circuits such as curve detectors in vision models [8]. Elhage and colleagues showed with toy models that networks can represent more features than they have dimensions by storing them in superposition. This explains why many neurons respond to unrelated concepts [9]. Bricken and colleagues used dictionary learning with sparse autoencoders to decompose the activations of a small transformer into many features that were more interpretable than individual neurons [10]. Alain and Bengio introduced linear probes, classifiers trained on intermediate activations to test which information is linearly decodable [11]. A probe shows that information is present, not that the model uses it.
 
 For AI safety, these tools promise ways to inspect internal states, for example to detect deceptive behaviour that output-based tests miss, which Week 13 discusses. Their main limitation is scale: Methods that work on small models are hard to apply comprehensively to frontier systems.
 
@@ -131,33 +131,45 @@ A nonlinear model maps two features to a probability. Choose an instance and a n
 
 ## Colab notebook
 
-The notebook explains a gradient boosting model on the breast cancer data set with permutation importance, a hand-written local surrogate and GEMEX, then runs a data randomisation sanity check and trains a linear probe on the hidden layer of a small network [3, 5, 7, 11].
+The Colab notebook explains a gradient boosting model on the breast cancer data set with permutation importance, a hand-written local surrogate and GEMEX. It then runs a data randomisation sanity check and trains a linear probe on the hidden layer of a small network [3, 5, 7, 11].
 
 [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/utkukose/machine-ethics-ai-safety-NB-lecture/blob/main/weeks/week-10/NB10_interpretability.ipynb)
 
-Screenshots of the executed notebook:
+Screenshots of the executed Colab notebook:
 
-![Output 1 of the Week 10 notebook](screenshots/nb_1.png)
+![Output 1 of the Week 10 Colab notebook](screenshots/nb_1.png)
 
 ## Self-assessment and reflection
 
-The lab contains a 6-question self-assessment with instant feedback and a confidence rating for each answer. A confident but wrong answer marks the first topic to revisit. The reflection prompts below are also available in the lab, where answers are saved in the browser and can be exported as a learning log.
+The interactive lab contains a self-assessment of six questions (tab: Check yourself). Students answer each question, state how sure they are and receive instant feedback. A confident but wrong answer marks the first topic to revisit. The reflection prompts below also appear in the interactive lab (tab: Reflect and submit). Answers written there are saved in the browser and can be exported as a learning log.
 
-1. In the lab, how much did the explanation change when you resampled? What would that mean for an explanation shown to a loan applicant?
-2. Compare the GEMEX, surrogate and permutation rankings from the notebook. Where do they agree, and how would you explain the differences?
+1. In the interactive lab, how much did the explanation change when you resampled? What would that mean for an explanation shown to a loan applicant?
+2. Compare the GEMEX, surrogate and permutation rankings from the Colab notebook. Where do they agree, and how would you explain the differences?
 3. Which safety question in your field could mechanistic interpretability help to answer, if it worked at scale?
 
 ## Weekly task and submission
 
-Explain the predictions of a model from your field or the notebook model with at least two methods from this week. Report fidelity or stability for each, run one sanity check and write about 400 words on which explanation you would show to a domain expert and why.
+**What to do.** Explain the predictions of one model with at least two methods of this week. Use the model of the Colab notebook or a model from your field. Report the fidelity or the stability of each method, and run one sanity check, such as the data randomisation test. Then decide which explanation you would show to a domain expert, and why.
 
-The weekly task supports self-learning and builds a personal portfolio. When the course is followed with the instructor during an active semester, the task can be sent together with the exported learning log to utkukose@sdu.edu.tr or utkukose@gmail.com for evaluation.
+**Where to look.** Lecture: sections "Post-hoc attribution" and "Do explanations reflect the model?". Interactive lab: the local surrogate and its fidelity and stability across samples (tab: Explore). Colab notebook: Section 1 for permutation importance, Section 2 for the local surrogate, Section 3 for GEMEX and Section 4 for the sanity check.
+
+**Example.** A student could compare the local surrogate with GEMEX for one borderline patient of the breast cancer data. If the surrogate has low fidelity for that patient, it should not be shown to a clinician without a warning.
+
+**What to submit.** About 400 words with the attribution plots, and the Colab notebook with Exercises 1 and 2 completed.
+
+The weekly task supports self-learning and builds a personal portfolio. In an active semester, students who follow the course with the instructor can send their work for evaluation to utkukose@sdu.edu.tr or utkukose@gmail.com. The e-mail contains the items that the task lists under What to submit. It also includes the learning log exported from the interactive lab (tab: Reflect and submit).
 
 ## Research and report assignment (optional)
 
-**How should explanations be evaluated?.** Review evaluation approaches for explanation methods, from functionally grounded metrics to user studies and sanity checks [1, 7]. Discuss which evaluations matter for safety and include recent geometric approaches to attribution [3].
+**How should explanations be evaluated?** Which evaluations of explanation methods matter for safety?
 
-This research assignment is optional and supports self-learning. When the related weeks are followed within the course during an active semester, the report can be sent to utkukose@sdu.edu.tr or utkukose@gmail.com for evaluation. Unless the assignment states otherwise, a report has 1500 to 2500 words, follows the structure of an academic paper, cites at least six scholarly or official sources in square brackets and ends with a reference list.
+**What to do.** Review evaluation approaches for explanation methods, from functionally grounded metrics to user studies and sanity checks [1, 7]. Discuss which evaluations matter for safety. Include recent geometric approaches to attribution [3].
+
+**Where to start.** Lecture sections "What explanations are for" and "Do explanations reflect the model?". Sections 3 and 4 of the Colab notebook run GEMEX and a sanity check.
+
+**Example focus.** The report could compare a faithfulness metric with a user study and ask which of the two would reveal a misleading explanation.
+
+This research assignment is optional and supports self-learning. In an active semester, students who follow these weeks with the instructor can send the report for evaluation to utkukose@sdu.edu.tr or utkukose@gmail.com. The report has 1500 to 2500 words and follows the structure of an academic paper. It cites at least six scholarly or official sources in square brackets and ends with a reference list. The [report template](https://github.com/utkukose/machine-ethics-ai-safety-NB-lecture/blob/main/exams/REPORT_TEMPLATE.md) shows a suitable structure.
 
 ## References
 
@@ -185,4 +197,4 @@ This research assignment is optional and supports self-learning. When the relate
 
 ---
 
-<sub>Machine Ethics and Artificial Intelligence Safety. Prof. Dr. Utku Kose, Süleyman Demirel University. ORCID [0000-0002-9652-6415](https://orcid.org/0000-0002-9652-6415). Content licensed under CC BY 4.0. This course is updated in line with current developments in the field. Last update: September 2026.</sub>
+<sub>Machine Ethics and Artificial Intelligence Safety. Prof. Dr. Utku Kose, Süleyman Demirel University. ORCID [0000-0002-9652-6415](https://orcid.org/0000-0002-9652-6415). Content licensed under CC BY 4.0. This course is updated in line with current developments in the field. First version: September 2026. Last update: October 2026.</sub>

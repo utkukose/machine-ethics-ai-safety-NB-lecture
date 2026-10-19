@@ -11,11 +11,23 @@ Prof. Dr. Utku Kose, Süleyman Demirel University
 
 ## Overview
 
-The midterm capstone integrates Weeks 1 to 7: normative theories as decision procedures, moral dilemmas and social choice, algorithmic fairness and specification problems [1, 2, 3]. Each student chooses one of the three advanced projects below, extends the example notebook in Colab and writes a technical report on the results.
+The midterm capstone integrates Weeks 1 to 7: normative theories as decision procedures, moral dilemmas and social choice, algorithmic fairness and specification problems [1, 2, 3]. Each student chooses one of the three advanced projects below, extends the example Colab notebook in Colab and writes a technical report on the results.
 
 ## Formats
 
-In this course, both capstones combine a coding application with a technical report. The application is a Colab notebook that extends one of the three example notebooks and runs from top to bottom without errors. The report of 2500 to 4000 words follows the course report template. Each student works individually unless the instructor announces otherwise. The weights below are indicative; in active semesters the instructor confirms them at the start of the semester.
+In this course, both capstones combine a coding application with a technical report. The application is a Colab notebook that extends one of the three example Colab notebooks and runs from top to bottom without errors. The report of 2500 to 4000 words follows the course report template. Each student works individually unless the instructor announces otherwise. The weights below are indicative; in active semesters the instructor confirms them at the start of the semester.
+
+## How to work on this capstone
+
+**Step 1. Choose a project.** Read the three projects below and pick one. The related weeks of each project show which lecture pages, interactive labs and Colab notebooks to revisit.
+
+**Step 2. Run the example.** Open the example Colab notebook of the project with its badge. Save a copy to your own Google Drive (File, Save a copy in Drive), run all cells from top to bottom and read what the baseline implements.
+
+**Step 3. Extend it.** Implement every required extension in your copy. Fix the random seeds so that another person can reproduce the results.
+
+**Step 4. Evaluate and write.** Compare the extensions with the baseline and write the technical report with the course report template.
+
+**Step 5. Submit.** Send the report as a PDF file and a link to your Colab notebook with view access. The submission section below gives the deadline for active semesters.
 
 ## Advanced application projects
 
@@ -23,38 +35,44 @@ Each project comes with an example Colab notebook that implements a working base
 
 ### Project 1: A fairness audit and mitigation pipeline
 
+**Related weeks.** Weeks 5 and 6. Lecture: sections "Group fairness criteria" and "Impossibility results" of Week 5, and "Three points of intervention" of Week 6. Colab notebooks: Week 5 for the audit, and Sections 2 and 3 of Week 6 for reweighing and thresholds.
+
 A lending model is trained on synthetic data in which a proxy feature carries information about a protected group. The example audits the model with group metrics and compares mitigation before, during and after training: reweighing, a parity-penalised logistic regression and group-specific thresholds [2, 4].
 
 **Required extensions.** Add at least one further mitigation method, such as reductions-based in-processing [5], and evaluate all methods with confidence intervals over repeated splits. Extend the intersectional analysis, trace the complete fairness-accuracy frontier for two fairness definitions and discuss the results in the light of the impossibility theorems [6, 7]. Address the legal and ethical questions raised by using the protected attribute at decision time.
 
-[![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/utkukose/machine-ethics-ai-safety-NB-lecture/blob/main/exams/midterm/MID1_fairness_pipeline.ipynb) Example notebook: `MID1_fairness_pipeline.ipynb`
+[![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/utkukose/machine-ethics-ai-safety-NB-lecture/blob/main/exams/midterm/MID1_fairness_pipeline.ipynb) Example Colab notebook: `MID1_fairness_pipeline.ipynb`
 
-![Output of the example notebook](screenshots/MID1_fairness_pipeline_1.png)
+![Output of the example Colab notebook](screenshots/MID1_fairness_pipeline_1.png)
 
 ### Project 2: Ethical theories as allocation procedures in intensive care triage
 
-Scarce intensive care beds are allocated by six procedures that encode different moral commitments: two utilitarian rules, first come first served, a lottery among patients who would benefit, a prioritarian rule and a hybrid with a futility rule [8, 9]. The example evaluates the procedures on simulated cohorts, aggregates the rankings of five stakeholder groups with Borda and Condorcet methods and recommends a policy under moral uncertainty [1, 10].
+**Related weeks.** Weeks 2 and 4. Lecture: section "Acting under moral uncertainty" of Week 2 and section "Aggregating preferences" of Week 4. Colab notebooks: Section 3 of Week 2 for the moral parliament, and Sections 1 and 2 of Week 4 for the voting rules and majority cycles.
 
-**Required extensions.** Add at least one deontological constraint, such as a ban on age as a criterion, and one procedural value, such as appeals or re-evaluation over time, and show how they change outcomes. Study the sensitivity of the recommendation to the credences and to the normalisation of choiceworthiness, test for Condorcet cycles with more stakeholder profiles, and discuss which parts of the decision should never be automated.
+Scarce intensive care beds are allocated by six procedures that encode different moral commitments [8, 9]. They are two utilitarian rules, first come first served, a lottery among patients who would benefit, a prioritarian rule and a hybrid with a futility rule. The example evaluates the procedures on simulated cohorts, aggregates the rankings of five stakeholder groups with Borda and Condorcet methods and recommends a policy under moral uncertainty [1, 10].
 
-[![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/utkukose/machine-ethics-ai-safety-NB-lecture/blob/main/exams/midterm/MID2_triage_decision_procedures.ipynb) Example notebook: `MID2_triage_decision_procedures.ipynb`
+**Required extensions.** Add at least one deontological constraint, such as a ban on age as a criterion. Add one procedural value, such as appeals or re-evaluation over time, and show how both change the outcomes. Study how sensitive the recommendation is to the credences and to the normalisation of choiceworthiness. Test for Condorcet cycles with more stakeholder profiles, and discuss which parts of the decision should never be automated.
 
-![Output of the example notebook](screenshots/MID2_triage_decision_procedures_1.png)
-![Output of the example notebook](screenshots/MID2_triage_decision_procedures_2.png)
+[![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/utkukose/machine-ethics-ai-safety-NB-lecture/blob/main/exams/midterm/MID2_triage_decision_procedures.ipynb) Example Colab notebook: `MID2_triage_decision_procedures.ipynb`
+
+![Output of the example Colab notebook](screenshots/MID2_triage_decision_procedures_1.png)
+![Output of the example Colab notebook](screenshots/MID2_triage_decision_procedures_2.png)
 
 ### Project 3: Goodhart's law, side effects and impact penalties in reinforcement learning
 
+**Related weeks.** Week 7. Lecture: sections "Reward hacking in theory and practice" and "Side effects and impact regularisation". Interactive lab: the corridor gridworld. Colab notebook: Sections 1 to 3.
+
 A Q-learning agent in a small gridworld can reach its goal quickly by breaking a vase that the proxy reward ignores [11]. The example varies an impact penalty and reports proxy and true returns, and it simulates regressional Goodhart by selecting among options with a noisy proxy under increasing optimisation pressure [3].
 
-**Required extensions.** Replace the hand-coded penalty with a general impact measure that does not name the vase, for example one based on the reachability of states or on attainable utility for auxiliary goals [12], and test it in at least two new environments with different side effects. Add a second Goodhart variant, analyse the trade-off between task performance and caution, and relate the findings to the formal definition of reward hacking [13].
+**Required extensions.** Replace the hand-coded penalty with a general impact measure that does not name the vase. The measure can be based, for example, on the reachability of states or on attainable utility for auxiliary goals [12]. Test it in at least two new environments with different side effects. Add a second Goodhart variant, analyse the trade-off between task performance and caution, and relate the findings to the formal definition of reward hacking [13].
 
-[![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/utkukose/machine-ethics-ai-safety-NB-lecture/blob/main/exams/midterm/MID3_goodhart_side_effects.ipynb) Example notebook: `MID3_goodhart_side_effects.ipynb`
+[![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/utkukose/machine-ethics-ai-safety-NB-lecture/blob/main/exams/midterm/MID3_goodhart_side_effects.ipynb) Example Colab notebook: `MID3_goodhart_side_effects.ipynb`
 
-![Output of the example notebook](screenshots/MID3_goodhart_side_effects_1.png)
+![Output of the example Colab notebook](screenshots/MID3_goodhart_side_effects_1.png)
 
 ## Report
 
-The technical report states the question, explains the design choices, presents the experiments with the figures produced by the notebook and discusses the ethical and safety implications and the limitations of the results. It cites at least eight sources in square brackets, at least four of them from the course readings, and links to the final Colab notebook.
+The technical report states the question and explains the design choices. It presents the experiments with the figures produced by the Colab notebook. It then discusses the ethical and safety implications and the limitations of the results. It cites at least eight sources in square brackets, at least four of them from the course readings, and links to the final Colab notebook.
 
 A common structure for reports is given in the [report template](https://github.com/utkukose/machine-ethics-ai-safety-NB-lecture/blob/main/exams/REPORT_TEMPLATE.md).
 
@@ -62,7 +80,7 @@ A common structure for reports is given in the [report template](https://github.
 
 | Criterion | Weight | What is assessed |
 |---|---|---|
-| Technical correctness and reproducibility | 30% | The notebook runs end to end, the implementation is correct and results are reproducible with the stated seeds. |
+| Technical correctness and reproducibility | 30% | The Colab notebook runs end to end, the implementation is correct and results are reproducible with the stated seeds. |
 | Depth of the extensions | 25% | The required extensions are implemented thoughtfully and go beyond the example. |
 | Analysis and interpretation | 20% | Results are analysed with appropriate metrics, comparisons and uncertainty. |
 | Ethical and safety reasoning | 15% | The report connects the results to the concepts and debates of the course. |
@@ -70,7 +88,7 @@ A common structure for reports is given in the [report template](https://github.
 
 ## Submission
 
-This capstone also supports self-learning and can be completed at any pace. When the course is taught actively in a semester, the midterm capstone is sent by e-mail to utkukose@sdu.edu.tr or utkukose@gmail.com no later than 23:53 (Türkiye time) on the last Sunday of Week 7, with the report and all code files attached or linked.
+This capstone also supports self-learning and can be completed at any pace. In an active semester, the midterm capstone is sent by e-mail to utkukose@sdu.edu.tr or utkukose@gmail.com. The deadline is 23:53 (Türkiye time) on the Sunday that ends Week 7. The e-mail contains the report as a PDF file and a link to the Colab notebook.
 
 ## References
 
@@ -102,4 +120,4 @@ This capstone also supports self-learning and can be completed at any pace. When
 
 ---
 
-<sub>Machine Ethics and Artificial Intelligence Safety. Prof. Dr. Utku Kose, Süleyman Demirel University. ORCID [0000-0002-9652-6415](https://orcid.org/0000-0002-9652-6415). Content licensed under CC BY 4.0. This course is updated in line with current developments in the field. Last update: September 2026.</sub>
+<sub>Machine Ethics and Artificial Intelligence Safety. Prof. Dr. Utku Kose, Süleyman Demirel University. ORCID [0000-0002-9652-6415](https://orcid.org/0000-0002-9652-6415). Content licensed under CC BY 4.0. This course is updated in line with current developments in the field. First version: September 2026. Last update: October 2026.</sub>

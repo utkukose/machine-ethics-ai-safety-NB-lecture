@@ -11,11 +11,23 @@ Prof. Dr. Utku Kose, Süleyman Demirel University
 
 ## Overview
 
-The final capstone integrates Weeks 8 to 14: robustness, uncertainty and calibration, interpretability, the alignment and security of language model applications, and governance [1, 2, 3, 4]. Each student chooses one of the three advanced projects below, extends the example notebook and writes a technical report that ends with a structured safety or audit argument.
+The final capstone integrates Weeks 8 to 14: robustness, uncertainty and calibration, interpretability, the alignment and security of language model applications, and governance [1, 2, 3, 4]. Each student chooses one of the three advanced projects below, extends the example Colab notebook and writes a technical report that ends with a structured safety or audit argument.
 
 ## Formats
 
-In this course, both capstones combine a coding application with a technical report. The application is a Colab notebook that extends one of the three example notebooks and runs from top to bottom without errors. The report of 2500 to 4000 words follows the course report template. Each student works individually unless the instructor announces otherwise. The weights below are indicative; in active semesters the instructor confirms them at the start of the semester.
+In this course, both capstones combine a coding application with a technical report. The application is a Colab notebook that extends one of the three example Colab notebooks and runs from top to bottom without errors. The report of 2500 to 4000 words follows the course report template. Each student works individually unless the instructor announces otherwise. The weights below are indicative; in active semesters the instructor confirms them at the start of the semester.
+
+## How to work on this capstone
+
+**Step 1. Choose a project.** Read the three projects below and pick one. The related weeks of each project show which lecture pages, interactive labs and Colab notebooks to revisit.
+
+**Step 2. Run the example.** Open the example Colab notebook of the project with its badge. Save a copy to your own Google Drive (File, Save a copy in Drive), run all cells from top to bottom and read what the baseline implements.
+
+**Step 3. Extend it.** Implement every required extension in your copy. Fix the random seeds so that another person can reproduce the results.
+
+**Step 4. Evaluate and write.** Compare the extensions with the baseline and write the technical report with the course report template. The report ends with a structured safety or audit argument.
+
+**Step 5. Submit.** Send the report as a PDF file and a link to your Colab notebook with view access. The submission section below gives the deadline for active semesters.
 
 ## Advanced application projects
 
@@ -23,39 +35,45 @@ Each project comes with an example Colab notebook that implements a working base
 
 ### Project 1: A safety case for a clinical risk model
 
-A malignancy classifier trained on a public diagnostic dataset is examined for adversarial robustness, calibration, conformal coverage and detection of distribution shift, and the evidence is assembled into claims, arguments and evidence [2, 5, 6, 7].
+**Related weeks.** Weeks 8, 9 and 14. Lecture: section "Adversarial examples" of Week 8, and sections "Estimating uncertainty", "Distribution shift and out-of-distribution detection" and "Distribution-free guarantees: conformal prediction" of Week 9. Section "Documentation and auditing" of Week 14 shows how to assemble the evidence. Colab notebooks: Section 2 of Week 8 for projected gradient descent, and Sections 2, 4 and 5 of Week 9.
 
-**Required extensions.** Add a non-linear model and a stronger attack, such as projected gradient descent [1], report class-conditional conformal coverage, and evaluate at least two realistic shift scenarios with a monitor that raises alarms. Rewrite the safety case in the Goal Structuring Notation, identify the weakest claim and state what additional evidence would be needed before any clinical use.
+A malignancy classifier trained on a public diagnostic dataset is examined for adversarial robustness, calibration, conformal coverage and the detection of distribution shift [2, 5, 6]. The evidence is then assembled into a safety case of claims, arguments and evidence [7].
 
-[![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/utkukose/machine-ethics-ai-safety-NB-lecture/blob/main/exams/final/FIN1_clinical_safety_case.ipynb) Example notebook: `FIN1_clinical_safety_case.ipynb`
+**Required extensions.** Add a non-linear model and a stronger attack, such as projected gradient descent [1]. Report class-conditional conformal coverage, and evaluate at least two realistic shift scenarios with a monitor that raises alarms. Rewrite the safety case in the Goal Structuring Notation, identify the weakest claim and state what additional evidence would be needed before any clinical use.
 
-![Output of the example notebook](screenshots/FIN1_clinical_safety_case_1.png)
+[![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/utkukose/machine-ethics-ai-safety-NB-lecture/blob/main/exams/final/FIN1_clinical_safety_case.ipynb) Example Colab notebook: `FIN1_clinical_safety_case.ipynb`
+
+![Output of the example Colab notebook](screenshots/FIN1_clinical_safety_case_1.png)
 
 ### Project 2: Explanations under scrutiny: faithfulness, stability and manipulation
 
-Three local attribution methods are implemented for a gradient boosting classifier and evaluated for faithfulness with deletion curves, for agreement, for stability under small input noise and with a model randomisation sanity check [8, 9, 10]. A final experiment shows how a scaffolded model can hide its reliance on a sensitive attribute from perturbation-based explanations [11].
+**Related weeks.** Week 10, and Weeks 5 and 6 for the sensitive attribute. Lecture: sections "Post-hoc attribution" and "Do explanations reflect the model?" of Week 10. Colab notebook: Sections 1 to 4 of Week 10.
 
-**Required extensions.** Add at least one further attribution method, for example GEMEX or integrated gradients on a differentiable model [12], and one further faithfulness metric. Test whether a defence, such as on-manifold perturbations, restores the hidden attribute in the scaffolding experiment, and discuss what the results imply for audits that rely on explanations [13].
+Three local attribution methods are implemented for a gradient boosting classifier [8, 9]. They are evaluated for faithfulness with deletion curves, for agreement, for stability under small input noise and with a model randomisation sanity check [10]. A final experiment shows how a scaffolded model can hide its reliance on a sensitive attribute from perturbation-based explanations [11].
 
-[![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/utkukose/machine-ethics-ai-safety-NB-lecture/blob/main/exams/final/FIN2_explanations_under_scrutiny.ipynb) Example notebook: `FIN2_explanations_under_scrutiny.ipynb`
+**Required extensions.** Add at least one further attribution method, for example GEMEX or integrated gradients on a differentiable model [12], and one further faithfulness metric. Test whether a defence, such as on-manifold perturbations, reveals the hidden reliance on the attribute in the scaffolding experiment. Discuss what the results imply for audits that rely on explanations [13].
 
-![Output of the example notebook](screenshots/FIN2_explanations_under_scrutiny_1.png)
-![Output of the example notebook](screenshots/FIN2_explanations_under_scrutiny_2.png)
+[![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/utkukose/machine-ethics-ai-safety-NB-lecture/blob/main/exams/final/FIN2_explanations_under_scrutiny.ipynb) Example Colab notebook: `FIN2_explanations_under_scrutiny.ipynb`
+
+![Output of the example Colab notebook](screenshots/FIN2_explanations_under_scrutiny_1.png)
+![Output of the example Colab notebook](screenshots/FIN2_explanations_under_scrutiny_2.png)
 
 ### Project 3: Red-teaming an LLM-integrated agent: attack families and layered defences
 
+**Related weeks.** Week 12. Lecture: sections "An attack surface made of text", "Jailbreaks and automated attacks" and "Defence in depth and red teaming". Interactive lab: the toy e-mail assistant and its defensive layers. Colab notebook: Sections 1 and 2.
+
 An e-mail assistant that summarises retrieved documents is attacked with five families of indirect prompt injection, including obfuscated and Turkish-language payloads [3, 14]. Because the example must run offline, the language model is replaced by a transparent simulated model whose compliance depends on features of the injected text. Four defences and their combinations are evaluated for attack success, false positives and utility [15].
 
-**Required extensions.** Replace the simulated model with a real model through an API, keeping the key in an environment variable, or with an open model run locally, and repeat the evaluation with at least 200 documents per condition. Add two attack families and one defence, measure cross-lingual generalisation of the classifier, and propose a defence-in-depth design with a quantified residual risk.
+**Required extensions.** Replace the simulated model with a real model, either through an API with the key kept in an environment variable or as an open model run locally. Repeat the evaluation with at least 200 documents per condition. Add two attack families and one defence, measure cross-lingual generalisation of the injection classifier, and propose a defence-in-depth design with a quantified residual risk.
 
-[![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/utkukose/machine-ethics-ai-safety-NB-lecture/blob/main/exams/final/FIN3_agent_red_teaming.ipynb) Example notebook: `FIN3_agent_red_teaming.ipynb`
+[![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/utkukose/machine-ethics-ai-safety-NB-lecture/blob/main/exams/final/FIN3_agent_red_teaming.ipynb) Example Colab notebook: `FIN3_agent_red_teaming.ipynb`
 
-![Output of the example notebook](screenshots/FIN3_agent_red_teaming_1.png)
-![Output of the example notebook](screenshots/FIN3_agent_red_teaming_2.png)
+![Output of the example Colab notebook](screenshots/FIN3_agent_red_teaming_1.png)
+![Output of the example Colab notebook](screenshots/FIN3_agent_red_teaming_2.png)
 
 ## Report
 
-The technical report states the question, explains the design choices, presents the experiments with the figures produced by the notebook and discusses the ethical and safety implications and the limitations of the results. It cites at least eight sources in square brackets, at least four of them from the course readings, and links to the final Colab notebook.
+The technical report states the question and explains the design choices. It presents the experiments with the figures produced by the Colab notebook. It then discusses the ethical and safety implications and the limitations of the results. It cites at least eight sources in square brackets, at least four of them from the course readings, and links to the final Colab notebook.
 
 A common structure for reports is given in the [report template](https://github.com/utkukose/machine-ethics-ai-safety-NB-lecture/blob/main/exams/REPORT_TEMPLATE.md).
 
@@ -63,7 +81,7 @@ A common structure for reports is given in the [report template](https://github.
 
 | Criterion | Weight | What is assessed |
 |---|---|---|
-| Technical correctness and reproducibility | 30% | The notebook runs end to end, the implementation is correct and results are reproducible with the stated seeds. |
+| Technical correctness and reproducibility | 30% | The Colab notebook runs end to end, the implementation is correct and results are reproducible with the stated seeds. |
 | Depth of the extensions | 25% | The required extensions are implemented thoughtfully and go beyond the example. |
 | Analysis and interpretation | 20% | Results are analysed with appropriate metrics, comparisons and uncertainty. |
 | Ethical and safety reasoning | 15% | The report connects the results to the concepts and debates of the course. |
@@ -71,7 +89,7 @@ A common structure for reports is given in the [report template](https://github.
 
 ## Submission
 
-This capstone also supports self-learning and can be completed at any pace. When the course is taught actively in a semester, the final capstone is sent by e-mail to utkukose@sdu.edu.tr or utkukose@gmail.com no later than 23:53 (Türkiye time) on the last Sunday of Week 14, with the report and all code files attached or linked.
+This capstone also supports self-learning and can be completed at any pace. In an active semester, the final capstone is sent by e-mail to utkukose@sdu.edu.tr or utkukose@gmail.com. The deadline is 23:53 (Türkiye time) on the Sunday that ends Week 14. The e-mail contains the report as a PDF file and a link to the Colab notebook.
 
 ## References
 
@@ -107,4 +125,4 @@ This capstone also supports self-learning and can be completed at any pace. When
 
 ---
 
-<sub>Machine Ethics and Artificial Intelligence Safety. Prof. Dr. Utku Kose, Süleyman Demirel University. ORCID [0000-0002-9652-6415](https://orcid.org/0000-0002-9652-6415). Content licensed under CC BY 4.0. This course is updated in line with current developments in the field. Last update: September 2026.</sub>
+<sub>Machine Ethics and Artificial Intelligence Safety. Prof. Dr. Utku Kose, Süleyman Demirel University. ORCID [0000-0002-9652-6415](https://orcid.org/0000-0002-9652-6415). Content licensed under CC BY 4.0. This course is updated in line with current developments in the field. First version: September 2026. Last update: October 2026.</sub>

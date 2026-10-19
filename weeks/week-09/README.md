@@ -11,13 +11,13 @@ Prof. Dr. Utku Kose, Süleyman Demirel University
 
 ## Overview
 
-A safe system must know when it does not know. This week studies calibration, the estimation of predictive uncertainty, the detection of inputs unlike the training data and conformal prediction, which turns any model into one with a distribution-free coverage guarantee [1, 2, 3].
+A safe system must know when it does not know. This week studies calibration, the estimation of predictive uncertainty and the detection of inputs unlike the training data. It also covers conformal prediction, which turns any model into one with a distribution-free coverage guarantee [1, 2, 3].
 
 **Estimated study time:** 6 to 8 hours.
 
 ## Learning outcomes
 
-By the end of the week, students are expected to compute and interpret the expected calibration error, to apply temperature scaling, to explain deep ensembles and Monte Carlo dropout, to classify types of dataset shift and use a maximum softmax probability detector, and to construct split conformal prediction sets and verify their coverage.
+By the end of the week, students are expected to compute and interpret the expected calibration error and to apply temperature scaling. They should be able to explain deep ensembles and Monte Carlo dropout and to classify types of dataset shift. They should also be able to use a maximum softmax probability detector, and to construct split conformal prediction sets and verify their coverage.
 
 ## Study path
 
@@ -26,8 +26,8 @@ By the end of the week, students are expected to compute and interpret the expec
 | 1 | Read the lecture below or the [PDF version](Week09_Lecture_Notes.pdf) | 90 minutes |
 | 2 | Explore the [interactive lab](https://utkukose.github.io/machine-ethics-ai-safety-NB-lecture/weeks/week-09/lab.html) | 45 minutes |
 | 3 | Work through the [Colab notebook](https://colab.research.google.com/github/utkukose/machine-ethics-ai-safety-NB-lecture/blob/main/weeks/week-09/NB09_uncertainty.ipynb) and its exercises | 2 to 3 hours |
-| 4 | Take the self-assessment in the lab (tab: Check yourself) | 20 minutes |
-| 5 | Write the reflection, export the learning log and complete the weekly task | 60 minutes |
+| 4 | Take the self-assessment in the interactive lab (tab: Check yourself) | 20 minutes |
+| 5 | Answer the reflection prompts in the interactive lab, export the learning log and complete the weekly task | 60 minutes |
 
 ## Week at a glance
 
@@ -47,11 +47,11 @@ flowchart LR
 
 ### Why confidence matters for safety
 
-Many safety mechanisms depend on a model's confidence. A diagnostic assistant should defer to a clinician when unsure, and an autonomous vehicle should slow down when its perception is uncertain. Such mechanisms work only if confidence is meaningful. A model is calibrated when, among predictions made with confidence p, the fraction that is correct is also p. The expected calibration error (ECE) measures the gap: Predictions are grouped into confidence bins, and the absolute differences between accuracy and mean confidence are averaged with weights proportional to the bin sizes.
+Many safety mechanisms depend on a model's confidence. A diagnostic assistant should defer to a clinician when unsure, and an autonomous vehicle should slow down when its perception is uncertain. Such mechanisms work only if confidence is meaningful. A model is calibrated when, among predictions made with confidence p, the fraction that is correct is also p. The expected calibration error (ECE) measures the gap. Predictions are grouped into confidence bins, and each bin compares its accuracy with its mean confidence. The absolute differences are averaged with weights proportional to the bin sizes.
 
-Guo and colleagues found that modern deep networks, although more accurate than older ones, are often overconfident, and they linked the change to greater depth and width, batch normalisation and weaker weight decay [1]. They also found that temperature scaling, which divides all logits by a single constant T fitted on held-out data, is a simple and effective remedy. Because dividing by T does not change which class has the largest logit, temperature scaling leaves accuracy unchanged while improving confidence estimates. Figure 9.1 shows the effect on a small network.
+Guo and colleagues found that modern deep networks, although more accurate than older ones, are often overconfident. They linked the change to greater depth and width, batch normalisation and weaker weight decay [1]. They also found that temperature scaling, which divides all logits by a single constant T fitted on held-out data, is a simple and effective remedy. Because dividing by T does not change which class has the largest logit, temperature scaling leaves accuracy unchanged while improving confidence estimates. Figure 9.1 shows the effect on a small network.
 
-![Reliability diagrams on a held-out test set before and after temperature scaling for a neural network trained on noisy digits {cite:guo2017}.](figures/w09_fig1.png)
+![Reliability diagrams on a held-out test set before and after temperature scaling for a neural network trained on noisy digits.](figures/w09_fig1.png)
 
 *Figure 9.1. Reliability diagrams on a held-out test set before and after temperature scaling for a neural network trained on noisy digits [1].*
 
@@ -71,7 +71,7 @@ D. its confidence is always high
 
 Two kinds of uncertainty are usually distinguished. Aleatoric uncertainty comes from noise in the data and cannot be reduced by more data of the same kind. Epistemic uncertainty comes from limited knowledge of the model and shrinks with more data. Safety failures often involve epistemic uncertainty, when a model meets inputs unlike its training data.
 
-Gal and Ghahramani showed that keeping dropout active at test time and averaging several stochastic forward passes approximates Bayesian inference, which yields uncertainty estimates from networks that were trained with dropout anyway [4]. Lakshminarayanan, Pritzel and Blundell proposed deep ensembles: Several networks are trained independently from different random initialisations, and their predictions are averaged [5]. Ensembles are simple, parallel and among the strongest practical baselines for both calibration and the detection of unfamiliar inputs.
+Gal and Ghahramani showed that keeping dropout active at test time and averaging several stochastic forward passes approximates Bayesian inference [4]. This yields uncertainty estimates from networks that were trained with dropout anyway. Lakshminarayanan, Pritzel and Blundell proposed deep ensembles: Several networks are trained independently from different random initialisations, and their predictions are averaged [5]. Ensembles are simple, parallel and among the strongest practical baselines for both calibration and the detection of unfamiliar inputs.
 
 <details>
 <summary><b>Check your understanding.</b> Which statement describes epistemic uncertainty?</summary>
@@ -89,7 +89,7 @@ D. Uncertainty about the choice of loss function
 
 Deployed models rarely see data from exactly the training distribution. The collection edited by Quiñonero-Candela and colleagues describes several forms of dataset shift [6]. Covariate shift changes the input distribution while the relation between inputs and labels stays fixed. Prior probability shift changes the frequency of classes. Concept shift changes the relation itself. Amodei and colleagues listed robustness to distributional shift among the concrete problems of AI safety [7].
 
-Hendrycks and Gimpel proposed a baseline for detecting misclassified and out-of-distribution inputs: the maximum softmax probability, which tends to be lower for such inputs [2]. The baseline is useful and easy to deploy, but it has a clear limit. Inputs that resemble training data in the wrong way can receive high confidence. The notebook shows this: The detector separates random noise from digits reasonably well, yet it fails on rotated digits, which the network classifies with confidence.
+Hendrycks and Gimpel proposed a baseline for detecting misclassified and out-of-distribution inputs: the maximum softmax probability, which tends to be lower for such inputs [2]. The baseline is useful and easy to deploy, but it has a clear limit. Inputs that resemble training data in the wrong way can receive high confidence. The Colab notebook shows this: The detector separates random noise from digits reasonably well, yet it fails on rotated digits, which the network classifies with confidence.
 
 <details>
 <summary><b>Check your understanding.</b> What is covariate shift?</summary>
@@ -105,7 +105,7 @@ D. The loss function changes
 
 ### Distribution-free guarantees: conformal prediction
 
-Conformal prediction, developed by Vovk, Gammerman and Shafer, wraps any model in a procedure that outputs prediction sets with a guaranteed coverage rate [8]. Angelopoulos and Bates gave an accessible introduction to its split form [3]. A nonconformity score is computed for each example of a held-out calibration set, for instance one minus the probability assigned to the true class. The empirical quantile of these scores at level ceil((n + 1)(1 - alpha)) / n defines a threshold, and the prediction set for a new input contains every class whose score falls below it. If calibration and test data are exchangeable, the set contains the true label with probability at least 1 - alpha.
+Conformal prediction, developed by Vovk, Gammerman and Shafer, wraps any model in a procedure that outputs prediction sets with a guaranteed coverage rate [8]. Angelopoulos and Bates gave an accessible introduction to its split form [3]. A nonconformity score is computed for each example of a held-out calibration set, for instance one minus the probability assigned to the true class. The empirical quantile of these scores at level ceil((n + 1)(1 - alpha)) / n defines a threshold. The prediction set for a new input contains every class whose score falls below it. If calibration and test data are exchangeable, the set contains the true label with probability at least 1 - alpha.
 
 The guarantee is marginal, averaged over inputs, rather than conditional on each input, and it breaks when the test distribution differs from the calibration distribution. Set size is informative in itself: A large set signals a hard or unfamiliar input, which is exactly when a safety mechanism should ask for help.
 
@@ -133,34 +133,46 @@ A simulated five-class model produces overconfident logits. Part A varies the te
 
 ## Colab notebook
 
-The notebook trains a small neural network on noisy digits, measures and repairs its calibration, compares it with a deep ensemble, builds conformal prediction sets and tests the maximum softmax probability detector on two kinds of unfamiliar inputs [1, 2, 3, 5].
+The Colab notebook trains a small neural network on noisy digits, then measures and repairs its calibration. It compares the network with a deep ensemble and builds conformal prediction sets. Finally, it tests the maximum softmax probability detector on two kinds of unfamiliar inputs [1, 2, 3, 5].
 
 [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/utkukose/machine-ethics-ai-safety-NB-lecture/blob/main/weeks/week-09/NB09_uncertainty.ipynb)
 
-Screenshots of the executed notebook:
+Screenshots of the executed Colab notebook:
 
-![Output 1 of the Week 9 notebook](screenshots/nb_1.png)
-![Output 2 of the Week 9 notebook](screenshots/nb_2.png)
+![Output 1 of the Week 9 Colab notebook](screenshots/nb_1.png)
+![Output 2 of the Week 9 Colab notebook](screenshots/nb_2.png)
 
 ## Self-assessment and reflection
 
-The lab contains a 6-question self-assessment with instant feedback and a confidence rating for each answer. A confident but wrong answer marks the first topic to revisit. The reflection prompts below are also available in the lab, where answers are saved in the browser and can be exported as a learning log.
+The interactive lab contains a self-assessment of six questions (tab: Check yourself). Students answer each question, state how sure they are and receive instant feedback. A confident but wrong answer marks the first topic to revisit. The reflection prompts below also appear in the interactive lab (tab: Reflect and submit). Answers written there are saved in the browser and can be exported as a learning log.
 
 1. Describe a decision in your field where a model should abstain. Which signal from this week would you use to trigger abstention?
 2. Conformal guarantees break under distribution shift. How would you monitor for shift after deployment?
-3. Was the model in the notebook more dangerous before or after temperature scaling? Argue both sides briefly.
+3. Was the model in the Colab notebook more dangerous before or after temperature scaling? Argue both sides briefly.
 
 ## Weekly task and submission
 
-Evaluate the uncertainty of a classifier from your field or the notebook model. Report accuracy, ECE before and after temperature scaling, conformal coverage and mean set size at alpha = 0.1, and an out-of-distribution test of your choice. Discuss in about 300 words how the results would change a deployment decision.
+**What to do.** Evaluate the uncertainty of one classifier, either the model of the Colab notebook or a model from your field. Report five results. The first is the accuracy, and the second is the expected calibration error (ECE) before and after temperature scaling. The third and fourth are the coverage and the mean set size of conformal prediction at alpha = 0.1. The fifth is one out-of-distribution test of your choice. Then explain how these results would change a decision to deploy the model.
 
-The weekly task supports self-learning and builds a personal portfolio. When the course is followed with the instructor during an active semester, the task can be sent together with the exported learning log to utkukose@sdu.edu.tr or utkukose@gmail.com for evaluation.
+**Where to look.** Lecture: sections "Estimating uncertainty", "Distribution shift and out-of-distribution detection" and "Distribution-free guarantees: conformal prediction". Interactive lab: Part A for temperature scaling and Part B for conformal prediction. Colab notebook: Sections 2, 4 and 5.
+
+**Example.** Suppose the ECE of a model falls from 0.08 to 0.02 after temperature scaling, but many of its conformal sets contain two classes. A deployment could then pass every case with a two-class set to a person.
+
+**What to submit.** About 300 words with a table of the five results, and the Colab notebook with Exercises 1 and 2 completed.
+
+The weekly task supports self-learning and builds a personal portfolio. In an active semester, students who follow the course with the instructor can send their work for evaluation to utkukose@sdu.edu.tr or utkukose@gmail.com. The e-mail contains the items that the task lists under What to submit. It also includes the learning log exported from the interactive lab (tab: Reflect and submit).
 
 ## Research and report assignment (optional)
 
-**Reporting uncertainty in clinical AI.** Examine how a sample of clinical AI studies reports calibration and uncertainty. Propose a short reporting checklist based on the methods of this week [1, 3].
+**Reporting uncertainty in clinical AI.** How do clinical AI studies report calibration and uncertainty?
 
-This research assignment is optional and supports self-learning. When the related weeks are followed within the course during an active semester, the report can be sent to utkukose@sdu.edu.tr or utkukose@gmail.com for evaluation. Unless the assignment states otherwise, a report has 1500 to 2500 words, follows the structure of an academic paper, cites at least six scholarly or official sources in square brackets and ends with a reference list.
+**What to do.** Examine how a sample of clinical AI studies reports calibration and uncertainty. Based on the methods of this week, propose a short reporting checklist [1, 3].
+
+**Where to start.** Lecture sections "Why confidence matters for safety" and "Distribution-free guarantees: conformal prediction". Sections 2 and 4 of the Colab notebook show the measures that a checklist could require.
+
+**Example focus.** A checklist item could ask whether a study reports the expected calibration error on an external test set.
+
+This research assignment is optional and supports self-learning. In an active semester, students who follow these weeks with the instructor can send the report for evaluation to utkukose@sdu.edu.tr or utkukose@gmail.com. The report has 1500 to 2500 words and follows the structure of an academic paper. It cites at least six scholarly or official sources in square brackets and ends with a reference list. The [report template](https://github.com/utkukose/machine-ethics-ai-safety-NB-lecture/blob/main/exams/REPORT_TEMPLATE.md) shows a suitable structure.
 
 ## References
 
@@ -182,4 +194,4 @@ This research assignment is optional and supports self-learning. When the relate
 
 ---
 
-<sub>Machine Ethics and Artificial Intelligence Safety. Prof. Dr. Utku Kose, Süleyman Demirel University. ORCID [0000-0002-9652-6415](https://orcid.org/0000-0002-9652-6415). Content licensed under CC BY 4.0. This course is updated in line with current developments in the field. Last update: September 2026.</sub>
+<sub>Machine Ethics and Artificial Intelligence Safety. Prof. Dr. Utku Kose, Süleyman Demirel University. ORCID [0000-0002-9652-6415](https://orcid.org/0000-0002-9652-6415). Content licensed under CC BY 4.0. This course is updated in line with current developments in the field. First version: September 2026. Last update: October 2026.</sub>

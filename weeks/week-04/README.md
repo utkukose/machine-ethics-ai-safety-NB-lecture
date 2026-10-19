@@ -17,7 +17,7 @@ If machines should reflect human values, whose values count and how are they com
 
 ## Learning outcomes
 
-By the end of the week, students are expected to interpret the findings and limitations of large dilemma studies, to compute plurality, Borda and Condorcet outcomes for a preference profile, to explain Arrow's impossibility theorem and majority cycles, and to argue when aggregation of preferences is an appropriate basis for machine behaviour.
+By the end of the week, students are expected to interpret the findings and limitations of large dilemma studies. They should be able to compute plurality, Borda and Condorcet outcomes for a preference profile and to explain Arrow's impossibility theorem and majority cycles. Finally, they should be able to argue when the aggregation of preferences is an appropriate basis for machine behaviour.
 
 ## Study path
 
@@ -26,8 +26,8 @@ By the end of the week, students are expected to interpret the findings and limi
 | 1 | Read the lecture below or the [PDF version](Week04_Lecture_Notes.pdf) | 90 minutes |
 | 2 | Explore the [interactive lab](https://utkukose.github.io/machine-ethics-ai-safety-NB-lecture/weeks/week-04/lab.html) | 45 minutes |
 | 3 | Work through the [Colab notebook](https://colab.research.google.com/github/utkukose/machine-ethics-ai-safety-NB-lecture/blob/main/weeks/week-04/NB04_dilemmas_social_choice.ipynb) and its exercises | 2 to 3 hours |
-| 4 | Take the self-assessment in the lab (tab: Check yourself) | 20 minutes |
-| 5 | Write the reflection, export the learning log and complete the weekly task | 60 minutes |
+| 4 | Take the self-assessment in the interactive lab (tab: Check yourself) | 20 minutes |
+| 5 | Answer the reflection prompts in the interactive lab, export the learning log and complete the weekly task | 60 minutes |
 
 ## Week at a glance
 
@@ -48,7 +48,7 @@ flowchart LR
 
 ### Dilemmas as research instruments
 
-Moral dilemmas are simplified scenarios in which every option has a moral cost. The trolley cases of Foot and Thomson became the template [3, 4]. Vasant and Kose used dilemma scenarios to compare the possible actions of humans and AI-based systems, showing how the same scenario raises different questions when the agent is a machine [5]. Bonnefon, Shariff and Rahwan found a social dilemma in attitudes towards autonomous vehicles: Respondents approved of vehicles that would sacrifice their passengers to save more pedestrians, yet preferred to ride in vehicles that would protect their passengers [6].
+Moral dilemmas are simplified scenarios in which every option has a moral cost. The trolley cases of Foot and Thomson became the template [3, 4]. Vasant and Kose used dilemma scenarios to compare the possible actions of humans and AI-based systems, showing how the same scenario raises different questions when the agent is a machine [5]. Bonnefon, Shariff and Rahwan found a social dilemma in attitudes towards autonomous vehicles [6]. Respondents approved of vehicles that would sacrifice their passengers to save more pedestrians. Yet they preferred to ride in vehicles that would protect their passengers.
 
 Dilemmas are useful because they isolate one variable at a time. They are also artificial. Real systems rarely face a clean choice between two certain outcomes, and a system designed around dramatic dilemmas may neglect the many small trade-offs that matter more in daily operation.
 
@@ -84,11 +84,11 @@ D. Millions of choices on autonomous vehicle dilemmas from people in many countr
 
 ### Aggregating preferences
 
-Noothigattu and colleagues proposed a voting-based system that learns a model of each participant's preferences from dilemma responses and aggregates the models with a voting rule when a new decision arises [7]. The approach inherits the properties of social choice theory, which studies how individual rankings can be combined.
+Noothigattu and colleagues proposed a voting-based system that learns a model of each participant's preferences from dilemma responses. When a new decision arises, the system aggregates these models with a voting rule [7]. The approach inherits the properties of social choice theory, which studies how individual rankings can be combined.
 
-Social choice theory contains sobering results. Condorcet observed that majority preferences can be cyclic: A majority may prefer option A to B, another majority B to C and a third C to A [8]. Arrow proved that no rule for aggregating rankings of three or more options satisfies a small set of reasonable conditions at once, namely unrestricted domain, the Pareto principle, independence of irrelevant alternatives and non-dictatorship [2]. Different rules therefore produce different winners from the same preferences. Plurality counts only first choices, the Borda count rewards broad acceptability and a Condorcet winner, when one exists, beats every rival in pairwise majority votes. Figure 4.1 shows how often no Condorcet winner exists when rankings are diverse.
+Social choice theory contains sobering results. Condorcet observed that majority preferences can be cyclic: A majority may prefer option A to B, another majority B to C and a third C to A [8]. Arrow proved that no rule for aggregating rankings of three or more options satisfies a small set of reasonable conditions at once [2]. The conditions are unrestricted domain, the Pareto principle, independence of irrelevant alternatives and non-dictatorship. Different rules therefore produce different winners from the same preferences. Plurality counts only first choices, the Borda count rewards broad acceptability and a Condorcet winner, when one exists, beats every rival in pairwise majority votes. Figure 4.1 shows how often no Condorcet winner exists when rankings are diverse.
 
-![Simulated share of preference profiles without a Condorcet winner when every voter ranks the alternatives independently at random. The chance of a majority cycle grows with the number of alternatives {cite:condorcet1785,arrow1951}.](figures/w04_fig1.png)
+![Simulated share of preference profiles without a Condorcet winner when every voter ranks the alternatives independently at random. The chance of a majority cycle grows with the number of alternatives.](figures/w04_fig1.png)
 
 *Figure 4.1. Simulated share of preference profiles without a Condorcet winner when every voter ranks the alternatives independently at random. The chance of a majority cycle grows with the number of alternatives [2, 8].*
 
@@ -132,17 +132,17 @@ Part A records choices in six accident dilemmas and summarises them as a prefere
 
 ## Colab notebook
 
-The notebook implements plurality, Borda and Condorcet rules, estimates how often majority cycles occur, and aggregates synthetic dilemma preferences in the spirit of the voting-based approach of Noothigattu and colleagues [7].
+The Colab notebook implements plurality, Borda and Condorcet rules and estimates how often majority cycles occur. It then aggregates synthetic dilemma preferences in the spirit of the voting-based approach of Noothigattu and colleagues [7].
 
 [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/utkukose/machine-ethics-ai-safety-NB-lecture/blob/main/weeks/week-04/NB04_dilemmas_social_choice.ipynb)
 
-Screenshots of the executed notebook:
+Screenshots of the executed Colab notebook:
 
-![Output 1 of the Week 4 notebook](screenshots/nb_1.png)
+![Output 1 of the Week 4 Colab notebook](screenshots/nb_1.png)
 
 ## Self-assessment and reflection
 
-The lab contains a 6-question self-assessment with instant feedback and a confidence rating for each answer. A confident but wrong answer marks the first topic to revisit. The reflection prompts below are also available in the lab, where answers are saved in the browser and can be exported as a learning log.
+The interactive lab contains a self-assessment of six questions (tab: Check yourself). Students answer each question, state how sure they are and receive instant feedback. A confident but wrong answer marks the first topic to revisit. The reflection prompts below also appear in the interactive lab (tab: Reflect and submit). Answers written there are saved in the browser and can be exported as a learning log.
 
 1. Did your ranking in Part B match the class winner under any rule? What does that suggest about building a system from aggregated preferences?
 2. Name one preference revealed in dilemma studies that should not be implemented even if a majority holds it, and explain why.
@@ -150,15 +150,27 @@ The lab contains a 6-question self-assessment with instant feedback and a confid
 
 ## Weekly task and submission
 
-Design a small preference study for a decision made by an AI system in your field. Write four dilemma items, specify the target population and the sampling procedure, name the aggregation rule you would use and the constraints that no aggregation may override. Keep the design to about one page and attach the completed notebook.
+**What to do.** Design a small study that would ask people how an AI system in your field should decide. First, write four dilemma items, each with two options. Second, define who would answer and how they would be sampled. Third, name the rule that would aggregate the answers, such as simple majority or a supermajority, and explain the choice. For items with more than two options, the Borda count is a further choice. Fourth, list the constraints that no result of the vote may override.
 
-The weekly task supports self-learning and builds a personal portfolio. When the course is followed with the instructor during an active semester, the task can be sent together with the exported learning log to utkukose@sdu.edu.tr or utkukose@gmail.com for evaluation.
+**Where to look.** Lecture: sections "The Moral Machine experiment", "Aggregating preferences" and "Pluralism beyond aggregation". Interactive lab: Part A for answering dilemmas and Part B for comparing voting rules. Colab notebook: Section 1 for the voting rules and Section 3 for aggregating synthetic dilemma preferences.
+
+**Example.** For a tool that allocates hospital beds, one item could compare two patients. Should a younger patient with a lower chance of survival be preferred to an older patient with a higher chance? One constraint could state that no aggregation may rank patients by ethnicity or income.
+
+**What to submit.** A study design of about one page, and the Colab notebook with Exercises 1 and 2 completed.
+
+The weekly task supports self-learning and builds a personal portfolio. In an active semester, students who follow the course with the instructor can send their work for evaluation to utkukose@sdu.edu.tr or utkukose@gmail.com. The e-mail contains the items that the task lists under What to submit. It also includes the learning log exported from the interactive lab (tab: Reflect and submit).
 
 ## Research and report assignment (optional)
 
-**Aggregating moral preferences.** Analyse the Moral Machine experiment and the criticism it received [1]. Discuss whether aggregating the preferences of many people is a sound basis for machine decisions, with reference to the results of social choice theory [2].
+**Aggregating moral preferences.** Can the aggregated preferences of many people guide machine decisions?
 
-This research assignment is optional and supports self-learning. When the related weeks are followed within the course during an active semester, the report can be sent to utkukose@sdu.edu.tr or utkukose@gmail.com for evaluation. Unless the assignment states otherwise, a report has 1500 to 2500 words, follows the structure of an academic paper, cites at least six scholarly or official sources in square brackets and ends with a reference list.
+**What to do.** Analyse the Moral Machine experiment and the criticism it received [1]. Then discuss whether aggregating the preferences of many people is a sound basis for machine decisions, with reference to the results of social choice theory [2].
+
+**Where to start.** Lecture sections "The Moral Machine experiment" and "Aggregating preferences". Part B of the interactive lab and Section 2 of the Colab notebook show how majority cycles arise.
+
+**Example focus.** The report could examine whether the cultural differences found in the experiment argue for national settings or for shared constraints.
+
+This research assignment is optional and supports self-learning. In an active semester, students who follow these weeks with the instructor can send the report for evaluation to utkukose@sdu.edu.tr or utkukose@gmail.com. The report has 1500 to 2500 words and follows the structure of an academic paper. It cites at least six scholarly or official sources in square brackets and ends with a reference list. The [report template](https://github.com/utkukose/machine-ethics-ai-safety-NB-lecture/blob/main/exams/REPORT_TEMPLATE.md) shows a suitable structure.
 
 ## References
 
@@ -184,4 +196,4 @@ This research assignment is optional and supports self-learning. When the relate
 
 ---
 
-<sub>Machine Ethics and Artificial Intelligence Safety. Prof. Dr. Utku Kose, Süleyman Demirel University. ORCID [0000-0002-9652-6415](https://orcid.org/0000-0002-9652-6415). Content licensed under CC BY 4.0. This course is updated in line with current developments in the field. Last update: September 2026.</sub>
+<sub>Machine Ethics and Artificial Intelligence Safety. Prof. Dr. Utku Kose, Süleyman Demirel University. ORCID [0000-0002-9652-6415](https://orcid.org/0000-0002-9652-6415). Content licensed under CC BY 4.0. This course is updated in line with current developments in the field. First version: September 2026. Last update: October 2026.</sub>

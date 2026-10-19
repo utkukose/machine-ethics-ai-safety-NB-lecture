@@ -125,7 +125,7 @@ body.study .wrap{margin-right:50vw;max-width:none}
 <p>An optimiser does what its objective says, not what its designers meant. This week studies the gap between specified and intended objectives, from Goodhart's law and reward hacking to negative side effects, with gridworld experiments that make the failures visible [1, 2, 3].</p>
 <p><strong>Estimated study time:</strong> 6 to 8 hours.</p>
 <h2>Learning outcomes</h2>
-<p>By the end of the week, students are expected to distinguish the four variants of Goodhart's law, to define reward hacking and explain why it is hard to rule out, to describe empirical evidence that capable agents exploit misspecified rewards more, and to implement and evaluate a side-effect penalty in a gridworld.</p>
+<p>By the end of the week, students are expected to distinguish the four variants of Goodhart's law and to define reward hacking. They should be able to explain why reward hacking is hard to rule out. They should also describe the evidence that more capable agents exploit misspecified rewards more. Finally, they should be able to implement and evaluate a side-effect penalty in a gridworld.</p>
 <h2>Study path</h2>
 <table>
 <thead>
@@ -153,12 +153,12 @@ body.study .wrap{margin-right:50vw;max-width:none}
 </tr>
 <tr>
 <td>4</td>
-<td>Take the self-assessment in the lab (tab: Check yourself)</td>
+<td>Take the self-assessment in the interactive lab (tab: Check yourself)</td>
 <td>20 minutes</td>
 </tr>
 <tr>
 <td>5</td>
-<td>Write the reflection, export the learning log and complete the weekly task</td>
+<td>Answer the reflection prompts in the interactive lab, export the learning log and complete the weekly task</td>
 <td>60 minutes</td>
 </tr>
 </tbody>
@@ -180,11 +180,11 @@ body.study .wrap{margin-right:50vw;max-width:none}
 <h3>The specification gap</h3>
 <p>Designers rarely write down exactly what they want. They write a proxy: a reward function, a loss or a metric that is easier to measure. Amodei and colleagues illustrated two resulting problems with a cleaning robot [1]. A robot rewarded for not seeing messes may learn to cover them instead of cleaning them, which is reward hacking. A robot rewarded only for speed may knock over a vase on the shortest route, which is a negative side effect of an objective that says nothing about vases.</p>
 <p>Goodhart's law states that a measure used as a target tends to lose its value as a measure. Manheim and Garrabrant distinguished four mechanisms [2]. Regressional Goodhart arises because selecting on a noisy proxy also selects for noise. Extremal Goodhart arises because the relation between proxy and goal can break down in extreme regions never seen before. Causal Goodhart arises when intervening on the proxy does not change the goal. Adversarial Goodhart arises when other agents exploit the proxy. Figure 7.1 simulates the regressional and extremal variants: As selection on a heavy-tailed proxy grows stronger, the true value of the selected items first rises and then falls back.</p>
-<p><img alt="Simulated selection on a proxy equal to the true value plus heavy-tailed noise. Moderate selection raises the true value of the chosen items; extreme selection mainly selects noise {cite:manheim2018}." src="figures/w07_fig1.png" /></p>
+<p><img alt="Simulated selection on a proxy equal to the true value plus heavy-tailed noise. Moderate selection raises the true value of the chosen items; extreme selection mainly selects noise." src="figures/w07_fig1.png" /></p>
 <p><em>Figure 7.1. Simulated selection on a proxy equal to the true value plus heavy-tailed noise. Moderate selection raises the true value of the chosen items; extreme selection mainly selects noise [2].</em></p>
 <div class="kc" data-answer="1" data-id="s1"><p class="kc-q"><span class="kc-tag">Check your understanding</span>What is the specification gap?</p><div class="kc-opts"><button type="button" class="kc-opt" data-i="0">The time between training and deployment</button><button type="button" class="kc-opt" data-i="1">The difference between what designers intend and what the objective actually rewards</button><button type="button" class="kc-opt" data-i="2">The gap between two benchmark scores</button><button type="button" class="kc-opt" data-i="3">The memory a model needs</button></div><p class="kc-fb" hidden></p><p class="kc-why" hidden>Optimisers pursue the stated objective, including its unintended loopholes.</p></div>
 
-<div class="explore"><p><strong>Explore while reading.</strong> The interactive lab of this week can be opened inside this page or next to the text, so that ideas can be tried out as they are introduced.</p><p><button type="button" class="btn" data-act="inline-lab">Open the lab here</button> <button type="button" class="btn ghost wide-only" data-act="study">Study side by side</button></p><div class="inline-lab"></div></div>
+<div class="explore"><p><strong>Explore while reading.</strong> The interactive lab of this week can be opened inside this page or next to the text, so that ideas can be tried out as they are introduced.</p><p><button type="button" class="btn" data-act="inline-lab">Open the interactive lab here</button> <button type="button" class="btn ghost wide-only" data-act="study">Study side by side</button></p><div class="inline-lab"></div></div>
 
 <h3>Reward hacking in theory and practice</h3>
 <p>Skalse and colleagues gave reward hacking a formal definition [4]. A proxy reward is unhackable with respect to a set of policies if increasing the proxy return never decreases the true return. They showed that for the set of all stochastic policies, two reward functions can be unhackable only in trivial cases, for example when one of them is constant. Simplified rewards therefore almost always leave room for hacking, and safety must come from how optimisation is constrained and monitored.</p>
@@ -193,11 +193,11 @@ body.study .wrap{margin-right:50vw;max-width:none}
 
 <h3>Side effects and impact regularisation</h3>
 <p>Leike and colleagues released AI safety gridworlds, small environments that isolate safety problems such as avoiding side effects, safe interruptibility, an absent supervisor and reward gaming [3]. Each environment has a visible reward and a hidden performance function that captures what designers actually want, so that an agent can score well while behaving badly.</p>
-<p>One response is to penalise impact. Turner, Hadfield-Menell and Tadepalli proposed attainable utility preservation: The agent is penalised for changing its ability to achieve a set of auxiliary goals, compared with doing nothing [6]. Breaking a vase reduces the attainable utility of goals that involve the vase, so a conservative agent avoids it without an explicit vase rule. The lab uses a simpler penalty that is attached directly to the vase and shows the trade-off between the penalty weight and the length of the detour.</p>
+<p>One response is to penalise impact. Turner, Hadfield-Menell and Tadepalli proposed attainable utility preservation: The agent is penalised for changing its ability to achieve a set of auxiliary goals, compared with doing nothing [6]. Breaking a vase reduces the attainable utility of goals that involve the vase, so a conservative agent avoids it without an explicit vase rule. The interactive lab uses a simpler penalty that is attached directly to the vase and shows the trade-off between the penalty weight and the length of the detour.</p>
 <div class="kc" data-answer="0" data-id="s3"><p class="kc-q"><span class="kc-tag">Check your understanding</span>What does an impact penalty aim to do?</p><div class="kc-opts"><button type="button" class="kc-opt" data-i="0">Discourage large or irreversible changes to the environment that the task does not require</button><button type="button" class="kc-opt" data-i="1">Speed up learning</button><button type="button" class="kc-opt" data-i="2">Increase exploration</button><button type="button" class="kc-opt" data-i="3">Maximise the task reward</button></div><p class="kc-fb" hidden></p><p class="kc-why" hidden>Impact measures try to make side effects costly without listing each one in advance.</p></div>
 
 <h3>Designing better objectives</h3>
-<p>Specification problems cannot be solved by better proxies alone. Practical defences combine several layers: learning objectives from human feedback, which Week 11 examines together with its own failure modes; limiting optimisation pressure; adding penalties for irreversible changes; monitoring for behaviour that scores well on the proxy but looks wrong to humans; and keeping humans able to interrupt. Kose and Vasant's fading intelligence theory adds a structural safeguard of a different kind, since it bounds the lifetime over which any single system can accumulate exploitative strategies [7].</p>
+<p>Specification problems cannot be solved by better proxies alone. Practical defences combine several layers. One layer learns objectives from human feedback, which Week 11 examines together with its own failure modes. Other layers limit optimisation pressure and add penalties for irreversible changes. Monitoring looks for behaviour that scores well on the proxy but looks wrong to humans, and humans keep the ability to interrupt. Kose and Vasant's fading intelligence theory adds a structural safeguard of a different kind, since it bounds the lifetime over which any single system can accumulate exploitative strategies [7].</p>
 <blockquote>
 <p><strong>Pause and reflect.</strong> Name a metric in academic life, such as citation counts or grade averages, that has become a target. Which variant of Goodhart's law best describes what happened?</p>
 </blockquote>
@@ -208,29 +208,35 @@ body.study .wrap{margin-right:50vw;max-width:none}
 <p><a href="lab.html">Open the interactive lab</a></p>
 <p><img alt="Screenshot of the Week 7 interactive lab" src="screenshots/lab.png" /></p>
 <h2>Colab notebook</h2>
-<p>The notebook trains a tabular Q-learning agent in the corridor gridworld of the lab, compares the learned behaviour under the misspecified and the penalised reward, and reproduces the Goodhart simulation [2, 3].</p>
+<p>The Colab notebook trains a tabular Q-learning agent in the corridor gridworld of the interactive lab. It compares the learned behaviour under the misspecified and the penalised reward, and reproduces the Goodhart simulation [2, 3].</p>
 <p><a href="https://colab.research.google.com/github/utkukose/machine-ethics-ai-safety-NB-lecture/blob/main/weeks/week-07/NB07_specification.ipynb"><img alt="Open in Colab" src="https://colab.research.google.com/assets/colab-badge.svg" /></a></p>
-<p>Screenshots of the executed notebook:</p>
-<p><img alt="Output 1 of the Week 7 notebook" src="screenshots/nb_1.png" />
-<img alt="Output 2 of the Week 7 notebook" src="screenshots/nb_2.png" /></p>
+<p>Screenshots of the executed Colab notebook:</p>
+<p><img alt="Output 1 of the Week 7 Colab notebook" src="screenshots/nb_1.png" />
+<img alt="Output 2 of the Week 7 Colab notebook" src="screenshots/nb_2.png" /></p>
 <h2>Self-assessment and reflection</h2>
-<p>The lab contains a 6-question self-assessment with instant feedback and a confidence rating for each answer. A confident but wrong answer marks the first topic to revisit. The reflection prompts below are also available in the lab, where answers are saved in the browser and can be exported as a learning log.</p>
+<p>The interactive lab contains a self-assessment of six questions (tab: Check yourself). Students answer each question, state how sure they are and receive instant feedback. A confident but wrong answer marks the first topic to revisit. The reflection prompts below also appear in the interactive lab (tab: Reflect and submit). Answers written there are saved in the browser and can be exported as a learning log.</p>
 <ol>
 <li>Describe a reward or metric in a system you have built or used that could be hacked. What would the hack look like?</li>
-<li>In the lab, the true return improved only in some settings when the penalty was added. What does that teach about tuning penalties?</li>
+<li>In the interactive lab, the true return improved only in some settings when the penalty was added. What does that teach about tuning penalties?</li>
 <li>Which layer of defence from the last section would you prioritise for a recommender system, and why?</li>
 </ol>
 <div class="cards"></div>
 
 <h2>Weekly task and submission</h2>
-<p>Take an optimisation objective from your research or from a familiar system and write a specification risk analysis of about 400 words: the intended goal, the proxy, one plausible hack, one plausible side effect, the Goodhart variant involved and a mitigation. Attach the notebook with both exercises completed.</p>
-<p>The weekly task supports self-learning and builds a personal portfolio. When the course is followed with the instructor during an active semester, the task can be sent together with the exported learning log to utkukose@sdu.edu.tr or utkukose@gmail.com for evaluation.</p>
+<p><strong>What to do.</strong> Analyse the specification risks of one optimisation objective from your research or from a familiar system. Describe six points in this order. Start with the intended goal and the proxy that is actually optimised. Then give one plausible way to hack the proxy and one plausible side effect. End with the variant of Goodhart's law involved and one mitigation.</p>
+<p><strong>Where to look.</strong> Lecture: sections "The specification gap", "Reward hacking in theory and practice" and "Side effects and impact regularisation". Interactive lab: the corridor gridworld with the vase and the Goodhart panel (tab: Explore). Colab notebook: Section 2 for the side-effect penalty and Section 3 for the Goodhart simulation.</p>
+<p><strong>Example.</strong> A video platform wants satisfied viewers but optimises watch time. The system can hack this proxy with sensational recommendations, and less sleep for viewers is a side effect. This is extremal Goodhart: Under strong optimisation, the link between watch time and satisfaction breaks down. One mitigation is to add survey-based satisfaction to the objective.</p>
+<p><strong>What to submit.</strong> About 400 words, and the Colab notebook with Exercises 1 and 2 completed. The midterm capstone, which also ends this week, is a separate piece of work.</p>
+<p>The weekly task supports self-learning and builds a personal portfolio. In an active semester, students who follow the course with the instructor can send their work for evaluation to utkukose@sdu.edu.tr or utkukose@gmail.com. The e-mail contains the items that the task lists under What to submit. It also includes the learning log exported from the interactive lab (tab: Reflect and submit).</p>
 <h2>Research and report assignment (optional)</h2>
-<p><strong>A catalogue of specification gaming.</strong> Collect at least ten documented cases of specification gaming or reward hacking from the literature, classify them by the variants of Goodhart's law and identify what a better specification would have required [2, 4].</p>
-<p>This research assignment is optional and supports self-learning. When the related weeks are followed within the course during an active semester, the report can be sent to utkukose@sdu.edu.tr or utkukose@gmail.com for evaluation. Unless the assignment states otherwise, a report has 1500 to 2500 words, follows the structure of an academic paper, cites at least six scholarly or official sources in square brackets and ends with a reference list.</p>
+<p><strong>A catalogue of specification gaming.</strong> What do documented cases of reward hacking have in common?</p>
+<p><strong>What to do.</strong> Collect at least ten documented cases of specification gaming or reward hacking from the literature. Classify them by the variants of Goodhart's law [2, 4]. For each case, identify what a better specification would have required.</p>
+<p><strong>Where to start.</strong> Lecture sections "The specification gap" and "Reward hacking in theory and practice", and the papers they cite.</p>
+<p><strong>Example focus.</strong> A boat-racing agent that circles to collect points instead of finishing the race is a case of adversarial or extremal Goodhart, depending on the reading.</p>
+<p>This research assignment is optional and supports self-learning. In an active semester, students who follow these weeks with the instructor can send the report for evaluation to utkukose@sdu.edu.tr or utkukose@gmail.com. The report has 1500 to 2500 words and follows the structure of an academic paper. It cites at least six scholarly or official sources in square brackets and ends with a reference list. The <a href="https://github.com/utkukose/machine-ethics-ai-safety-NB-lecture/blob/main/exams/REPORT_TEMPLATE.md">report template</a> shows a suitable structure.</p>
 <h2>Midterm capstone</h2>
 <p>This week closes the first half of the course with the <a href="../../exams/midterm/index.html">Midterm Capstone: Ethics, Fairness and Specification in Practice</a>.</p>
-<p>This capstone also supports self-learning and can be completed at any pace. When the course is taught actively in a semester, the midterm capstone is sent by e-mail to utkukose@sdu.edu.tr or utkukose@gmail.com no later than 23:53 (Türkiye time) on the last Sunday of Week 7, with the report and all code files attached or linked.</p>
+<p>This capstone also supports self-learning and can be completed at any pace. In an active semester, the midterm capstone is sent by e-mail to utkukose@sdu.edu.tr or utkukose@gmail.com. The deadline is 23:53 (Türkiye time) on the Sunday that ends Week 7. The e-mail contains the report as a PDF file and a link to the Colab notebook.</p>
 <h2>References</h2>
 <p>[1] Amodei, D., Olah, C., Steinhardt, J., Christiano, P., Schulman, J., &amp; Mané, D. (2016). Concrete problems in AI safety. arXiv preprint arXiv:1606.06565. <a href="https://arxiv.org/abs/1606.06565">https://arxiv.org/abs/1606.06565</a></p>
 <p>[2] Manheim, D., &amp; Garrabrant, S. (2018). Categorizing variants of Goodhart's law. arXiv preprint arXiv:1803.04585. <a href="https://arxiv.org/abs/1803.04585">https://arxiv.org/abs/1803.04585</a></p>
@@ -238,7 +244,7 @@ body.study .wrap{margin-right:50vw;max-width:none}
 <p>[4] Skalse, J., Howe, N. H. R., Krasheninnikov, D., &amp; Krueger, D. (2022). Defining and characterizing reward hacking. In <em>Advances in Neural Information Processing Systems 35</em>.</p>
 <p>[5] Pan, A., Bhatia, K., &amp; Steinhardt, J. (2022). The effects of reward misspecification: Mapping and mitigating misaligned models. In <em>International Conference on Learning Representations (ICLR)</em>.</p>
 <p>[6] Turner, A. M., Hadfield-Menell, D., &amp; Tadepalli, P. (2020). Conservative agency via attainable utility preservation. In <em>Proceedings of the AAAI/ACM Conference on AI, Ethics, and Society (AIES '20)</em> (pp. 385-391). ACM.</p>
-<p>[7] Kose, U., &amp; Vasant, P. (2017). Fading intelligence theory: A theory on keeping artificial intelligence safety for the future. In <em>2017 International Artificial Intelligence and Data Processing Symposium (IDAP)</em>. IEEE. <a href="https://doi.org/10.1109/IDAP.2017.8090235">https://doi.org/10.1109/IDAP.2017.8090235</a></p></article><footer class="sig"><p><strong>Prof. Dr. Utku Kose</strong><br>Full Professor, Department of Computer Engineering, Süleyman Demirel University, Isparta, Türkiye<br>Founding Director, AI Application and Research Center (YAZEM), Süleyman Demirel University<br>Head of the Computer Science Division, Department of Computer Engineering, Süleyman Demirel University<br>Additional affiliations: University of North Dakota (USA), Universidad Panamericana (Mexico City, Mexico), Vel Tech University (Chennai, India)<br><a href="https://orcid.org/0000-0002-9652-6415">ORCID 0000-0002-9652-6415</a>, <a href="https://www.utkukose.com">utkukose.com</a>, <a href="https://github.com/utkukose">github.com/utkukose</a><br><a href="mailto:utkukose@sdu.edu.tr">utkukose@sdu.edu.tr</a>, <a href="mailto:utku.kose@und.edu">utku.kose@und.edu</a>, <a href="mailto:ukose@up.edu.mx">ukose@up.edu.mx</a>, <a href="mailto:utkukose@gmail.com">utkukose@gmail.com</a></p><p>This course is updated in line with current developments in the field. Last update: September 2026. Course materials licensed under CC BY 4.0. Code licensed under MIT.</p></footer></div><script type="module">import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";window.mermaid=mermaid;mermaid.initialize({startOnLoad:true,theme:matchMedia("(prefers-color-scheme: dark)").matches?"dark":"neutral"});</script><script>window.LEC={key:"MEAIS:lec:w7"};</script><script>(function () {
+<p>[7] Kose, U., &amp; Vasant, P. (2017). Fading intelligence theory: A theory on keeping artificial intelligence safety for the future. In <em>2017 International Artificial Intelligence and Data Processing Symposium (IDAP)</em>. IEEE. <a href="https://doi.org/10.1109/IDAP.2017.8090235">https://doi.org/10.1109/IDAP.2017.8090235</a></p></article><footer class="sig"><p><strong>Prof. Dr. Utku Kose</strong><br>Full Professor, Department of Computer Engineering, Süleyman Demirel University, Isparta, Türkiye<br>Founding Director, AI Application and Research Center (YAZEM), Süleyman Demirel University<br>Head of the Computer Science Division, Department of Computer Engineering, Süleyman Demirel University<br>Additional affiliations: University of North Dakota (USA), Universidad Panamericana (Mexico City, Mexico), Vel Tech University (Chennai, India)<br><a href="https://orcid.org/0000-0002-9652-6415">ORCID 0000-0002-9652-6415</a>, <a href="https://www.utkukose.com">utkukose.com</a>, <a href="https://github.com/utkukose">github.com/utkukose</a><br><a href="mailto:utkukose@sdu.edu.tr">utkukose@sdu.edu.tr</a>, <a href="mailto:utku.kose@und.edu">utku.kose@und.edu</a>, <a href="mailto:ukose@up.edu.mx">ukose@up.edu.mx</a>, <a href="mailto:utkukose@gmail.com">utkukose@gmail.com</a></p><p>This course is updated in line with current developments in the field. First version: September 2026. Last update: October 2026. Course materials licensed under CC BY 4.0. Code licensed under MIT.</p></footer></div><script type="module">import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";window.mermaid=mermaid;mermaid.initialize({startOnLoad:true,theme:matchMedia("(prefers-color-scheme: dark)").matches?"dark":"neutral"});</script><script>window.LEC={key:"MEAIS:lec:w7"};</script><script>(function () {
   "use strict";
   var KEY = (window.LEC && window.LEC.key) || "lecture";
   var state = {};
@@ -297,7 +303,7 @@ body.study .wrap{margin-right:50vw;max-width:none}
     var act = t.dataset.act;
     if (act === "inline-lab") {
       var holder = t.closest(".explore").querySelector(".inline-lab");
-      if (holder.firstChild) { holder.innerHTML = ""; t.textContent = "Open the lab here"; }
+      if (holder.firstChild) { holder.innerHTML = ""; t.textContent = "Open the interactive lab here"; }
       else { holder.innerHTML = '<iframe src="lab.html" title="Interactive lab" loading="lazy"></iframe>'; t.textContent = "Close the embedded lab"; }
     } else if (act === "study") { toggleStudy(); }
     else if (act.indexOf("mstep") === 0) { mstep(act); }

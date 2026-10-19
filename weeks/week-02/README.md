@@ -11,13 +11,13 @@ Prof. Dr. Utku Kose, Süleyman Demirel University
 
 ## Overview
 
-Every automated decision encodes a trade-off between values. This week introduces the four families of normative theory that dominate machine ethics, namely consequentialism, deontology, virtue ethics and contractualism, and treats each as a decision procedure that can be implemented, tested and criticised [1, 2].
+Every automated decision encodes a trade-off between values. This week introduces the four families of normative theory that dominate machine ethics: consequentialism, deontology, virtue ethics and contractualism. Each family is treated as a decision procedure that can be implemented, tested and criticised [1, 2].
 
 **Estimated study time:** 6 to 8 hours.
 
 ## Learning outcomes
 
-By the end of the week, students are expected to state the core claim of each theory, to write each theory as an explicit decision procedure, to explain why the procedures disagree on classic cases such as the trolley problem, and to describe methods for acting under moral uncertainty.
+By the end of the week, students are expected to state the core claim of each theory and to write each theory as an explicit decision procedure. They should also explain why the procedures disagree on classic cases such as the trolley problem. Finally, they should be able to describe methods for acting under moral uncertainty.
 
 ## Study path
 
@@ -26,8 +26,8 @@ By the end of the week, students are expected to state the core claim of each th
 | 1 | Read the lecture below or the [PDF version](Week02_Lecture_Notes.pdf) | 90 minutes |
 | 2 | Explore the [interactive lab](https://utkukose.github.io/machine-ethics-ai-safety-NB-lecture/weeks/week-02/lab.html) | 45 minutes |
 | 3 | Work through the [Colab notebook](https://colab.research.google.com/github/utkukose/machine-ethics-ai-safety-NB-lecture/blob/main/weeks/week-02/NB02_normative_theories.ipynb) and its exercises | 2 to 3 hours |
-| 4 | Take the self-assessment in the lab (tab: Check yourself) | 20 minutes |
-| 5 | Write the reflection, export the learning log and complete the weekly task | 60 minutes |
+| 4 | Take the self-assessment in the interactive lab (tab: Check yourself) | 20 minutes |
+| 5 | Answer the reflection prompts in the interactive lab, export the learning log and complete the weekly task | 60 minutes |
 
 ## Week at a glance
 
@@ -88,11 +88,11 @@ D. Kantian deontology
 
 Virtue ethics shifts attention from single acts to character. An action is right if a virtuous agent would characteristically perform it in the circumstances [9]. Vallor argued that technology calls for technomoral virtues such as honesty, humility, justice and practical wisdom [10]. For machines, virtue ethics suggests learning stable dispositions from exemplary behaviour, which connects it with bottom-up learning.
 
-Contractualism grounds morality in principles that no one could reasonably reject [11]. Rawls's thought experiment of choosing principles behind a veil of ignorance leads to special concern for the worst-off, often written as a maximin rule [12]. Gabriel argued that the alignment of AI systems should seek principles that people with different moral views could endorse through a fair process, rather than the values of a single designer [13]. A maximin rule is only a crude stand-in for these ideas, and the notebook shows a case in which it diverges from what contractualists would conclude.
+Contractualism grounds morality in principles that no one could reasonably reject [11]. Rawls's thought experiment of choosing principles behind a veil of ignorance leads to special concern for the worst-off, often written as a maximin rule [12]. Gabriel argued that AI alignment should not follow the values of a single designer. It should instead seek principles that people with different moral views could endorse through a fair process [13]. A maximin rule is only a crude stand-in for these ideas, and the Colab notebook shows a case in which it diverges from what contractualists would conclude.
 
-![Verdicts of four simplified decision procedures on six cases used in the lab and notebook. The procedures agree on the trolley switch case and split on the others.](figures/w02_fig1.png)
+![Verdicts of four simplified decision procedures on six cases used in the interactive lab and Colab notebook. The procedures agree on the trolley switch case and split on the others.](figures/w02_fig1.png)
 
-*Figure 2.1. Verdicts of four simplified decision procedures on six cases used in the lab and notebook. The procedures agree on the trolley switch case and split on the others.*
+*Figure 2.1. Verdicts of four simplified decision procedures on six cases used in the interactive lab and Colab notebook. The procedures agree on the trolley switch case and split on the others.*
 
 <details>
 <summary><b>Check your understanding.</b> Rawls&#x27;s veil of ignorance asks people to choose principles</summary>
@@ -136,17 +136,17 @@ Choose a case and set how much weight the decision should give to consequences, 
 
 ## Colab notebook
 
-The notebook writes the four theories as Python functions, tabulates their verdicts on six cases, measures how often they agree and builds a moral parliament that weighs them by credence [14].
+The Colab notebook writes the four theories as Python functions and tabulates their verdicts on six cases. It measures how often they agree and builds a moral parliament that weighs them by credence [14].
 
 [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/utkukose/machine-ethics-ai-safety-NB-lecture/blob/main/weeks/week-02/NB02_normative_theories.ipynb)
 
-Screenshots of the executed notebook:
+Screenshots of the executed Colab notebook:
 
-![Output 1 of the Week 2 notebook](screenshots/nb_1.png)
+![Output 1 of the Week 2 Colab notebook](screenshots/nb_1.png)
 
 ## Self-assessment and reflection
 
-The lab contains a 6-question self-assessment with instant feedback and a confidence rating for each answer. A confident but wrong answer marks the first topic to revisit. The reflection prompts below are also available in the lab, where answers are saved in the browser and can be exported as a learning log.
+The interactive lab contains a self-assessment of six questions (tab: Check yourself). Students answer each question, state how sure they are and receive instant feedback. A confident but wrong answer marks the first topic to revisit. The reflection prompts below also appear in the interactive lab (tab: Reflect and submit). Answers written there are saved in the browser and can be exported as a learning log.
 
 1. Which of the four theories comes closest to how decisions are made in a system you know, and where does that system hide its value trade-offs?
 2. The maximin rule produced a verdict that contractualists would reject. Describe one way to improve the operationalisation.
@@ -154,15 +154,27 @@ The lab contains a 6-question self-assessment with instant feedback and a confid
 
 ## Weekly task and submission
 
-Take a decision system from your field, identify two options it must choose between, and assign the four attributes used this week (welfare, duty violation, character and worst-off outcome) with a short justification for each number. Report the verdict of each theory and of a moral parliament with credences that you defend in about 300 words.
+**What to do.** Turn one decision from your field into a case for the four decision procedures of this week. First, describe the decision and two options it must choose between. Second, give each option the four attributes used in the Colab notebook: welfare, duty violation (1 or 0), character score and the outcome for the worst-off party. Justify each number in one sentence. Third, add the two options as a new case in the Colab notebook and report the verdict of each theory and of a moral parliament. Choose the credences of the parliament and defend them.
 
-The weekly task supports self-learning and builds a personal portfolio. When the course is followed with the instructor during an active semester, the task can be sent together with the exported learning log to utkukose@sdu.edu.tr or utkukose@gmail.com for evaluation.
+**Where to look.** Lecture: sections "Consequences and duties", "Character and fair agreement" and "Acting under moral uncertainty". Interactive lab: the case selector and the weight sliders (tab: Explore). Colab notebook: Section 1 for the format of the attributes and Section 3 for the moral parliament.
+
+**Example.** A delivery robot can wait at a crowded crossing or take a shortcut through a pedestrian zone. The shortcut gives more welfare but breaks a traffic rule, so the deontological procedure rejects it while the utilitarian procedure chooses it.
+
+**What to submit.** About 300 words with a table of the two options and their attributes, and the Colab notebook with Exercises 1 and 2 completed and your own case added.
+
+The weekly task supports self-learning and builds a personal portfolio. In an active semester, students who follow the course with the instructor can send their work for evaluation to utkukose@sdu.edu.tr or utkukose@gmail.com. The e-mail contains the items that the task lists under What to submit. It also includes the learning log exported from the interactive lab (tab: Reflect and submit).
 
 ## Research and report assignment (optional)
 
-**Moral theories inside real decision rules.** Select one deployed or proposed automated decision rule, such as an organ allocation score or a triage protocol, and analyse which normative theory its rule embodies [4, 5, 12]. Discuss what a proponent of a rival theory would change.
+**Moral theories inside real decision rules.** Which normative theory does an automated decision rule embody?
 
-This research assignment is optional and supports self-learning. When the related weeks are followed within the course during an active semester, the report can be sent to utkukose@sdu.edu.tr or utkukose@gmail.com for evaluation. Unless the assignment states otherwise, a report has 1500 to 2500 words, follows the structure of an academic paper, cites at least six scholarly or official sources in square brackets and ends with a reference list.
+**What to do.** Select one deployed or proposed decision rule, such as an organ allocation score or a triage protocol. Analyse which normative theory its rule embodies [4, 5, 12]. Then discuss what a proponent of a rival theory would change, and why.
+
+**Where to start.** Lecture sections "Consequences and duties" and "Character and fair agreement". The decision procedures in Section 1 of the Colab notebook can be used to test the rule on a few cases.
+
+**Example focus.** A rule that allocates organs by expected life-years gained is consequentialist. A contractualist in the tradition of Rawls might add a priority for the worst-off.
+
+This research assignment is optional and supports self-learning. In an active semester, students who follow these weeks with the instructor can send the report for evaluation to utkukose@sdu.edu.tr or utkukose@gmail.com. The report has 1500 to 2500 words and follows the structure of an academic paper. It cites at least six scholarly or official sources in square brackets and ends with a reference list. The [report template](https://github.com/utkukose/machine-ethics-ai-safety-NB-lecture/blob/main/exams/REPORT_TEMPLATE.md) shows a suitable structure.
 
 ## References
 
@@ -198,4 +210,4 @@ This research assignment is optional and supports self-learning. When the relate
 
 ---
 
-<sub>Machine Ethics and Artificial Intelligence Safety. Prof. Dr. Utku Kose, Süleyman Demirel University. ORCID [0000-0002-9652-6415](https://orcid.org/0000-0002-9652-6415). Content licensed under CC BY 4.0. This course is updated in line with current developments in the field. Last update: September 2026.</sub>
+<sub>Machine Ethics and Artificial Intelligence Safety. Prof. Dr. Utku Kose, Süleyman Demirel University. ORCID [0000-0002-9652-6415](https://orcid.org/0000-0002-9652-6415). Content licensed under CC BY 4.0. This course is updated in line with current developments in the field. First version: September 2026. Last update: October 2026.</sub>

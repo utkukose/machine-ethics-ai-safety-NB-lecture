@@ -17,7 +17,7 @@ Small, deliberate changes to inputs or training data can make accurate models fa
 
 ## Learning outcomes
 
-By the end of the week, students are expected to derive and implement the fast gradient sign method and projected gradient descent, to explain adversarial training as robust optimisation, to describe poisoning and backdoor attacks, and to design an evaluation that states a threat model and uses adaptive attacks.
+By the end of the week, students are expected to derive and implement the fast gradient sign method and projected gradient descent. They should be able to explain adversarial training as robust optimisation and to describe poisoning and backdoor attacks. Finally, they should be able to design an evaluation that states a threat model and uses adaptive attacks.
 
 ## Study path
 
@@ -26,8 +26,8 @@ By the end of the week, students are expected to derive and implement the fast g
 | 1 | Read the lecture below or the [PDF version](Week08_Lecture_Notes.pdf) | 90 minutes |
 | 2 | Explore the [interactive lab](https://utkukose.github.io/machine-ethics-ai-safety-NB-lecture/weeks/week-08/lab.html) | 45 minutes |
 | 3 | Work through the [Colab notebook](https://colab.research.google.com/github/utkukose/machine-ethics-ai-safety-NB-lecture/blob/main/weeks/week-08/NB08_robustness.ipynb) and its exercises | 2 to 3 hours |
-| 4 | Take the self-assessment in the lab (tab: Check yourself) | 20 minutes |
-| 5 | Write the reflection, export the learning log and complete the weekly task | 60 minutes |
+| 4 | Take the self-assessment in the interactive lab (tab: Check yourself) | 20 minutes |
+| 5 | Answer the reflection prompts in the interactive lab, export the learning log and complete the weekly task | 60 minutes |
 
 ## Week at a glance
 
@@ -45,11 +45,11 @@ flowchart LR
 
 ### Adversarial examples
 
-Szegedy and colleagues found that imperceptible perturbations could change the predictions of deep networks, and that the same perturbations often transferred between models [1]. Goodfellow, Shlens and Szegedy explained the phenomenon by the approximately linear behaviour of networks in high dimensions: Many tiny changes aligned with the weights add up to a large change in the output [2]. Their fast gradient sign method (FGSM) perturbs an input x with label y as x' = x + eps sign(grad_x L(x, y)), where L is the training loss and eps bounds the change of each input component.
+Szegedy and colleagues found that imperceptible perturbations could change the predictions of deep networks, and that the same perturbations often transferred between models [1]. Goodfellow, Shlens and Szegedy explained the phenomenon by the approximately linear behaviour of networks in high dimensions [2]. Many tiny changes aligned with the weights add up to a large change in the output. Their fast gradient sign method (FGSM) perturbs an input x with label y as x' = x + eps sign(grad_x L(x, y)). Here L is the training loss, and eps bounds the change of each input component.
 
 Madry and colleagues framed robustness as a min-max problem: Train the parameters to minimise the loss under the worst perturbation within the allowed set [4]. The inner maximisation is approximated by projected gradient descent (PGD), which takes several small gradient steps and projects back into the allowed set after each one. Carlini and Wagner designed optimisation-based attacks that defeated defences previously thought robust, which made strong attacks the standard for evaluation [5]. Eykholt and colleagues showed that the threat reaches the physical world: Stickers on stop signs caused misclassification under varying viewing conditions [6].
 
-![Accuracy of a softmax classifier on the digits data set under FGSM attacks of growing budget, with standard and adversarial training {cite:goodfellow2015,madry2018}.](figures/w08_fig1.png)
+![Accuracy of a softmax classifier on the digits data set under FGSM attacks of growing budget, with standard and adversarial training.](figures/w08_fig1.png)
 
 *Figure 8.1. Accuracy of a softmax classifier on the digits data set under FGSM attacks of growing budget, with standard and adversarial training [2, 4].*
 
@@ -69,7 +69,7 @@ D. It retrains the model
 
 Kose reviewed techniques for generating adversarial examples and argued that they threaten the safety of AI-based systems in general, not only their security [3]. Kose and Deperlioglu examined adversarial examples as a threat in biomedical engineering problems, where a manipulated signal or image can alter a diagnostic decision without any visible sign [7]. Kose, Cankaya and Deperlioglu discussed a broader future in which AI is both a weapon and a target in cyber conflict [8].
 
-Biggio and Roli traced adversarial machine learning back to attacks on spam filters and described the field as an arms race between attacks and defences [9]. Their central methodological lesson is the threat model. An evaluation must state the attacker's goal, the attacker's knowledge of the system and the attacker's capability, such as the size of allowed perturbations or the fraction of training data that can be modified.
+Biggio and Roli traced adversarial machine learning back to attacks on spam filters and described the field as an arms race between attacks and defences [9]. Their central methodological lesson is the threat model. An evaluation must state the attacker's goal and the attacker's knowledge of the system. It must also state the attacker's capability, such as the size of allowed perturbations or the fraction of training data that can be modified.
 
 <details>
 <summary><b>Check your understanding.</b> What did physical-world attacks, such as stickers on road signs, demonstrate?</summary>
@@ -85,7 +85,7 @@ D. Cameras filter out perturbations
 
 ### Poisoning and backdoors
 
-Attacks at training time modify the data or the model before deployment. Poisoning attacks insert crafted examples to degrade accuracy or to cause targeted errors [9]. Backdoor attacks are more insidious. Gu and colleagues showed with BadNets that a network can be trained to behave normally on clean inputs while producing an attacker-chosen output whenever a small trigger pattern is present, such as a sticker on a traffic sign [10]. Because the model performs well on standard tests, the backdoor survives ordinary validation. Outsourced training, pretrained models and scraped data therefore form a supply chain whose integrity matters for safety.
+Attacks at training time modify the data or the model before deployment. Poisoning attacks insert crafted examples to degrade accuracy or to cause targeted errors [9]. Backdoor attacks are more insidious. Gu and colleagues showed with BadNets that a network can be trained to behave normally on clean inputs [10]. The same network produces an output chosen by the attacker whenever a small trigger pattern is present, such as a sticker on a traffic sign. Because the model performs well on standard tests, the backdoor survives ordinary validation. Outsourced training, pretrained models and scraped data therefore form a supply chain whose integrity matters for safety.
 
 <details>
 <summary><b>Check your understanding.</b> What is a backdoor attack?</summary>
@@ -101,7 +101,7 @@ D. Replacing the test set
 
 ### Defences and honest evaluation
 
-Adversarial training with PGD remains one of the most reliable empirical defences, at the cost of extra computation and often some clean accuracy [4]. Many other defences, such as input transformations that hide gradients, failed once attacks were adapted to them [5]. A credible robustness claim therefore reports accuracy as a function of the perturbation budget, uses strong iterative attacks with several restarts, tries attacks designed against the specific defence and states the threat model explicitly [9].
+Adversarial training with PGD remains one of the most reliable empirical defences, at the cost of extra computation and often some clean accuracy [4]. Many other defences, such as input transformations that hide gradients, failed once attacks were adapted to them [5]. A credible robustness claim therefore reports accuracy as a function of the perturbation budget and uses strong iterative attacks with several restarts. It tries attacks designed against the specific defence and states the threat model explicitly [9].
 
 Figure 8.1 shows the pattern on a simple digits classifier. Accuracy falls quickly as the budget grows, and adversarial training shifts the curve without removing the vulnerability.
 
@@ -129,18 +129,18 @@ Each point is a sample of one of two classes, and the line is the decision bound
 
 ## Colab notebook
 
-The notebook attacks a softmax classifier on the scikit-learn digits data set with FGSM and PGD, visualises adversarial digits, applies adversarial training and plants a small backdoor to measure its success rate [2, 4, 10].
+The Colab notebook attacks a softmax classifier on the scikit-learn digits data set with FGSM and PGD and visualises the adversarial digits. It then applies adversarial training and plants a small backdoor to measure its success rate [2, 4, 10].
 
 [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/utkukose/machine-ethics-ai-safety-NB-lecture/blob/main/weeks/week-08/NB08_robustness.ipynb)
 
-Screenshots of the executed notebook:
+Screenshots of the executed Colab notebook:
 
-![Output 1 of the Week 8 notebook](screenshots/nb_1.png)
-![Output 2 of the Week 8 notebook](screenshots/nb_2.png)
+![Output 1 of the Week 8 Colab notebook](screenshots/nb_1.png)
+![Output 2 of the Week 8 Colab notebook](screenshots/nb_2.png)
 
 ## Self-assessment and reflection
 
-The lab contains a 6-question self-assessment with instant feedback and a confidence rating for each answer. A confident but wrong answer marks the first topic to revisit. The reflection prompts below are also available in the lab, where answers are saved in the browser and can be exported as a learning log.
+The interactive lab contains a self-assessment of six questions (tab: Check yourself). Students answer each question, state how sure they are and receive instant feedback. A confident but wrong answer marks the first topic to revisit. The reflection prompts below also appear in the interactive lab (tab: Reflect and submit). Answers written there are saved in the browser and can be exported as a learning log.
 
 1. State a complete threat model (goal, knowledge, capability) for an AI system in your field.
 2. Why can a model be accurate and still unsafe? Use the backdoor experiment in your answer.
@@ -148,15 +148,27 @@ The lab contains a 6-question self-assessment with instant feedback and a confid
 
 ## Weekly task and submission
 
-Write a robustness evaluation plan of about 400 words for a model in your field: the threat model, the attacks you would run, the metrics and budgets you would report and the defence you would try first. Attach the notebook with both exercises completed and the accuracy curves.
+**What to do.** Write a robustness evaluation plan for one model in your field. The plan has four parts: the threat model, the attacks you would run, the metrics and perturbation budgets you would report, and the defence you would try first. The threat model states who attacks, what they know about the system and what they can change.
 
-The weekly task supports self-learning and builds a personal portfolio. When the course is followed with the instructor during an active semester, the task can be sent together with the exported learning log to utkukose@sdu.edu.tr or utkukose@gmail.com for evaluation.
+**Where to look.** Lecture: sections "Adversarial examples", "Poisoning and backdoors" and "Defences and honest evaluation". Interactive lab: the attack on a linear classifier with a perturbation budget (tab: Explore). Colab notebook: Section 2 for projected gradient descent, Section 3 for adversarial training and Section 4 for the backdoor.
+
+**Example.** For a skin lesion classifier, the attacker could be someone who edits uploaded photos. The plan could use FGSM as a quick baseline and PGD as the stronger attack, report accuracy at three budgets and try adversarial training first.
+
+**What to submit.** About 400 words and the Colab notebook with Exercises 1 and 2 completed. Include one accuracy curve from the Colab notebook to show how the results would be reported.
+
+The weekly task supports self-learning and builds a personal portfolio. In an active semester, students who follow the course with the instructor can send their work for evaluation to utkukose@sdu.edu.tr or utkukose@gmail.com. The e-mail contains the items that the task lists under What to submit. It also includes the learning log exported from the interactive lab (tab: Reflect and submit).
 
 ## Research and report assignment (optional)
 
-**Robustness in safety-critical perception.** Review physical-world adversarial attacks and certified or empirical defences for perception systems, and assess how far current evidence supports deployment in vehicles or medical imaging [4, 6].
+**Robustness in safety-critical perception.** Is current evidence on robustness strong enough for deployment?
 
-This research assignment is optional and supports self-learning. When the related weeks are followed within the course during an active semester, the report can be sent to utkukose@sdu.edu.tr or utkukose@gmail.com for evaluation. Unless the assignment states otherwise, a report has 1500 to 2500 words, follows the structure of an academic paper, cites at least six scholarly or official sources in square brackets and ends with a reference list.
+**What to do.** Review physical-world adversarial attacks and certified or empirical defences for perception systems. Then assess how far the current evidence supports deployment in vehicles or in medical imaging [4, 6].
+
+**Where to start.** Lecture sections "Adversarial threats to AI safety" and "Defences and honest evaluation", and the study of physical-world attacks by Eykholt and colleagues [6].
+
+**Example focus.** The report could compare the perturbation budgets of published defences with the changes that stickers or lighting produce in practice.
+
+This research assignment is optional and supports self-learning. In an active semester, students who follow these weeks with the instructor can send the report for evaluation to utkukose@sdu.edu.tr or utkukose@gmail.com. The report has 1500 to 2500 words and follows the structure of an academic paper. It cites at least six scholarly or official sources in square brackets and ends with a reference list. The [report template](https://github.com/utkukose/machine-ethics-ai-safety-NB-lecture/blob/main/exams/REPORT_TEMPLATE.md) shows a suitable structure.
 
 ## References
 
@@ -182,4 +194,4 @@ This research assignment is optional and supports self-learning. When the relate
 
 ---
 
-<sub>Machine Ethics and Artificial Intelligence Safety. Prof. Dr. Utku Kose, Süleyman Demirel University. ORCID [0000-0002-9652-6415](https://orcid.org/0000-0002-9652-6415). Content licensed under CC BY 4.0. This course is updated in line with current developments in the field. Last update: September 2026.</sub>
+<sub>Machine Ethics and Artificial Intelligence Safety. Prof. Dr. Utku Kose, Süleyman Demirel University. ORCID [0000-0002-9652-6415](https://orcid.org/0000-0002-9652-6415). Content licensed under CC BY 4.0. This course is updated in line with current developments in the field. First version: September 2026. Last update: October 2026.</sub>

@@ -122,10 +122,10 @@ body.study .wrap{margin-right:50vw;max-width:none}
 .card{min-height:5.5rem;border-radius:8px;padding:1rem 1.1rem;background:rgba(29,91,120,.08);cursor:pointer;display:flex;align-items:center}
 .card.back{background:rgba(46,125,50,.12)}
 </style></head><body><div class="wrap"><header class="top"><p class="course">Machine Ethics and Artificial Intelligence Safety (11118BLG001), week 2 of 14</p><h1>Normative Ethics as Decision Procedures</h1><p class="who">Prof. Dr. Utku Kose, Süleyman Demirel University</p><nav><a href="../../index.html">Course home</a><a href="lab.html">Interactive lab</a><a href="https://colab.research.google.com/github/utkukose/machine-ethics-ai-safety-NB-lecture/blob/main/weeks/week-02/NB02_normative_theories.ipynb">Colab notebook</a><a href="Week02_Lecture_Notes.pdf">PDF notes</a></nav></header><div class="lec-tools"><div class="lec-prog"><span class="lec-bar"><i></i></span><span class="lec-txt" aria-live="polite"></span></div></div><article class="lecture"><h2>Overview</h2>
-<p>Every automated decision encodes a trade-off between values. This week introduces the four families of normative theory that dominate machine ethics, namely consequentialism, deontology, virtue ethics and contractualism, and treats each as a decision procedure that can be implemented, tested and criticised [1, 2].</p>
+<p>Every automated decision encodes a trade-off between values. This week introduces the four families of normative theory that dominate machine ethics: consequentialism, deontology, virtue ethics and contractualism. Each family is treated as a decision procedure that can be implemented, tested and criticised [1, 2].</p>
 <p><strong>Estimated study time:</strong> 6 to 8 hours.</p>
 <h2>Learning outcomes</h2>
-<p>By the end of the week, students are expected to state the core claim of each theory, to write each theory as an explicit decision procedure, to explain why the procedures disagree on classic cases such as the trolley problem, and to describe methods for acting under moral uncertainty.</p>
+<p>By the end of the week, students are expected to state the core claim of each theory and to write each theory as an explicit decision procedure. They should also explain why the procedures disagree on classic cases such as the trolley problem. Finally, they should be able to describe methods for acting under moral uncertainty.</p>
 <h2>Study path</h2>
 <table>
 <thead>
@@ -153,12 +153,12 @@ body.study .wrap{margin-right:50vw;max-width:none}
 </tr>
 <tr>
 <td>4</td>
-<td>Take the self-assessment in the lab (tab: Check yourself)</td>
+<td>Take the self-assessment in the interactive lab (tab: Check yourself)</td>
 <td>20 minutes</td>
 </tr>
 <tr>
 <td>5</td>
-<td>Write the reflection, export the learning log and complete the weekly task</td>
+<td>Answer the reflection prompts in the interactive lab, export the learning log and complete the weekly task</td>
 <td>60 minutes</td>
 </tr>
 </tbody>
@@ -183,7 +183,7 @@ body.study .wrap{margin-right:50vw;max-width:none}
 <p>A useful distinction separates a criterion of rightness from a decision procedure. A criterion states what makes an action right. A decision procedure is a method that an agent follows in order to choose. Machine ethics needs decision procedures, and this week treats each major theory as a candidate procedure. The simplification is deliberate: Writing a theory as code exposes the assumptions that prose often hides, such as how outcomes are measured and whose interests count.</p>
 <div class="kc" data-answer="0" data-id="s1"><p class="kc-q"><span class="kc-tag">Check your understanding</span>Why do system designers need normative theory?</p><div class="kc-opts"><button type="button" class="kc-opt" data-i="0">Every design choice that trades off harms and benefits embeds a normative position, stated or not</button><button type="button" class="kc-opt" data-i="1">The law requires engineers to hold philosophy degrees</button><button type="button" class="kc-opt" data-i="2">Normative theories output loss functions automatically</button><button type="button" class="kc-opt" data-i="3">Theories remove the need to consult stakeholders</button></div><p class="kc-fb" hidden></p><p class="kc-why" hidden>Making the position explicit allows it to be examined, justified and changed.</p></div>
 
-<div class="explore"><p><strong>Explore while reading.</strong> The interactive lab of this week can be opened inside this page or next to the text, so that ideas can be tried out as they are introduced.</p><p><button type="button" class="btn" data-act="inline-lab">Open the lab here</button> <button type="button" class="btn ghost wide-only" data-act="study">Study side by side</button></p><div class="inline-lab"></div></div>
+<div class="explore"><p><strong>Explore while reading.</strong> The interactive lab of this week can be opened inside this page or next to the text, so that ideas can be tried out as they are introduced.</p><p><button type="button" class="btn" data-act="inline-lab">Open the interactive lab here</button> <button type="button" class="btn ghost wide-only" data-act="study">Study side by side</button></p><div class="inline-lab"></div></div>
 
 <h3>Consequences and duties</h3>
 <p>Consequentialism judges actions by their outcomes. In its classical utilitarian form, the right action maximises overall well-being [4]. The computational analogue is familiar to every engineer: Choose the action with the highest expected utility. The difficulties are also familiar. Utilities must be measured and compared across people, and a simple sum can justify sacrificing a few for a small gain to many.</p>
@@ -193,9 +193,9 @@ body.study .wrap{margin-right:50vw;max-width:none}
 
 <h3>Character and fair agreement</h3>
 <p>Virtue ethics shifts attention from single acts to character. An action is right if a virtuous agent would characteristically perform it in the circumstances [9]. Vallor argued that technology calls for technomoral virtues such as honesty, humility, justice and practical wisdom [10]. For machines, virtue ethics suggests learning stable dispositions from exemplary behaviour, which connects it with bottom-up learning.</p>
-<p>Contractualism grounds morality in principles that no one could reasonably reject [11]. Rawls's thought experiment of choosing principles behind a veil of ignorance leads to special concern for the worst-off, often written as a maximin rule [12]. Gabriel argued that the alignment of AI systems should seek principles that people with different moral views could endorse through a fair process, rather than the values of a single designer [13]. A maximin rule is only a crude stand-in for these ideas, and the notebook shows a case in which it diverges from what contractualists would conclude.</p>
-<p><img alt="Verdicts of four simplified decision procedures on six cases used in the lab and notebook. The procedures agree on the trolley switch case and split on the others." src="figures/w02_fig1.png" /></p>
-<p><em>Figure 2.1. Verdicts of four simplified decision procedures on six cases used in the lab and notebook. The procedures agree on the trolley switch case and split on the others.</em></p>
+<p>Contractualism grounds morality in principles that no one could reasonably reject [11]. Rawls's thought experiment of choosing principles behind a veil of ignorance leads to special concern for the worst-off, often written as a maximin rule [12]. Gabriel argued that AI alignment should not follow the values of a single designer. It should instead seek principles that people with different moral views could endorse through a fair process [13]. A maximin rule is only a crude stand-in for these ideas, and the Colab notebook shows a case in which it diverges from what contractualists would conclude.</p>
+<p><img alt="Verdicts of four simplified decision procedures on six cases used in the interactive lab and Colab notebook. The procedures agree on the trolley switch case and split on the others." src="figures/w02_fig1.png" /></p>
+<p><em>Figure 2.1. Verdicts of four simplified decision procedures on six cases used in the interactive lab and Colab notebook. The procedures agree on the trolley switch case and split on the others.</em></p>
 <div class="kc" data-answer="1" data-id="s3"><p class="kc-q"><span class="kc-tag">Check your understanding</span>Rawls&#x27;s veil of ignorance asks people to choose principles</p><div class="kc-opts"><button type="button" class="kc-opt" data-i="0">that maximise total welfare</button><button type="button" class="kc-opt" data-i="1">without knowing their own position in society</button><button type="button" class="kc-opt" data-i="2">that a virtuous person would choose</button><button type="button" class="kc-opt" data-i="3">that the majority already prefers</button></div><p class="kc-fb" hidden></p><p class="kc-why" hidden>Choosing without knowledge of one&#x27;s own position is meant to make the choice impartial.</p></div>
 
 <h3>Acting under moral uncertainty</h3>
@@ -211,12 +211,12 @@ body.study .wrap{margin-right:50vw;max-width:none}
 <p><a href="lab.html">Open the interactive lab</a></p>
 <p><img alt="Screenshot of the Week 2 interactive lab" src="screenshots/lab.png" /></p>
 <h2>Colab notebook</h2>
-<p>The notebook writes the four theories as Python functions, tabulates their verdicts on six cases, measures how often they agree and builds a moral parliament that weighs them by credence [14].</p>
+<p>The Colab notebook writes the four theories as Python functions and tabulates their verdicts on six cases. It measures how often they agree and builds a moral parliament that weighs them by credence [14].</p>
 <p><a href="https://colab.research.google.com/github/utkukose/machine-ethics-ai-safety-NB-lecture/blob/main/weeks/week-02/NB02_normative_theories.ipynb"><img alt="Open in Colab" src="https://colab.research.google.com/assets/colab-badge.svg" /></a></p>
-<p>Screenshots of the executed notebook:</p>
-<p><img alt="Output 1 of the Week 2 notebook" src="screenshots/nb_1.png" /></p>
+<p>Screenshots of the executed Colab notebook:</p>
+<p><img alt="Output 1 of the Week 2 Colab notebook" src="screenshots/nb_1.png" /></p>
 <h2>Self-assessment and reflection</h2>
-<p>The lab contains a 6-question self-assessment with instant feedback and a confidence rating for each answer. A confident but wrong answer marks the first topic to revisit. The reflection prompts below are also available in the lab, where answers are saved in the browser and can be exported as a learning log.</p>
+<p>The interactive lab contains a self-assessment of six questions (tab: Check yourself). Students answer each question, state how sure they are and receive instant feedback. A confident but wrong answer marks the first topic to revisit. The reflection prompts below also appear in the interactive lab (tab: Reflect and submit). Answers written there are saved in the browser and can be exported as a learning log.</p>
 <ol>
 <li>Which of the four theories comes closest to how decisions are made in a system you know, and where does that system hide its value trade-offs?</li>
 <li>The maximin rule produced a verdict that contractualists would reject. Describe one way to improve the operationalisation.</li>
@@ -225,11 +225,17 @@ body.study .wrap{margin-right:50vw;max-width:none}
 <div class="cards"></div>
 
 <h2>Weekly task and submission</h2>
-<p>Take a decision system from your field, identify two options it must choose between, and assign the four attributes used this week (welfare, duty violation, character and worst-off outcome) with a short justification for each number. Report the verdict of each theory and of a moral parliament with credences that you defend in about 300 words.</p>
-<p>The weekly task supports self-learning and builds a personal portfolio. When the course is followed with the instructor during an active semester, the task can be sent together with the exported learning log to utkukose@sdu.edu.tr or utkukose@gmail.com for evaluation.</p>
+<p><strong>What to do.</strong> Turn one decision from your field into a case for the four decision procedures of this week. First, describe the decision and two options it must choose between. Second, give each option the four attributes used in the Colab notebook: welfare, duty violation (1 or 0), character score and the outcome for the worst-off party. Justify each number in one sentence. Third, add the two options as a new case in the Colab notebook and report the verdict of each theory and of a moral parliament. Choose the credences of the parliament and defend them.</p>
+<p><strong>Where to look.</strong> Lecture: sections "Consequences and duties", "Character and fair agreement" and "Acting under moral uncertainty". Interactive lab: the case selector and the weight sliders (tab: Explore). Colab notebook: Section 1 for the format of the attributes and Section 3 for the moral parliament.</p>
+<p><strong>Example.</strong> A delivery robot can wait at a crowded crossing or take a shortcut through a pedestrian zone. The shortcut gives more welfare but breaks a traffic rule, so the deontological procedure rejects it while the utilitarian procedure chooses it.</p>
+<p><strong>What to submit.</strong> About 300 words with a table of the two options and their attributes, and the Colab notebook with Exercises 1 and 2 completed and your own case added.</p>
+<p>The weekly task supports self-learning and builds a personal portfolio. In an active semester, students who follow the course with the instructor can send their work for evaluation to utkukose@sdu.edu.tr or utkukose@gmail.com. The e-mail contains the items that the task lists under What to submit. It also includes the learning log exported from the interactive lab (tab: Reflect and submit).</p>
 <h2>Research and report assignment (optional)</h2>
-<p><strong>Moral theories inside real decision rules.</strong> Select one deployed or proposed automated decision rule, such as an organ allocation score or a triage protocol, and analyse which normative theory its rule embodies [4, 5, 12]. Discuss what a proponent of a rival theory would change.</p>
-<p>This research assignment is optional and supports self-learning. When the related weeks are followed within the course during an active semester, the report can be sent to utkukose@sdu.edu.tr or utkukose@gmail.com for evaluation. Unless the assignment states otherwise, a report has 1500 to 2500 words, follows the structure of an academic paper, cites at least six scholarly or official sources in square brackets and ends with a reference list.</p>
+<p><strong>Moral theories inside real decision rules.</strong> Which normative theory does an automated decision rule embody?</p>
+<p><strong>What to do.</strong> Select one deployed or proposed decision rule, such as an organ allocation score or a triage protocol. Analyse which normative theory its rule embodies [4, 5, 12]. Then discuss what a proponent of a rival theory would change, and why.</p>
+<p><strong>Where to start.</strong> Lecture sections "Consequences and duties" and "Character and fair agreement". The decision procedures in Section 1 of the Colab notebook can be used to test the rule on a few cases.</p>
+<p><strong>Example focus.</strong> A rule that allocates organs by expected life-years gained is consequentialist. A contractualist in the tradition of Rawls might add a priority for the worst-off.</p>
+<p>This research assignment is optional and supports self-learning. In an active semester, students who follow these weeks with the instructor can send the report for evaluation to utkukose@sdu.edu.tr or utkukose@gmail.com. The report has 1500 to 2500 words and follows the structure of an academic paper. It cites at least six scholarly or official sources in square brackets and ends with a reference list. The <a href="https://github.com/utkukose/machine-ethics-ai-safety-NB-lecture/blob/main/exams/REPORT_TEMPLATE.md">report template</a> shows a suitable structure.</p>
 <h2>References</h2>
 <p>[1] Wallach, W., &amp; Allen, C. (2009). <em>Moral Machines: Teaching Robots Right from Wrong</em>. Oxford University Press.</p>
 <p>[2] Anderson, M., &amp; Anderson, S. L. (Eds.) (2011). <em>Machine Ethics</em>. Cambridge University Press.</p>
@@ -245,7 +251,7 @@ body.study .wrap{margin-right:50vw;max-width:none}
 <p>[12] Rawls, J. (1971). <em>A Theory of Justice</em>. Harvard University Press.</p>
 <p>[13] Gabriel, I. (2020). Artificial intelligence, values, and alignment. <em>Minds and Machines</em>, 30(3), 411-437. <a href="https://doi.org/10.1007/s11023-020-09539-2">https://doi.org/10.1007/s11023-020-09539-2</a></p>
 <p>[14] MacAskill, W., Bykvist, K., &amp; Ord, T. (2020). <em>Moral Uncertainty</em>. Oxford University Press.</p>
-<p>[15] Allen, C., Smit, I., &amp; Wallach, W. (2005). Artificial morality: Top-down, bottom-up, and hybrid approaches. <em>Ethics and Information Technology</em>, 7(3), 149-155. <a href="https://doi.org/10.1007/s10676-006-0004-4">https://doi.org/10.1007/s10676-006-0004-4</a></p></article><footer class="sig"><p><strong>Prof. Dr. Utku Kose</strong><br>Full Professor, Department of Computer Engineering, Süleyman Demirel University, Isparta, Türkiye<br>Founding Director, AI Application and Research Center (YAZEM), Süleyman Demirel University<br>Head of the Computer Science Division, Department of Computer Engineering, Süleyman Demirel University<br>Additional affiliations: University of North Dakota (USA), Universidad Panamericana (Mexico City, Mexico), Vel Tech University (Chennai, India)<br><a href="https://orcid.org/0000-0002-9652-6415">ORCID 0000-0002-9652-6415</a>, <a href="https://www.utkukose.com">utkukose.com</a>, <a href="https://github.com/utkukose">github.com/utkukose</a><br><a href="mailto:utkukose@sdu.edu.tr">utkukose@sdu.edu.tr</a>, <a href="mailto:utku.kose@und.edu">utku.kose@und.edu</a>, <a href="mailto:ukose@up.edu.mx">ukose@up.edu.mx</a>, <a href="mailto:utkukose@gmail.com">utkukose@gmail.com</a></p><p>This course is updated in line with current developments in the field. Last update: September 2026. Course materials licensed under CC BY 4.0. Code licensed under MIT.</p></footer></div><script type="module">import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";window.mermaid=mermaid;mermaid.initialize({startOnLoad:true,theme:matchMedia("(prefers-color-scheme: dark)").matches?"dark":"neutral"});</script><script>window.LEC={key:"MEAIS:lec:w2"};</script><script>(function () {
+<p>[15] Allen, C., Smit, I., &amp; Wallach, W. (2005). Artificial morality: Top-down, bottom-up, and hybrid approaches. <em>Ethics and Information Technology</em>, 7(3), 149-155. <a href="https://doi.org/10.1007/s10676-006-0004-4">https://doi.org/10.1007/s10676-006-0004-4</a></p></article><footer class="sig"><p><strong>Prof. Dr. Utku Kose</strong><br>Full Professor, Department of Computer Engineering, Süleyman Demirel University, Isparta, Türkiye<br>Founding Director, AI Application and Research Center (YAZEM), Süleyman Demirel University<br>Head of the Computer Science Division, Department of Computer Engineering, Süleyman Demirel University<br>Additional affiliations: University of North Dakota (USA), Universidad Panamericana (Mexico City, Mexico), Vel Tech University (Chennai, India)<br><a href="https://orcid.org/0000-0002-9652-6415">ORCID 0000-0002-9652-6415</a>, <a href="https://www.utkukose.com">utkukose.com</a>, <a href="https://github.com/utkukose">github.com/utkukose</a><br><a href="mailto:utkukose@sdu.edu.tr">utkukose@sdu.edu.tr</a>, <a href="mailto:utku.kose@und.edu">utku.kose@und.edu</a>, <a href="mailto:ukose@up.edu.mx">ukose@up.edu.mx</a>, <a href="mailto:utkukose@gmail.com">utkukose@gmail.com</a></p><p>This course is updated in line with current developments in the field. First version: September 2026. Last update: October 2026. Course materials licensed under CC BY 4.0. Code licensed under MIT.</p></footer></div><script type="module">import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";window.mermaid=mermaid;mermaid.initialize({startOnLoad:true,theme:matchMedia("(prefers-color-scheme: dark)").matches?"dark":"neutral"});</script><script>window.LEC={key:"MEAIS:lec:w2"};</script><script>(function () {
   "use strict";
   var KEY = (window.LEC && window.LEC.key) || "lecture";
   var state = {};
@@ -304,7 +310,7 @@ body.study .wrap{margin-right:50vw;max-width:none}
     var act = t.dataset.act;
     if (act === "inline-lab") {
       var holder = t.closest(".explore").querySelector(".inline-lab");
-      if (holder.firstChild) { holder.innerHTML = ""; t.textContent = "Open the lab here"; }
+      if (holder.firstChild) { holder.innerHTML = ""; t.textContent = "Open the interactive lab here"; }
       else { holder.innerHTML = '<iframe src="lab.html" title="Interactive lab" loading="lazy"></iframe>'; t.textContent = "Close the embedded lab"; }
     } else if (act === "study") { toggleStudy(); }
     else if (act.indexOf("mstep") === 0) { mstep(act); }

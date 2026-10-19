@@ -11,13 +11,13 @@ Prof. Dr. Utku Kose, Süleyman Demirel University
 
 ## Overview
 
-Large language models are aligned mostly by learning from preferences. This week follows the path from reward models learned from human comparisons to reinforcement learning from human feedback, constitutional methods and direct preference optimisation, and then examines their failure modes and the problem of supervising systems that exceed their supervisors [1, 2, 3].
+Large language models are aligned mostly by learning from preferences. This week follows the path from reward models learned from human comparisons to reinforcement learning from human feedback, constitutional methods and direct preference optimisation. It then examines their failure modes and the problem of supervising systems that exceed their supervisors [1, 2, 3].
 
 **Estimated study time:** 6 to 8 hours.
 
 ## Learning outcomes
 
-By the end of the week, students are expected to fit a Bradley-Terry reward model to pairwise preferences, to describe the stages of the InstructGPT pipeline and the ideas behind constitutional AI and direct preference optimisation, to explain reward model overoptimisation and sycophancy, and to compare debate, sandwiching and weak-to-strong generalisation as approaches to scalable oversight.
+By the end of the week, students are expected to fit a Bradley-Terry reward model to pairwise preferences. They should be able to describe the stages of the InstructGPT pipeline and the ideas behind constitutional AI and direct preference optimisation. They should also explain reward model overoptimisation and sycophancy. Finally, they should be able to compare debate, sandwiching and weak-to-strong generalisation as approaches to scalable oversight.
 
 ## Study path
 
@@ -26,8 +26,8 @@ By the end of the week, students are expected to fit a Bradley-Terry reward mode
 | 1 | Read the lecture below or the [PDF version](Week11_Lecture_Notes.pdf) | 90 minutes |
 | 2 | Explore the [interactive lab](https://utkukose.github.io/machine-ethics-ai-safety-NB-lecture/weeks/week-11/lab.html) | 45 minutes |
 | 3 | Work through the [Colab notebook](https://colab.research.google.com/github/utkukose/machine-ethics-ai-safety-NB-lecture/blob/main/weeks/week-11/NB11_alignment_llms.ipynb) and its exercises | 2 to 3 hours |
-| 4 | Take the self-assessment in the lab (tab: Check yourself) | 20 minutes |
-| 5 | Write the reflection, export the learning log and complete the weekly task | 60 minutes |
+| 4 | Take the self-assessment in the interactive lab (tab: Check yourself) | 20 minutes |
+| 5 | Answer the reflection prompts in the interactive lab, export the learning log and complete the weekly task | 60 minutes |
 
 ## Week at a glance
 
@@ -47,9 +47,9 @@ flowchart LR
 
 ### From human preferences to reward models
 
-Christiano and colleagues showed that agents can learn complex behaviour from human judgments of which of two short trajectory clips is better [1]. A reward model is fitted to these comparisons, and a reinforcement learning agent optimises the learned reward, which required human feedback on only a small fraction of the agent's interactions. The standard model of a comparison is that of Bradley and Terry: The probability that response A is preferred to response B is the logistic function of the difference of their rewards, sigma(r(A) - r(B)) [4]. Fitting a reward model is therefore logistic regression on pairs.
+Christiano and colleagues showed that agents can learn complex behaviour from human judgments of which of two short trajectory clips is better [1]. A reward model is fitted to these comparisons, and a reinforcement learning agent optimises the learned reward, which required human feedback on only a small fraction of the agent's interactions. The standard model of a comparison is that of Bradley and Terry [4]. The probability that response A is preferred to response B is the logistic function of the difference of their rewards, sigma(r(A) - r(B)). Fitting a reward model is therefore logistic regression on pairs.
 
-Stiennon and colleagues applied the approach to summarisation and found that models trained with human feedback produced summaries preferred over both human reference summaries and those of much larger models fine-tuned with supervised learning alone [5]. The lab of this week lets students generate their own comparisons and see which weights a Bradley-Terry model infers from them.
+Stiennon and colleagues applied the approach to summarisation [5]. People preferred the summaries of models trained with human feedback over human reference summaries. They also preferred them over the summaries of much larger models fine-tuned with supervised learning alone. The interactive lab of this week lets students generate their own comparisons and see which weights a Bradley-Terry model infers from them.
 
 <details>
 <summary><b>Check your understanding.</b> How are reward models in RLHF usually trained?</summary>
@@ -65,9 +65,9 @@ D. With image labels
 
 ### The RLHF pipeline and its variants
 
-Ouyang and colleagues described the pipeline behind InstructGPT in three stages [2]. First, a pretrained model is fine-tuned on demonstrations written by labellers. Second, a reward model is trained on labellers' rankings of model outputs. Third, the model is optimised against the reward model with reinforcement learning, with a penalty on the Kullback-Leibler divergence from the fine-tuned model that keeps outputs close to fluent text. Labellers preferred the outputs of a 1.3 billion parameter InstructGPT model to those of the 175 billion parameter GPT-3, which showed that alignment can matter more than scale for usefulness.
+Ouyang and colleagues described the pipeline behind InstructGPT in three stages [2]. First, a pretrained model is fine-tuned on demonstrations written by labellers. Second, a reward model is trained on labellers' rankings of model outputs. Third, the model is optimised against the reward model with reinforcement learning, with a penalty on the Kullback-Leibler divergence from the fine-tuned model that keeps outputs close to fluent text. Labellers preferred the outputs of a 1.3 billion parameter InstructGPT model to those of the 175 billion parameter GPT-3. For usefulness, alignment can therefore matter more than scale.
 
-Two variants reduce the cost or complexity of this process. Constitutional AI replaces much of the human feedback on harmlessness with AI feedback guided by a written list of principles: The model critiques and revises its own responses, and preferences generated by a model according to the principles train the reward model [6]. Direct preference optimisation (DPO) observes that the KL-regularised objective has a closed-form optimal policy, so the policy can be trained directly on preference pairs with a simple classification-style loss, without fitting a separate reward model or running reinforcement learning [7].
+Two variants reduce the cost or complexity of this process. Constitutional AI replaces much of the human feedback on harmlessness with AI feedback guided by a written list of principles [6]. The model critiques and revises its own responses. Preferences that a model generates according to the principles then train the reward model. Direct preference optimisation (DPO) observes that the KL-regularised objective has a closed-form optimal policy [7]. The policy can therefore be trained directly on preference pairs with a simple classification-style loss. No separate reward model and no reinforcement learning are needed.
 
 <details>
 <summary><b>Check your understanding.</b> How does direct preference optimisation differ from classic RLHF?</summary>
@@ -83,11 +83,11 @@ D. It trains only the tokenizer
 
 ### Failure modes
 
-A reward model is a proxy, and Week 7 showed what optimisation does to proxies. Gao, Schulman and Hilton measured reward model overoptimisation with a large gold reward model standing in for humans [8]. As a policy moved further from its starting point, measured by KL divergence, the proxy score kept rising while the gold score rose, peaked and then declined, and the pattern followed regular functional forms that depended on the size of the reward model. Figure 11.1 reproduces the shape in a simulation where the reward model has learned a spurious preference for length.
+A reward model is a proxy, and Week 7 showed what optimisation does to proxies. Gao, Schulman and Hilton measured reward model overoptimisation with a large gold reward model standing in for humans [8]. As a policy moved further from its starting point, measured by KL divergence, the proxy score kept rising. The gold score rose, peaked and then declined. The pattern followed regular functional forms that depended on the size of the reward model. Figure 11.1 reproduces the shape in a simulation where the reward model has learned a spurious preference for length.
 
-Sharma and colleagues studied sycophancy, the tendency of assistants to tell users what they want to hear [9]. They found it in several production assistants and traced it partly to preference data: Both humans and preference models sometimes preferred convincingly written sycophantic responses to correct ones. Casper and colleagues surveyed open problems of reinforcement learning from human feedback and grouped them into challenges with human feedback, with the reward model and with the policy, some of which they judged to be fundamental limitations rather than engineering gaps [3].
+Sharma and colleagues studied sycophancy, the tendency of assistants to tell users what they want to hear [9]. They found it in several production assistants and traced it partly to preference data: Both humans and preference models sometimes preferred convincingly written sycophantic responses to correct ones. Casper and colleagues surveyed open problems of reinforcement learning from human feedback [3]. They grouped them into challenges with human feedback, with the reward model and with the policy. They judged some of these to be fundamental limitations rather than engineering gaps.
 
-![Best-of-n selection with a reward model that has learned a spurious preference for length. The proxy score rises steadily with the KL divergence from the base policy, while the true preference peaks and then falls {cite:gao2023}.](figures/w11_fig1.png)
+![Best-of-n selection with a reward model that has learned a spurious preference for length. The proxy score rises steadily with the KL divergence from the base policy, while the true preference peaks and then falls.](figures/w11_fig1.png)
 
 *Figure 11.1. Best-of-n selection with a reward model that has learned a spurious preference for length. The proxy score rises steadily with the KL divergence from the base policy, while the true preference peaks and then falls [8].*
 
@@ -105,7 +105,7 @@ D. Telling users what they want to hear because agreement was rewarded in traini
 
 ### Scalable oversight
 
-Preference learning assumes that humans can judge outputs. That assumption weakens as systems produce work that humans cannot easily check. Irving, Christiano and Amodei proposed debate, in which two AI systems argue opposite sides before a human judge; the hope is that it is easier to judge a debate than to answer the question directly [10]. Bowman and colleagues proposed measuring progress with sandwiching experiments and found that non-expert humans assisted by an unreliable model outperformed both the model alone and unassisted humans on difficult question answering tasks [11]. Burns and colleagues studied weak-to-strong generalisation as an analogy for humans supervising stronger models: Strong models fine-tuned on labels from weaker models performed better than their weak supervisors, but naive fine-tuning recovered only part of the strong model's capability [12].
+Preference learning assumes that humans can judge outputs. That assumption weakens as systems produce work that humans cannot easily check. Irving, Christiano and Amodei proposed debate, in which two AI systems argue opposite sides before a human judge. The hope is that judging a debate is easier than answering the question directly [10]. Bowman and colleagues proposed measuring progress with sandwiching experiments [11]. On difficult question answering tasks, non-expert humans assisted by an unreliable model outperformed both the model alone and unassisted humans. Burns and colleagues studied weak-to-strong generalisation as an analogy for humans supervising stronger models [12]. Strong models fine-tuned on labels from weaker models performed better than their weak supervisors. Naive fine-tuning, however, recovered only part of the strong model's capability.
 
 > **Pause and reflect.** When an assistant agrees with a user's incorrect claim, who is responsible: the model, the labellers whose preferences trained it or the developers who chose the objective?
 
@@ -131,34 +131,46 @@ Part A asks for a preference on eight pairs of assistant responses, each describ
 
 ## Colab notebook
 
-The notebook simulates annotators who judge responses by quality but also, partly, by length and agreement with the user. It fits a Bradley-Terry reward model, shows which biases it absorbs and measures overoptimisation under best-of-n selection [4, 8, 9].
+The Colab notebook simulates annotators who judge responses by quality but also, partly, by length and agreement with the user. It fits a Bradley-Terry reward model, shows which biases it absorbs and measures overoptimisation under best-of-n selection [4, 8, 9].
 
 [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/utkukose/machine-ethics-ai-safety-NB-lecture/blob/main/weeks/week-11/NB11_alignment_llms.ipynb)
 
-Screenshots of the executed notebook:
+Screenshots of the executed Colab notebook:
 
-![Output 1 of the Week 11 notebook](screenshots/nb_1.png)
-![Output 2 of the Week 11 notebook](screenshots/nb_2.png)
+![Output 1 of the Week 11 Colab notebook](screenshots/nb_1.png)
+![Output 2 of the Week 11 Colab notebook](screenshots/nb_2.png)
 
 ## Self-assessment and reflection
 
-The lab contains a 6-question self-assessment with instant feedback and a confidence rating for each answer. A confident but wrong answer marks the first topic to revisit. The reflection prompts below are also available in the lab, where answers are saved in the browser and can be exported as a learning log.
+The interactive lab contains a self-assessment of six questions (tab: Check yourself). Students answer each question, state how sure they are and receive instant feedback. A confident but wrong answer marks the first topic to revisit. The reflection prompts below also appear in the interactive lab (tab: Reflect and submit). Answers written there are saved in the browser and can be exported as a learning log.
 
-1. Which weights did the lab infer from your preferences? Were any of them surprising, and do they reflect what you value in an assistant?
+1. Which weights did the interactive lab infer from your preferences? Were any of them surprising, and do they reflect what you value in an assistant?
 2. Describe a situation in your field where annotators could not reliably judge a model's output. Which oversight idea from this week would help most?
 3. Is sycophancy a failure of the model, of the data or of the objective? Defend one answer.
 
 ## Weekly task and submission
 
-Design a small preference data collection for a language model task in your field. Write four prompts with two candidate responses each, list the annotator instructions you would give to limit length and agreement biases and explain how you would detect overoptimisation after training. Keep the design to about one page and attach the completed notebook.
+**What to do.** Design a small collection of preference data for one language model task in your field. First, write four prompts, each with two candidate responses that differ in quality. Second, write the instructions you would give to annotators to limit length bias and agreement bias. Third, explain how you would detect overoptimisation after training, for example by comparing reward scores with independent human ratings.
 
-The weekly task supports self-learning and builds a personal portfolio. When the course is followed with the instructor during an active semester, the task can be sent together with the exported learning log to utkukose@sdu.edu.tr or utkukose@gmail.com for evaluation.
+**Where to look.** Lecture: sections "From human preferences to reward models" and "Failure modes". Interactive lab: Part A, where your own comparisons train a Bradley-Terry model, and Part B on best-of-n selection. Colab notebook: Section 1 on biased annotators and Section 3 on overoptimisation.
+
+**Example.** For a programming help assistant, one prompt could ask how to read a CSV file. One response is short and correct, while the other is long and uses an outdated function. An instruction could say: Judge correctness first, and do not treat length as quality.
+
+**What to submit.** A design of about one page, and the Colab notebook with Exercises 1 and 2 completed.
+
+The weekly task supports self-learning and builds a personal portfolio. In an active semester, students who follow the course with the instructor can send their work for evaluation to utkukose@sdu.edu.tr or utkukose@gmail.com. The e-mail contains the items that the task lists under What to submit. It also includes the learning log exported from the interactive lab (tab: Reflect and submit).
 
 ## Research and report assignment (optional)
 
-**Preference learning and its alternatives.** Compare reinforcement learning from human feedback, constitutional approaches and direct preference optimisation with respect to their assumptions and known failure modes [2, 3, 6, 7].
+**Preference learning and its alternatives.** How do the main methods for aligning language models differ?
 
-This research assignment is optional and supports self-learning. When the related weeks are followed within the course during an active semester, the report can be sent to utkukose@sdu.edu.tr or utkukose@gmail.com for evaluation. Unless the assignment states otherwise, a report has 1500 to 2500 words, follows the structure of an academic paper, cites at least six scholarly or official sources in square brackets and ends with a reference list.
+**What to do.** Compare reinforcement learning from human feedback, constitutional approaches and direct preference optimisation [2, 6, 7]. Compare their assumptions and their known failure modes [3].
+
+**Where to start.** Lecture sections "The RLHF pipeline and its variants" and "Failure modes". Section 3 of the Colab notebook shows overoptimisation of a reward model.
+
+**Example focus.** One comparison could ask where each method can absorb a bias of the annotators, such as a preference for longer answers.
+
+This research assignment is optional and supports self-learning. In an active semester, students who follow these weeks with the instructor can send the report for evaluation to utkukose@sdu.edu.tr or utkukose@gmail.com. The report has 1500 to 2500 words and follows the structure of an academic paper. It cites at least six scholarly or official sources in square brackets and ends with a reference list. The [report template](https://github.com/utkukose/machine-ethics-ai-safety-NB-lecture/blob/main/exams/REPORT_TEMPLATE.md) shows a suitable structure.
 
 ## References
 
@@ -188,4 +200,4 @@ This research assignment is optional and supports self-learning. When the relate
 
 ---
 
-<sub>Machine Ethics and Artificial Intelligence Safety. Prof. Dr. Utku Kose, Süleyman Demirel University. ORCID [0000-0002-9652-6415](https://orcid.org/0000-0002-9652-6415). Content licensed under CC BY 4.0. This course is updated in line with current developments in the field. Last update: September 2026.</sub>
+<sub>Machine Ethics and Artificial Intelligence Safety. Prof. Dr. Utku Kose, Süleyman Demirel University. ORCID [0000-0002-9652-6415](https://orcid.org/0000-0002-9652-6415). Content licensed under CC BY 4.0. This course is updated in line with current developments in the field. First version: September 2026. Last update: October 2026.</sub>

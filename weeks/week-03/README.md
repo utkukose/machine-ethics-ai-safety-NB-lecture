@@ -11,13 +11,13 @@ Prof. Dr. Utku Kose, Süleyman Demirel University
 
 ## Overview
 
-Theories become engineering once they are implemented. This week surveys top-down, bottom-up and hybrid artificial moral agents, from ethical governors and formally verified agents to systems that learn moral judgments from cases or crowds, and asks what each design can guarantee [1, 2].
+Theories become engineering once they are implemented. This week surveys top-down, bottom-up and hybrid artificial moral agents. The examples range from ethical governors and formally verified agents to systems that learn moral judgments from cases or crowds. For each design, the week asks what it can guarantee [1, 2].
 
 **Estimated study time:** 6 to 8 hours.
 
 ## Learning outcomes
 
-By the end of the week, students are expected to describe the architecture of an ethical governor, to explain how case-based and crowd-trained systems learn moral judgments, to identify the failure modes of each approach, and to design a hybrid agent that combines learned proposals, explicit constraints and human oversight.
+By the end of the week, students are expected to describe the architecture of an ethical governor and to explain how case-based and crowd-trained systems learn moral judgments. They should also be able to identify the failure modes of each approach. Finally, they should be able to design a hybrid agent that combines learned proposals, explicit constraints and human oversight.
 
 ## Study path
 
@@ -26,8 +26,8 @@ By the end of the week, students are expected to describe the architecture of an
 | 1 | Read the lecture below or the [PDF version](Week03_Lecture_Notes.pdf) | 90 minutes |
 | 2 | Explore the [interactive lab](https://utkukose.github.io/machine-ethics-ai-safety-NB-lecture/weeks/week-03/lab.html) | 45 minutes |
 | 3 | Work through the [Colab notebook](https://colab.research.google.com/github/utkukose/machine-ethics-ai-safety-NB-lecture/blob/main/weeks/week-03/NB03_artificial_moral_agents.ipynb) and its exercises | 2 to 3 hours |
-| 4 | Take the self-assessment in the lab (tab: Check yourself) | 20 minutes |
-| 5 | Write the reflection, export the learning log and complete the weekly task | 60 minutes |
+| 4 | Take the self-assessment in the interactive lab (tab: Check yourself) | 20 minutes |
+| 5 | Answer the reflection prompts in the interactive lab, export the learning log and complete the weekly task | 60 minutes |
 
 ## Week at a glance
 
@@ -45,11 +45,11 @@ flowchart LR
 
 ### Top-down architectures: governors and verification
 
-Arkin designed an ethical governor for autonomous robots that could use lethal force [3]. The governor sits between the planner and the actuators. It evaluates each proposed action against constraints derived from the laws of war and the rules of engagement, and it suppresses actions that violate them. The design makes the constraints inspectable and allows responsibility to be traced to the people who wrote them. Its limits are equally clear: The constraints are only as good as the perception that classifies a person as a civilian or a combatant, and they cover only the situations their authors anticipated.
+Arkin designed an ethical governor for autonomous robots that could use lethal force [3]. The governor sits between the planner and the actuators. It evaluates each proposed action against constraints derived from the laws of war and the rules of engagement, and it suppresses actions that violate them. The design makes the constraints inspectable and allows responsibility to be traced to the people who wrote them. Its limits are equally clear. The constraints are only as good as the perception that classifies a person as a civilian or a combatant. They also cover only the situations that their authors anticipated.
 
-Formal methods add guarantees to such designs. Dennis and colleagues verified with model checking that an autonomous agent selects the most ethical option available under a prioritised set of ethical principles, and that it acts unethically only when no ethical option exists [4]. Verification proves properties of the decision logic. It cannot prove that the logic's inputs describe the world correctly, which is why perception and specification remain open problems in later weeks.
+Formal methods add guarantees to such designs. Dennis and colleagues used model checking to verify that an autonomous agent selects the most ethical option available under a prioritised set of ethical principles. The agent acts unethically only when no ethical option exists [4]. Verification proves properties of the decision logic. It cannot prove that the logic's inputs describe the world correctly, which is why perception and specification remain open problems in later weeks.
 
-![A hybrid artificial moral agent. A learned policy proposes actions, an ethical governor removes those that violate constraints, and flagged cases are escalated to a human {cite:arkin2009,allen2005}.](figures/w03_fig1.png)
+![A hybrid artificial moral agent. A learned policy proposes actions, an ethical governor removes those that violate constraints, and flagged cases are escalated to a human.](figures/w03_fig1.png)
 
 *Figure 3.1. A hybrid artificial moral agent. A learned policy proposes actions, an ethical governor removes those that violate constraints, and flagged cases are escalated to a human [3, 5].*
 
@@ -67,9 +67,9 @@ D. It only runs after an incident has occurred
 
 ### Learning moral judgments from cases and crowds
 
-Bottom-up systems learn from examples. MedEthEx, an early medical ethics advisor, represented cases with duties drawn from Ross's prima facie duties, such as non-maleficence, beneficence and respect for autonomy, and learned a decision principle from cases on which ethicists agreed [6, 7]. The learned principle could then justify its recommendation by citing the duties involved.
+Bottom-up systems learn from examples. MedEthEx, an early medical ethics advisor, represented cases with Ross's prima facie duties, such as non-maleficence, beneficence and respect for autonomy [6, 7]. It learned a decision principle from cases on which ethicists agreed. The learned principle could then justify its recommendation by citing the duties involved.
 
-Large neural models extended this idea to broad coverage. Delphi was trained on a large collection of crowdsourced moral judgments and produced plausible answers to many everyday questions [8]. Its critics and its authors documented inconsistencies under rephrasing and the reproduction of social biases present in the training judgments. The ETHICS benchmark of Hendrycks and colleagues tests whether language models predict human judgments about justice, well-being, duties, virtues and commonsense morality, and it found promising but incomplete ability [9]. A central lesson is that a learned model reproduces the regularities of its data, including morally irrelevant ones. The notebook makes this concrete with a classifier that absorbs a sampling bias from its annotators.
+Large neural models extended this idea to broad coverage. Delphi was trained on a large collection of crowdsourced moral judgments and produced plausible answers to many everyday questions [8]. Its critics and its authors documented inconsistencies under rephrasing and the reproduction of social biases present in the training judgments. The ETHICS benchmark of Hendrycks and colleagues tests whether language models predict human judgments about justice, well-being, duties, virtues and commonsense morality, and it found promising but incomplete ability [9]. A central lesson is that a learned model reproduces the regularities of its data, including morally irrelevant ones. The Colab notebook makes this concrete with a classifier that absorbs a sampling bias from its annotators.
 
 <details>
 <summary><b>Check your understanding.</b> What is a main risk of learning moral judgements from crowd-sourced data?</summary>
@@ -131,33 +131,45 @@ A delivery robot must cross a busy junction. A planner proposes six actions. Swi
 
 ## Colab notebook
 
-The notebook trains a moral judgment classifier on synthetic cases whose annotations carry a sampling bias, measures how often its verdicts change when only a morally irrelevant attribute changes, and then adds an explicit governor on top of the learned model [3, 8].
+The Colab notebook trains a moral judgment classifier on synthetic cases whose annotations carry a sampling bias. It measures how often the verdicts change when only a morally irrelevant attribute changes. It then adds an explicit governor on top of the learned model [3, 8].
 
 [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/utkukose/machine-ethics-ai-safety-NB-lecture/blob/main/weeks/week-03/NB03_artificial_moral_agents.ipynb)
 
-Screenshots of the executed notebook:
+Screenshots of the executed Colab notebook:
 
-![Output 1 of the Week 3 notebook](screenshots/nb_1.png)
+![Output 1 of the Week 3 Colab notebook](screenshots/nb_1.png)
 
 ## Self-assessment and reflection
 
-The lab contains a 6-question self-assessment with instant feedback and a confidence rating for each answer. A confident but wrong answer marks the first topic to revisit. The reflection prompts below are also available in the lab, where answers are saved in the browser and can be exported as a learning log.
+The interactive lab contains a self-assessment of six questions (tab: Check yourself). Students answer each question, state how sure they are and receive instant feedback. A confident but wrong answer marks the first topic to revisit. The reflection prompts below also appear in the interactive lab (tab: Reflect and submit). Answers written there are saved in the browser and can be exported as a learning log.
 
-1. Which constraint in the lab was most costly in utility, and would you keep it? Justify your answer with one of the theories from Week 2.
+1. Which constraint in the interactive lab was most costly in utility, and would you keep it? Justify your answer with one of the theories from Week 2.
 2. Describe a morally irrelevant attribute that could leak into a model in your own field, and the data collection process that could cause the leak.
 3. Where in your own work would a human reviewer add value, and what information would the reviewer need?
 
 ## Weekly task and submission
 
-Design a hybrid artificial moral agent for a decision task in your field. Submit a one-page architecture description with a diagram, listing the learned component, at least three explicit constraints, the escalation rule for human oversight and what is logged. Attach the notebook with both exercises completed.
+**What to do.** Design a hybrid artificial moral agent for one decision task in your field, and describe it on one page with a simple diagram. First, name the learned component and state what it predicts. Second, define at least three explicit constraints that can veto its proposals. Third, state the rule for escalating a case to a human. Fourth, list the information that is logged for later review.
 
-The weekly task supports self-learning and builds a personal portfolio. When the course is followed with the instructor during an active semester, the task can be sent together with the exported learning log to utkukose@sdu.edu.tr or utkukose@gmail.com for evaluation.
+**Where to look.** Lecture: sections "Top-down architectures: governors and verification" and "Hybrid designs". Interactive lab: the ethical governor of the delivery robot (tab: Explore). Colab notebook: Section 2, where an explicit governor is added on top of a learned model.
+
+**Example.** A loan assistant could use a learned risk score as its learned component. One constraint could forbid automatic rejection when income data are missing. Cases close to the decision threshold could be escalated to a credit officer, and every veto could be logged with its reason.
+
+**What to submit.** The one-page description with its diagram, and the Colab notebook with Exercises 1 and 2 completed.
+
+The weekly task supports self-learning and builds a personal portfolio. In an active semester, students who follow the course with the instructor can send their work for evaluation to utkukose@sdu.edu.tr or utkukose@gmail.com. The e-mail contains the items that the task lists under What to submit. It also includes the learning log exported from the interactive lab (tab: Reflect and submit).
 
 ## Research and report assignment (optional)
 
-**Artificial moral agents after a decade.** Review implemented architectures for artificial moral agents published since 2015 and classify them as top-down, bottom-up or hybrid [1]. Include the debate around Delphi and assess what the systems can and cannot do [8].
+**Artificial moral agents after a decade.** What can implemented artificial moral agents actually do?
 
-This research assignment is optional and supports self-learning. When the related weeks are followed within the course during an active semester, the report can be sent to utkukose@sdu.edu.tr or utkukose@gmail.com for evaluation. Unless the assignment states otherwise, a report has 1500 to 2500 words, follows the structure of an academic paper, cites at least six scholarly or official sources in square brackets and ends with a reference list.
+**What to do.** Review implemented architectures for artificial moral agents published since 2015 and classify them as top-down, bottom-up or hybrid [1]. Include the debate around Delphi [8]. For each class, assess what the systems can and cannot do.
+
+**Where to start.** Lecture sections "What the survey literature shows" and "Learning moral judgments from cases and crowds", and the survey of Tolmeijer and colleagues [1].
+
+**Example focus.** A review could ask how many of the systems were tested beyond the cases on which they were built.
+
+This research assignment is optional and supports self-learning. In an active semester, students who follow these weeks with the instructor can send the report for evaluation to utkukose@sdu.edu.tr or utkukose@gmail.com. The report has 1500 to 2500 words and follows the structure of an academic paper. It cites at least six scholarly or official sources in square brackets and ends with a reference list. The [report template](https://github.com/utkukose/machine-ethics-ai-safety-NB-lecture/blob/main/exams/REPORT_TEMPLATE.md) shows a suitable structure.
 
 ## References
 
@@ -185,4 +197,4 @@ This research assignment is optional and supports self-learning. When the relate
 
 ---
 
-<sub>Machine Ethics and Artificial Intelligence Safety. Prof. Dr. Utku Kose, Süleyman Demirel University. ORCID [0000-0002-9652-6415](https://orcid.org/0000-0002-9652-6415). Content licensed under CC BY 4.0. This course is updated in line with current developments in the field. Last update: September 2026.</sub>
+<sub>Machine Ethics and Artificial Intelligence Safety. Prof. Dr. Utku Kose, Süleyman Demirel University. ORCID [0000-0002-9652-6415](https://orcid.org/0000-0002-9652-6415). Content licensed under CC BY 4.0. This course is updated in line with current developments in the field. First version: September 2026. Last update: October 2026.</sub>

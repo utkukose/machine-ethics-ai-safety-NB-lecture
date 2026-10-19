@@ -11,13 +11,13 @@ Prof. Dr. Utku Kose, Süleyman Demirel University
 
 ## Overview
 
-Language models are now embedded in applications that read e-mail, browse the web and call tools. This week examines the resulting attack surface, from direct and indirect prompt injection to jailbreaks and training data extraction, and the layered defences and red teaming practices that reduce the risk [1, 2, 3].
+Language models are now embedded in applications that read e-mail, browse the web and call tools. This week examines the resulting attack surface, from direct and indirect prompt injection to jailbreaks and training data extraction. It also covers the layered defences and red teaming practices that reduce the risk [1, 2, 3].
 
 **Estimated study time:** 6 to 8 hours.
 
 ## Learning outcomes
 
-By the end of the week, students are expected to explain why prompt injection follows from mixing instructions and data in one context, to distinguish direct from indirect injection, to describe the two failure modes of safety training identified for jailbreaks, to explain training data extraction and membership inference, and to design and evaluate layered defences for an LLM-integrated application.
+By the end of the week, students are expected to explain why prompt injection follows from mixing instructions and data in one context. They should be able to distinguish direct from indirect injection and to describe the two failure modes of safety training behind jailbreaks. They should also explain training data extraction and membership inference. Finally, they should be able to design and evaluate layered defences for an LLM-integrated application.
 
 ## Study path
 
@@ -26,8 +26,8 @@ By the end of the week, students are expected to explain why prompt injection fo
 | 1 | Read the lecture below or the [PDF version](Week12_Lecture_Notes.pdf) | 90 minutes |
 | 2 | Explore the [interactive lab](https://utkukose.github.io/machine-ethics-ai-safety-NB-lecture/weeks/week-12/lab.html) | 45 minutes |
 | 3 | Work through the [Colab notebook](https://colab.research.google.com/github/utkukose/machine-ethics-ai-safety-NB-lecture/blob/main/weeks/week-12/NB12_llm_security.ipynb) and its exercises | 2 to 3 hours |
-| 4 | Take the self-assessment in the lab (tab: Check yourself) | 20 minutes |
-| 5 | Write the reflection, export the learning log and complete the weekly task | 60 minutes |
+| 4 | Take the self-assessment in the interactive lab (tab: Check yourself) | 20 minutes |
+| 5 | Answer the reflection prompts in the interactive lab, export the learning log and complete the weekly task | 60 minutes |
 
 ## Week at a glance
 
@@ -47,11 +47,11 @@ flowchart LR
 
 ### An attack surface made of text
 
-An LLM-integrated application assembles a context from several sources: the developer's system prompt, the user's request and external content such as web pages, e-mails, documents and tool outputs. The model receives all of this as one sequence of tokens and has no reliable way to tell instructions from data. Perez and Ribeiro showed that simple handcrafted inputs could hijack the goal of a model or make it leak its hidden prompt, which they called goal hijacking and prompt leaking [4]. Greshake and colleagues went further with indirect prompt injection: An attacker plants instructions in content that an application is likely to retrieve, and the model follows them without any action by the user [1]. They demonstrated data theft and the manipulation of answers in real applications.
+An LLM-integrated application assembles a context from several sources: the developer's system prompt, the user's request and external content such as web pages, e-mails, documents and tool outputs. The model receives all of this as one sequence of tokens and has no reliable way to tell instructions from data. Perez and Ribeiro showed that simple handcrafted inputs could hijack the goal of a model or make it leak its hidden prompt, which they called goal hijacking and prompt leaking [4]. Greshake and colleagues went further with indirect prompt injection [1]. An attacker plants instructions in content that an application is likely to retrieve. The model then follows them without any action by the user. They demonstrated data theft and the manipulation of answers in real applications.
 
-The OWASP Top 10 for LLM Applications, version 2025, lists prompt injection as the first risk, followed by sensitive information disclosure, supply chain, data and model poisoning, improper output handling, excessive agency, system prompt leakage, vector and embedding weaknesses, misinformation and unbounded consumption [2]. Figure 12.1 marks where several of these risks enter an application. Kose, Cankaya and Deperlioglu anticipated a future in which AI systems are both weapons and targets in cyber conflict [5], and LLM applications with access to tools make that anticipation concrete.
+The OWASP Top 10 for LLM Applications, version 2025, lists prompt injection as the first risk [2]. It is followed by sensitive information disclosure, supply chain, data and model poisoning, improper output handling and excessive agency. The list ends with system prompt leakage, vector and embedding weaknesses, misinformation and unbounded consumption. Figure 12.1 marks where several of these risks enter an application. Kose, Cankaya and Deperlioglu anticipated a future in which AI systems are both weapons and targets in cyber conflict [5], and LLM applications with access to tools make that anticipation concrete.
 
-![The attack surface of an LLM-integrated application. Numbered labels mark where direct and indirect injection, excessive agency, improper output handling and system prompt leakage enter {cite:greshake2023,owasp2025}.](figures/w12_fig1.png)
+![The attack surface of an LLM-integrated application. Numbered labels mark where direct and indirect injection, excessive agency, improper output handling and system prompt leakage enter.](figures/w12_fig1.png)
 
 *Figure 12.1. The attack surface of an LLM-integrated application. Numbered labels mark where direct and indirect injection, excessive agency, improper output handling and system prompt leakage enter [1, 2].*
 
@@ -69,7 +69,7 @@ D. A denial-of-service attack
 
 ### Jailbreaks and automated attacks
 
-A jailbreak is an input that makes a model produce content its safety training was meant to prevent. Wei, Haghtalab and Steinhardt explained why safety training fails with two failure modes [6]. Competing objectives arise when a model's capabilities and its safety goals conflict, for example when a prompt demands a particular response format that leaves no room for refusal. Mismatched generalisation arises when safety training does not cover a domain in which the model is capable, for example instructions written in an encoding or a language that received little safety training. Attacks that combined both failure modes succeeded against the strongest models they tested.
+A jailbreak is an input that makes a model produce content its safety training was meant to prevent. Wei, Haghtalab and Steinhardt explained why safety training fails with two failure modes [6]. Competing objectives arise when a model's capabilities and its safety goals conflict, for example when a prompt demands a particular response format that leaves no room for refusal. Mismatched generalisation arises when safety training does not cover a domain in which the model is capable. An example is an instruction written in an encoding or a language that received little safety training. Attacks that combined both failure modes succeeded against the strongest models they tested.
 
 Zou and colleagues automated the search: A gradient-guided optimisation found adversarial suffixes that caused open-weight models to comply with harmful requests, and the same suffixes transferred to closed commercial models [7]. The result links language model security to the adversarial examples of Week 8. Robustness cannot rest on the hope that attackers will not find the right input.
 
@@ -87,7 +87,7 @@ D. Suffixes only affect image models
 
 ### Privacy and data extraction
 
-Models can reveal what they were trained on. Carlini and colleagues extracted hundreds of verbatim sequences from the training data of GPT-2 by generating many samples and ranking them with membership signals, and the extracted text included personal names, phone numbers and e-mail addresses [8]. They also found that larger models memorised more. Shokri and colleagues introduced membership inference attacks, which decide whether a given record was part of a model's training set by training shadow models that imitate the target's behaviour [9]. Both attacks matter whenever a model is trained or fine-tuned on sensitive data, such as clinical notes or private correspondence.
+Models can reveal what they were trained on. Carlini and colleagues extracted hundreds of verbatim sequences from the training data of GPT-2 [8]. They generated many samples and ranked them with membership signals. The extracted text included personal names, phone numbers and e-mail addresses. They also found that larger models memorised more. Shokri and colleagues introduced membership inference attacks, which decide whether a given record was part of a model's training set by training shadow models that imitate the target's behaviour [9]. Both attacks matter whenever a model is trained or fine-tuned on sensitive data, such as clinical notes or private correspondence.
 
 <details>
 <summary><b>Check your understanding.</b> What do training data extraction attacks show?</summary>
@@ -103,9 +103,9 @@ D. Only small models leak data
 
 ### Defence in depth and red teaming
 
-No single defence stops prompt injection reliably, so practice relies on layers. Untrusted content can be marked and separated from instructions. Models can be trained to give priority to the instructions of the developer over those found in data. Tools can follow the principle of least privilege, so that an assistant that summarises e-mail cannot send it. Consequential actions can require human confirmation, and model output can be treated as untrusted input to downstream systems, for example by rendering links only from allowed domains [2]. Detectors for injected instructions help, but they generalise poorly to paraphrases and to other languages, as the notebook shows.
+No single defence stops prompt injection reliably, so practice relies on layers. Untrusted content can be marked and separated from instructions. Models can be trained to give priority to the instructions of the developer over those found in data. Tools can follow the principle of least privilege, so that an assistant that summarises e-mail cannot send it. Consequential actions can require human confirmation, and model output can be treated as untrusted input to downstream systems, for example by rendering links only from allowed domains [2]. Detectors for injected instructions help, but they generalise poorly to paraphrases and to other languages, as the Colab notebook shows.
 
-Red teaming searches for failures before attackers do. Perez and colleagues used one language model to generate test cases for another and found many harmful behaviours at a scale that manual testing could not reach [3]. Ganguli and colleagues released a large data set of human red-team attacks and reported that models trained with reinforcement learning from human feedback became harder to red-team as they grew, whereas other model types did not show this trend [10].
+Red teaming searches for failures before attackers do. Perez and colleagues used one language model to generate test cases for another and found many harmful behaviours at a scale that manual testing could not reach [3]. Ganguli and colleagues released a large data set of human red-team attacks [10]. Models trained with reinforcement learning from human feedback became harder to red-team as they grew. Other model types did not show this trend.
 
 > **Pause and reflect.** An assistant reads a university inbox and can send e-mail. Which single design change would remove the largest share of the injection risk, and what would it cost the users?
 
@@ -131,17 +131,17 @@ A scripted toy assistant, not a real language model, summarises e-mails. Some e-
 
 ## Colab notebook
 
-The notebook rebuilds the toy assistant in Python, evaluates all 64 combinations of six defensive layers and trains a small detector for injected instructions, whose performance is then tested on paraphrased and Turkish attacks [1, 2].
+The Colab notebook rebuilds the toy assistant in Python and evaluates all 64 combinations of six defensive layers. It then trains a small detector for injected instructions and tests it on paraphrased and Turkish attacks [1, 2].
 
 [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/utkukose/machine-ethics-ai-safety-NB-lecture/blob/main/weeks/week-12/NB12_llm_security.ipynb)
 
-Screenshots of the executed notebook:
+Screenshots of the executed Colab notebook:
 
-![Output 1 of the Week 12 notebook](screenshots/nb_1.png)
+![Output 1 of the Week 12 Colab notebook](screenshots/nb_1.png)
 
 ## Self-assessment and reflection
 
-The lab contains a 6-question self-assessment with instant feedback and a confidence rating for each answer. A confident but wrong answer marks the first topic to revisit. The reflection prompts below are also available in the lab, where answers are saved in the browser and can be exported as a learning log.
+The interactive lab contains a self-assessment of six questions (tab: Check yourself). Students answer each question, state how sure they are and receive instant feedback. A confident but wrong answer marks the first topic to revisit. The reflection prompts below also appear in the interactive lab (tab: Reflect and submit). Answers written there are saved in the browser and can be exported as a learning log.
 
 1. Map an LLM application you use or build to Figure 12.1. Which entry point is the least protected?
 2. Why did the detector fail on Turkish injections? What does that imply for systems deployed in multilingual settings?
@@ -149,15 +149,27 @@ The lab contains a 6-question self-assessment with instant feedback and a confid
 
 ## Weekly task and submission
 
-Write a threat model and defence plan of about 500 words for an LLM application in your field that reads external content and can call at least one tool. Map the risks to the OWASP 2025 list, propose at least four defensive layers with their costs and describe a red-teaming procedure. Attach the notebook with both exercises completed.
+**What to do.** Write a threat model and a defence plan for one language model application in your field. The application must read external content and be able to call at least one tool. First, describe the assets, the attackers and the entry points. Second, map each risk to an item of the OWASP Top 10 for LLM Applications 2025. Third, propose at least four defensive layers and state the cost of each. Fourth, describe how you would red-team the application.
 
-The weekly task supports self-learning and builds a personal portfolio. When the course is followed with the instructor during an active semester, the task can be sent together with the exported learning log to utkukose@sdu.edu.tr or utkukose@gmail.com for evaluation.
+**Where to look.** Lecture: sections "An attack surface made of text" and "Defence in depth and red teaming". Interactive lab: the toy e-mail assistant and its defensive layers (tab: Explore). Colab notebook: Section 1 for combinations of layers and Section 2 for the blind spots of a learned detector.
+
+**Example.** An assistant that summarises supplier e-mails and can create calendar events is exposed to indirect prompt injection, the first item of the OWASP list. Its layers could include marking external text as data, an injection detector, a tool allowlist and human confirmation of new events.
+
+**What to submit.** About 500 words with a table of the risks, and the Colab notebook with Exercises 1 and 2 completed.
+
+The weekly task supports self-learning and builds a personal portfolio. In an active semester, students who follow the course with the instructor can send their work for evaluation to utkukose@sdu.edu.tr or utkukose@gmail.com. The e-mail contains the items that the task lists under What to submit. It also includes the learning log exported from the interactive lab (tab: Reflect and submit).
 
 ## Research and report assignment (optional)
 
-**Indirect prompt injection in agentic systems.** Review attacks and defences for indirect prompt injection since 2023 and map them to the OWASP Top 10 for large language model applications [1, 2]. Assess which defences have been evaluated rigorously.
+**Indirect prompt injection in agentic systems.** Which defences against indirect prompt injection have been tested rigorously?
 
-This research assignment is optional and supports self-learning. When the related weeks are followed within the course during an active semester, the report can be sent to utkukose@sdu.edu.tr or utkukose@gmail.com for evaluation. Unless the assignment states otherwise, a report has 1500 to 2500 words, follows the structure of an academic paper, cites at least six scholarly or official sources in square brackets and ends with a reference list.
+**What to do.** Review attacks and defences for indirect prompt injection since 2023 and map them to the OWASP Top 10 for LLM applications [1, 2]. Then assess which defences have been evaluated rigorously.
+
+**Where to start.** Lecture sections "An attack surface made of text" and "Defence in depth and red teaming". The interactive lab and Section 1 of the Colab notebook show how layers of defence combine.
+
+**Example focus.** The report could ask whether a defence was tested against adaptive attackers who know how it works.
+
+This research assignment is optional and supports self-learning. In an active semester, students who follow these weeks with the instructor can send the report for evaluation to utkukose@sdu.edu.tr or utkukose@gmail.com. The report has 1500 to 2500 words and follows the structure of an academic paper. It cites at least six scholarly or official sources in square brackets and ends with a reference list. The [report template](https://github.com/utkukose/machine-ethics-ai-safety-NB-lecture/blob/main/exams/REPORT_TEMPLATE.md) shows a suitable structure.
 
 ## References
 
@@ -183,4 +195,4 @@ This research assignment is optional and supports self-learning. When the relate
 
 ---
 
-<sub>Machine Ethics and Artificial Intelligence Safety. Prof. Dr. Utku Kose, Süleyman Demirel University. ORCID [0000-0002-9652-6415](https://orcid.org/0000-0002-9652-6415). Content licensed under CC BY 4.0. This course is updated in line with current developments in the field. Last update: September 2026.</sub>
+<sub>Machine Ethics and Artificial Intelligence Safety. Prof. Dr. Utku Kose, Süleyman Demirel University. ORCID [0000-0002-9652-6415](https://orcid.org/0000-0002-9652-6415). Content licensed under CC BY 4.0. This course is updated in line with current developments in the field. First version: September 2026. Last update: October 2026.</sub>

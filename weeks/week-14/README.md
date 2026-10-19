@@ -11,13 +11,13 @@ Prof. Dr. Utku Kose, Süleyman Demirel University
 
 ## Overview
 
-Technical safeguards need institutions around them. This final week moves from ethics principles to binding law, international instruments, risk management frameworks and management system standards, and it closes with documentation and auditing practices that make safety claims checkable [1, 2, 3, 4].
+Technical safeguards need institutions around them. This final week moves from ethics principles to binding law, international instruments, risk management frameworks and management system standards. It closes with documentation and auditing practices that make safety claims checkable [1, 2, 3, 4].
 
 **Estimated study time:** 6 to 8 hours.
 
 ## Learning outcomes
 
-By the end of the week, students are expected to explain why principles alone cannot guarantee ethical AI, to describe the risk-based structure of the EU AI Act and the role of international instruments including those relevant to Türkiye, to apply the functions of the NIST AI Risk Management Framework, and to produce a model card and an audit plan for a system.
+By the end of the week, students are expected to explain why principles alone cannot guarantee ethical AI. They should be able to describe the risk-based structure of the EU AI Act and the role of international instruments, including those relevant to Türkiye. They should also be able to apply the functions of the NIST AI Risk Management Framework. Finally, they should be able to produce a model card and an audit plan for a system.
 
 ## Study path
 
@@ -26,8 +26,8 @@ By the end of the week, students are expected to explain why principles alone ca
 | 1 | Read the lecture below or the [PDF version](Week14_Lecture_Notes.pdf) | 90 minutes |
 | 2 | Explore the [interactive lab](https://utkukose.github.io/machine-ethics-ai-safety-NB-lecture/weeks/week-14/lab.html) | 45 minutes |
 | 3 | Work through the [Colab notebook](https://colab.research.google.com/github/utkukose/machine-ethics-ai-safety-NB-lecture/blob/main/weeks/week-14/NB14_governance.ipynb) and its exercises | 2 to 3 hours |
-| 4 | Take the self-assessment in the lab (tab: Check yourself) | 20 minutes |
-| 5 | Write the reflection, export the learning log and complete the weekly task | 60 minutes |
+| 4 | Take the self-assessment in the interactive lab (tab: Check yourself) | 20 minutes |
+| 5 | Answer the reflection prompts in the interactive lab, export the learning log and complete the weekly task | 60 minutes |
 
 ## Week at a glance
 
@@ -48,7 +48,7 @@ flowchart LR
 
 Jobin, Ienca and Vayena analysed 84 documents containing AI ethics guidelines and found convergence around five principles: transparency, justice and fairness, non-maleficence, responsibility and privacy [1]. They also found substantial divergence in how the principles were interpreted and how they should be implemented. Floridi and Cowls proposed a unified framework of five principles for AI in society: beneficence, non-maleficence, autonomy, justice and explicability [5].
 
-Mittelstadt argued that principles alone cannot guarantee ethical AI [6]. Compared with medicine, from which many principles were borrowed, AI development lacks common aims and fiduciary duties towards those affected, a professional history with established norms, proven methods to translate principles into practice and robust mechanisms of legal and professional accountability. The remaining sections of the week examine instruments that try to supply what principles lack.
+Mittelstadt argued that principles alone cannot guarantee ethical AI [6]. Many principles were borrowed from medicine, but AI development differs from medicine in four ways. It lacks common aims and fiduciary duties towards those affected, and a professional history with established norms. It also lacks proven methods to translate principles into practice and robust mechanisms of legal and professional accountability. The remaining sections of the week examine instruments that try to supply what principles lack.
 
 <details>
 <summary><b>Check your understanding.</b> What is a common criticism of AI ethics principles?</summary>
@@ -64,11 +64,11 @@ D. They focus only on robustness
 
 ### Law and international instruments
 
-The EU AI Act, Regulation (EU) 2024/1689, follows a risk-based approach [2]. A list of practices is prohibited, including social scoring, manipulation that exploits vulnerabilities, untargeted scraping of facial images and emotion recognition in workplaces and educational institutions, with narrow exceptions. High-risk systems, which include safety components of regulated products and systems used in areas such as education, employment, access to essential services, law enforcement, migration and the administration of justice, must meet requirements on risk management, data governance, technical documentation, record-keeping, transparency to deployers, human oversight, accuracy, robustness and cybersecurity. Systems that interact with people or generate synthetic content carry transparency obligations, and general-purpose AI models have their own obligations, with additional duties for models with systemic risk. The regulation entered into force on 1 August 2024; its prohibitions applied from 2 February 2025 and the obligations for general-purpose models from 2 August 2025, while the remaining obligations are phased in later. Because the later timetable has been subject to amendment proposals, the current consolidated text should be checked before any practical use. Figure 14.1 summarises the structure.
+The EU AI Act, Regulation (EU) 2024/1689, follows a risk-based approach [2]. A list of practices is prohibited, including social scoring, manipulation that exploits vulnerabilities, untargeted scraping of facial images and emotion recognition in workplaces and educational institutions, with narrow exceptions. High-risk systems include safety components of regulated products. They also include systems used in areas such as education, employment, access to essential services, law enforcement, migration and the administration of justice. Such systems must meet requirements on risk management, data governance, technical documentation and record-keeping. Further requirements concern transparency to deployers, human oversight, accuracy, robustness and cybersecurity. Systems that interact with people or generate synthetic content carry transparency obligations, and general-purpose AI models have their own obligations, with additional duties for models with systemic risk. The regulation entered into force on 1 August 2024. Its prohibitions applied from 2 February 2025 and the obligations for general-purpose models from 2 August 2025. The remaining obligations are phased in later. Because the later timetable has been subject to amendment proposals, the current consolidated text should be checked before any practical use. Figure 14.1 summarises the structure.
 
-Other instruments complement the regulation. The Council of Europe Framework Convention on Artificial Intelligence and Human Rights, Democracy and the Rule of Law, opened for signature on 5 September 2024, is the first legally binding international treaty on AI [7]. The OECD Recommendation on AI, adopted in 2019 and amended in 2024, and the UNESCO Recommendation on the Ethics of AI, adopted in 2021, provide widely endorsed soft law [8, 9]. In Türkiye, the National Artificial Intelligence Strategy 2021-2025 was prepared by the Digital Transformation Office of the Presidency and the Ministry of Industry and Technology, and its action plan was updated for 2024-2025 [10].
+Other instruments complement the regulation. The Council of Europe Framework Convention on Artificial Intelligence and Human Rights, Democracy and the Rule of Law is the first legally binding international treaty on AI [7]. It opened for signature on 5 September 2024. The OECD Recommendation on AI, adopted in 2019 and amended in 2024, and the UNESCO Recommendation on the Ethics of AI, adopted in 2021, provide widely endorsed soft law [8, 9]. In Türkiye, the Digital Transformation Office of the Presidency and the Ministry of Industry and Technology prepared the National Artificial Intelligence Strategy 2021-2025 [10]. Its action plan was updated for 2024-2025.
 
-![Simplified risk-based structure of the EU AI Act, with the separate track for general-purpose AI models. The figure is a teaching aid, not a legal summary {cite:euaiact2024}.](figures/w14_fig1.png)
+![Simplified risk-based structure of the EU AI Act, with the separate track for general-purpose AI models. The figure is a teaching aid, not a legal summary.](figures/w14_fig1.png)
 
 *Figure 14.1. Simplified risk-based structure of the EU AI Act, with the separate track for general-purpose AI models. The figure is a teaching aid, not a legal summary [2].*
 
@@ -86,7 +86,7 @@ D. A ban on all machine learning
 
 ### Risk management and management systems
 
-The NIST AI Risk Management Framework organises activities into four functions [3]. Govern establishes a culture, policies and accountability for AI risk. Map establishes the context and identifies risks. Measure analyses and tracks them with quantitative and qualitative methods. Manage prioritises risks and acts on them. The framework also describes characteristics of trustworthy AI, such as validity and reliability, safety, security and resilience, accountability and transparency, explainability and interpretability, privacy enhancement and fairness with harmful bias managed. Each earlier week of the course supplies methods for the Measure function.
+The NIST AI Risk Management Framework organises activities into four functions [3]. Govern establishes a culture, policies and accountability for AI risk. Map establishes the context and identifies risks. Measure analyses and tracks them with quantitative and qualitative methods. Manage prioritises risks and acts on them. The framework also describes the characteristics of trustworthy AI. They include validity and reliability, safety, security and resilience, accountability and transparency, explainability and interpretability, privacy enhancement and fairness with harmful bias managed. Each earlier week of the course supplies methods for the Measure function.
 
 ISO/IEC 42001 specifies requirements for an AI management system, with which an organisation establishes, implements, maintains and continually improves its governance of AI, and conformity can be certified [11]. At the level of global science policy, the International AI Safety Report synthesised the evidence on the capabilities and risks of general-purpose AI for policymakers [12].
 
@@ -106,7 +106,7 @@ D. A fairness metric
 
 Documentation makes claims checkable. Model cards report a model's intended use, the factors and metrics used for evaluation, performance across relevant groups and conditions, ethical considerations and caveats [13]. Datasheets for datasets document the motivation, composition, collection process, preprocessing, uses, distribution and maintenance of a data set [14]. Weidinger and colleagues provided a taxonomy of risks posed by language models, which helps auditors decide what to test [15].
 
-Raji and colleagues proposed SMACTR, an end-to-end framework for internal algorithmic auditing with five stages: scoping, mapping, artifact collection, testing and reflection [4]. Mökander and colleagues proposed a three-layered approach for large language models: governance audits of the providers, model audits before release and application audits of the downstream uses [16]. A safety case, a structured argument supported by evidence that a system is acceptably safe for a specific use in a specific context, is a natural way to assemble the results of such audits. The final task of the course asks for one.
+Raji and colleagues proposed SMACTR, an end-to-end framework for internal algorithmic auditing with five stages: scoping, mapping, artifact collection, testing and reflection [4]. Mökander and colleagues proposed a three-layered approach for large language models: governance audits of the providers, model audits before release and application audits of the downstream uses [16]. A safety case is a natural way to assemble the results of such audits. It is a structured argument, supported by evidence, that a system is acceptably safe for a specific use in a specific context. The final task of the course asks for one.
 
 > **Pause and reflect.** Return to the question written down in Week 1. Has the course answered it, and which governance instrument from this week would matter most for the system it concerns?
 
@@ -132,39 +132,51 @@ Part A walks through simplified questions about the EU AI Act and lists the obli
 
 ## Colab notebook
 
-The notebook runs a small audit of the lending model from Week 5: performance, group metrics and robustness to input noise. It then generates a model card from the results and builds a risk register mapped to the NIST AI RMF functions [3, 4, 13].
+The Colab notebook runs a small audit of the lending model from Week 5: performance, group metrics and robustness to input noise. It then generates a model card from the results and builds a risk register mapped to the NIST AI RMF functions [3, 4, 13].
 
 [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/utkukose/machine-ethics-ai-safety-NB-lecture/blob/main/weeks/week-14/NB14_governance.ipynb)
 
-Screenshots of the executed notebook:
+Screenshots of the executed Colab notebook:
 
-![Output 1 of the Week 14 notebook](screenshots/nb_1.png)
+![Output 1 of the Week 14 Colab notebook](screenshots/nb_1.png)
 
 ## Self-assessment and reflection
 
-The lab contains a 6-question self-assessment with instant feedback and a confidence rating for each answer. A confident but wrong answer marks the first topic to revisit. The reflection prompts below are also available in the lab, where answers are saved in the browser and can be exported as a learning log.
+The interactive lab contains a self-assessment of six questions (tab: Check yourself). Students answer each question, state how sure they are and receive instant feedback. A confident but wrong answer marks the first topic to revisit. The reflection prompts below also appear in the interactive lab (tab: Reflect and submit). Answers written there are saved in the browser and can be exported as a learning log.
 
-1. Which obligations from Part A of the lab would apply to a system in your field, and who in your organisation would carry them?
+1. Which obligations from Part A of the interactive lab would apply to a system in your field, and who in your organisation would carry them?
 2. Which of Mittelstadt's missing elements is most absent in your field, and what could replace it?
 3. Revisit your question from Week 1. Write your answer as it stands now and note what remains open.
 
 ## Weekly task and submission
 
-Final portfolio task: Write a safety case of 1500 to 2000 words for an AI system from your field. State the system, its intended use and its risk classification under the EU AI Act; present claims about fairness, robustness, uncertainty, interpretability and security, each supported by evidence produced with the methods of this course; include a model card and a risk register mapped to the NIST AI RMF; and close with the limitations of the evidence. Submit it together with the learning logs of all fourteen weeks.
+**What to do.** Prepare the governance documents for one AI system from your field. First, answer the simplified questions of the interactive lab and list the obligations that may apply under the EU AI Act. Second, write a model card for the system. Third, build a risk register of at least six risks with likelihood, impact and score, and map each risk to a function of the NIST AI RMF. Finally, name the weakest piece of evidence in your documents.
 
-The weekly task supports self-learning and builds a personal portfolio. When the course is followed with the instructor during an active semester, the task can be sent together with the exported learning log to utkukose@sdu.edu.tr or utkukose@gmail.com for evaluation.
+**Where to look.** Lecture: sections "Law and international instruments", "Risk management and management systems" and "Documentation and auditing". Interactive lab: Part A for the classification and Part B for the model card. Colab notebook: Section 3 for generating a model card and Section 4 for the risk register.
+
+**Example.** A tool that screens job applications is a high-risk system under the EU AI Act, because employment is an Annex III area. Its risk register could include indirect discrimination against older applicants, with likelihood 3 and impact 5, mapped to the Measure function.
+
+**What to submit.** The model card, the risk register and a note of about 300 words, together with the Colab notebook with Exercises 1 and 2 completed. The note lists the obligations under the EU AI Act and names the weakest evidence. This weekly task is separate from the final capstone, whose page lists its own deliverables.
+
+The weekly task supports self-learning and builds a personal portfolio. In an active semester, students who follow the course with the instructor can send their work for evaluation to utkukose@sdu.edu.tr or utkukose@gmail.com. The e-mail contains the items that the task lists under What to submit. It also includes the learning log exported from the interactive lab (tab: Reflect and submit).
 
 ## Research and report assignment (optional)
 
-**Obligations for one high-risk system.** Take one high-risk use case and derive the obligations it would face under the EU AI Act, the NIST AI Risk Management Framework and ISO/IEC 42001 [2, 3, 11]. Identify overlaps and gaps between the three.
+**Obligations for one high-risk system.** What does the EU AI Act require of one high-risk system, and what do voluntary frameworks add?
 
-This research assignment is optional and supports self-learning. When the related weeks are followed within the course during an active semester, the report can be sent to utkukose@sdu.edu.tr or utkukose@gmail.com for evaluation. Unless the assignment states otherwise, a report has 1500 to 2500 words, follows the structure of an academic paper, cites at least six scholarly or official sources in square brackets and ends with a reference list.
+**What to do.** Take one high-risk use case. Derive its obligations under the EU AI Act, and compare them with the provisions of the NIST AI Risk Management Framework and ISO/IEC 42001, which are voluntary [2, 3, 11]. Then identify the overlaps and the gaps between the three.
+
+**Where to start.** Lecture sections "Law and international instruments" and "Risk management and management systems". Part A of the interactive lab walks through simplified questions about the EU AI Act.
+
+**Example focus.** For a credit scoring system, the report could compare the risk management requirement of the EU AI Act with the Manage function of the NIST framework.
+
+This research assignment is optional and supports self-learning. In an active semester, students who follow these weeks with the instructor can send the report for evaluation to utkukose@sdu.edu.tr or utkukose@gmail.com. The report has 1500 to 2500 words and follows the structure of an academic paper. It cites at least six scholarly or official sources in square brackets and ends with a reference list. The [report template](https://github.com/utkukose/machine-ethics-ai-safety-NB-lecture/blob/main/exams/REPORT_TEMPLATE.md) shows a suitable structure.
 
 ## Final capstone
 
 This week closes the course with the [Final Capstone: Building and Auditing a Safer AI System](../../exams/final/README.md).
 
-This capstone also supports self-learning and can be completed at any pace. When the course is taught actively in a semester, the final capstone is sent by e-mail to utkukose@sdu.edu.tr or utkukose@gmail.com no later than 23:53 (Türkiye time) on the last Sunday of Week 14, with the report and all code files attached or linked.
+This capstone also supports self-learning and can be completed at any pace. In an active semester, the final capstone is sent by e-mail to utkukose@sdu.edu.tr or utkukose@gmail.com. The deadline is 23:53 (Türkiye time) on the Sunday that ends Week 14. The e-mail contains the report as a PDF file and a link to the Colab notebook.
 
 ## References
 
@@ -202,4 +214,4 @@ This capstone also supports self-learning and can be completed at any pace. When
 
 ---
 
-<sub>Machine Ethics and Artificial Intelligence Safety. Prof. Dr. Utku Kose, Süleyman Demirel University. ORCID [0000-0002-9652-6415](https://orcid.org/0000-0002-9652-6415). Content licensed under CC BY 4.0. This course is updated in line with current developments in the field. Last update: September 2026.</sub>
+<sub>Machine Ethics and Artificial Intelligence Safety. Prof. Dr. Utku Kose, Süleyman Demirel University. ORCID [0000-0002-9652-6415](https://orcid.org/0000-0002-9652-6415). Content licensed under CC BY 4.0. This course is updated in line with current developments in the field. First version: September 2026. Last update: October 2026.</sub>

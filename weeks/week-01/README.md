@@ -17,7 +17,7 @@ The course opens with a question that has accompanied computing since its early 
 
 ## Learning outcomes
 
-By the end of the week, students are expected to distinguish machine ethics from AI safety, AI security and AI alignment, to classify artificial agents with Moor's four-level typology, to explain why rule lists such as Asimov's laws fail as a design method, and to describe the research agendas that structure the rest of the course.
+By the end of the week, students are expected to distinguish machine ethics from AI safety, AI security and AI alignment. They should be able to classify artificial agents with Moor's four-level typology. They should also explain why rule lists such as Asimov's laws fail as a design method, and describe the research agendas that structure the rest of the course.
 
 ## Study path
 
@@ -26,8 +26,8 @@ By the end of the week, students are expected to distinguish machine ethics from
 | 1 | Read the lecture below or the [PDF version](Week01_Lecture_Notes.pdf) | 90 minutes |
 | 2 | Explore the [interactive lab](https://utkukose.github.io/machine-ethics-ai-safety-NB-lecture/weeks/week-01/lab.html) | 45 minutes |
 | 3 | Work through the [Colab notebook](https://colab.research.google.com/github/utkukose/machine-ethics-ai-safety-NB-lecture/blob/main/weeks/week-01/NB01_foundations.ipynb) and its exercises | 2 to 3 hours |
-| 4 | Take the self-assessment in the lab (tab: Check yourself) | 20 minutes |
-| 5 | Write the reflection, export the learning log and complete the weekly task | 60 minutes |
+| 4 | Take the self-assessment in the interactive lab (tab: Check yourself) | 20 minutes |
+| 5 | Answer the reflection prompts in the interactive lab, export the learning log and complete the weekly task | 60 minutes |
 
 ## Week at a glance
 
@@ -47,11 +47,11 @@ flowchart LR
 
 ### Two fields with a shared origin
 
-In 1960, Norbert Wiener argued that machines able to learn could pursue their programmed purposes in ways their users would not have chosen, and that the speed of such machines could leave too little time for human correction [1]. The same concern now appears under two research labels. Machine ethics asks how artificial agents can represent and apply moral considerations when they act [2, 4]. AI safety asks how learning systems can be kept from unintended and harmful behaviour, especially when their objectives, training data or operating conditions are imperfect [3, 5].
+In 1960, Norbert Wiener argued that machines able to learn could pursue their programmed purposes in ways their users would not have chosen. He added that the speed of such machines could leave too little time for human correction [1]. The same concern now appears under two research labels. Machine ethics asks how artificial agents can represent and apply moral considerations when they act [2, 4]. AI safety asks how learning systems can be kept from unintended and harmful behaviour, especially when their objectives, training data or operating conditions are imperfect [3, 5].
 
-The two labels overlap but emphasise different questions. Machine ethics is closer to moral philosophy: It studies which values a system should respect and how moral reasoning can be implemented. AI safety is closer to engineering and statistics: It studies failure modes such as reward hacking, distribution shift and adversarial manipulation. Kose argued that the two agendas belong together, since dystopic scenarios, moral dilemmas and technical failure modes all bear on the practical question of whether future intelligent systems will be safe enough [6]. Two further terms complete the vocabulary. AI security concerns deliberate attacks on AI systems by adversaries. AI alignment concerns the match between what a system pursues and what its principals intend [7, 8].
+The two labels overlap but emphasise different questions. Machine ethics is closer to moral philosophy: It studies which values a system should respect and how moral reasoning can be implemented. AI safety is closer to engineering and statistics: It studies failure modes such as reward hacking, distribution shift and adversarial manipulation. Kose argued that the two agendas belong together. Dystopic scenarios, moral dilemmas and technical failure modes all bear on one practical question, namely whether future intelligent systems will be safe enough [6]. Two further terms complete the vocabulary. AI security concerns deliberate attacks on AI systems by adversaries. AI alignment concerns the match between what a system pursues and what its principals intend [7, 8].
 
-![Selected milestones discussed this week, from Asimov and Wiener to the EU AI Act and the International AI Safety Report {cite:asimov1950,wiener1960,moor2006,amodei2016,kose2018brain,euaiact2024,iaisr2025}.](figures/w01_fig1.png)
+![Selected milestones discussed this week, from Asimov and Wiener to the EU AI Act and the International AI Safety Report.](figures/w01_fig1.png)
 
 *Figure 1.1. Selected milestones discussed this week, from Asimov and Wiener to the EU AI Act and the International AI Safety Report [1, 2, 3, 6, 9, 10, 11].*
 
@@ -89,9 +89,9 @@ D. a full ethical agent
 
 ### Why rule lists are not enough
 
-Asimov's Three Laws of Robotics are often cited as a first attempt to specify machine ethics, although Asimov used them as a narrative device whose loopholes drove the plots of his stories [9]. The laws illustrate three recurring problems. First, natural-language terms such as harm are vague, so every application requires interpretation. Second, rules conflict, and a fixed priority order produces counterintuitive results in edge cases. Third, rules are silent about situations their authors did not anticipate. Yigit, Kose and Sengoz examined how such rules translate into robotics rights and ethics rules and found the same tension between clarity and coverage [14].
+Asimov's Three Laws of Robotics are often cited as a first attempt to specify machine ethics. Asimov, however, used them as a narrative device whose loopholes drove the plots of his stories [9]. The laws illustrate three recurring problems. First, natural-language terms such as harm are vague, so every application requires interpretation. Second, rules conflict, and a fixed priority order produces counterintuitive results in edge cases. Third, rules are silent about situations their authors did not anticipate. Yigit, Kose and Sengoz examined how such rules translate into robotics rights and ethics rules and found the same tension between clarity and coverage [14].
 
-These problems are not confined to fiction. Allen, Smit and Wallach described top-down approaches, which derive behaviour from explicit principles, and bottom-up approaches, which learn behaviour from experience, and argued that neither is sufficient alone [15]. The same tension reappears in AI safety as the gap between a specified objective and the behaviour that designers actually wanted [3]. The lab and the notebook of this week make the conflict problem concrete: A small robot follows three prioritised rules, and changing the order of the rules changes its verdicts in ways that are easy to predict for some cases and surprising for others.
+These problems are not confined to fiction. Allen, Smit and Wallach described top-down approaches, which derive behaviour from explicit principles, and bottom-up approaches, which learn behaviour from experience, and argued that neither is sufficient alone [15]. The same tension reappears in AI safety as the gap between a specified objective and the behaviour that designers actually wanted [3]. The interactive lab and the Colab notebook of this week make the conflict problem concrete. A small robot follows three prioritised rules. Changing the order of the rules changes its verdicts, in ways that are easy to predict for some cases and surprising for others.
 
 <details>
 <summary><b>Check your understanding.</b> Why are fixed rule lists, such as Asimov&#x27;s laws, not enough to guarantee ethical behaviour?</summary>
@@ -107,7 +107,7 @@ D. Rules always work but make systems slow
 
 ### A research map for the course
 
-Amodei and colleagues grouped concrete technical problems into avoiding negative side effects, avoiding reward hacking, scalable oversight, safe exploration and robustness to distributional shift [3]. Hendrycks and colleagues later organised open problems into robustness, monitoring, alignment and systemic safety [5]. Russell, Dewey and Tegmark had earlier set out research priorities that combined short-term questions about law, economics and verification with long-term questions about control [16]. Kose offered an introduction to AI safety for a broad audience [17], and Kose and Vasant proposed a fading intelligence theory in which the operational lifetime of a system is limited so that newer and safer generations can replace it [18].
+Amodei and colleagues grouped concrete technical problems into avoiding negative side effects, avoiding reward hacking, scalable oversight, safe exploration and robustness to distributional shift [3]. Hendrycks and colleagues later organised open problems into robustness, monitoring, alignment and systemic safety [5]. Russell, Dewey and Tegmark had earlier set out research priorities that combined short-term questions about law, economics and verification with long-term questions about control [16]. Kose offered an introduction to AI safety for a broad audience [17]. Kose and Vasant proposed a fading intelligence theory, in which the operational lifetime of a system is limited so that newer and safer generations can replace it [18].
 
 The course follows this map. Weeks 2 to 4 cover normative foundations, implementations of machine ethics and the aggregation of moral preferences. Weeks 5 and 6 address fairness. Weeks 7 to 10 cover specification, robustness, uncertainty and interpretability. Weeks 11 to 13 examine the alignment of large language models, their security and advanced risks such as deceptive behaviour. Week 14 closes with governance, standards and auditing.
 
@@ -133,17 +133,17 @@ Part A asks for Moor's level of eight systems and explains each case after check
 
 ## Colab notebook
 
-The notebook implements the three-rule robot of the lab, enumerates all six priority orders and compares a lexicographic agent with a weighted-sum agent. The comparison shows that a ranking of rules and a weighting of rules are different design commitments [15].
+The Colab notebook implements the three-rule robot of the interactive lab, enumerates all six priority orders and compares a lexicographic agent with a weighted-sum agent. The comparison shows that a ranking of rules and a weighting of rules are different design commitments [15].
 
 [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/utkukose/machine-ethics-ai-safety-NB-lecture/blob/main/weeks/week-01/NB01_foundations.ipynb)
 
-Screenshots of the executed notebook:
+Screenshots of the executed Colab notebook:
 
-![Output 1 of the Week 1 notebook](screenshots/nb_1.png)
+![Output 1 of the Week 1 Colab notebook](screenshots/nb_1.png)
 
 ## Self-assessment and reflection
 
-The lab contains a 6-question self-assessment with instant feedback and a confidence rating for each answer. A confident but wrong answer marks the first topic to revisit. The reflection prompts below are also available in the lab, where answers are saved in the browser and can be exported as a learning log.
+The interactive lab contains a self-assessment of six questions (tab: Check yourself). Students answer each question, state how sure they are and receive instant feedback. A confident but wrong answer marks the first topic to revisit. The reflection prompts below also appear in the interactive lab (tab: Reflect and submit). Answers written there are saved in the browser and can be exported as a learning log.
 
 1. Describe one AI system that you use or develop. Which level of Moor's typology does it occupy, and who is accountable when it fails?
 2. Which problem of rule lists (vagueness, conflict or unanticipated situations) seems most dangerous in your research area, and why?
@@ -151,15 +151,27 @@ The lab contains a 6-question self-assessment with instant feedback and a confid
 
 ## Weekly task and submission
 
-Write a position statement of about 400 words that defines machine ethics, AI safety, AI security and AI alignment in your own words and applies Moor's typology to a system from your own field. Cite at least three works from this week's references in square brackets and attach the notebook with both exercises completed.
+**What to do.** Write a short position statement on the vocabulary of the course. First, define machine ethics, AI safety, AI security and AI alignment in your own words, one short paragraph each. Second, choose one system from your own field and place it in Moor's typology, justifying the level with one feature of the system. Third, name one risk of the system and state which of the four fields would study it.
 
-The weekly task supports self-learning and builds a personal portfolio. When the course is followed with the instructor during an active semester, the task can be sent together with the exported learning log to utkukose@sdu.edu.tr or utkukose@gmail.com for evaluation.
+**Where to look.** Lecture: sections "Two fields with a shared origin" and "Moor's typology of ethical agents". Interactive lab: Part A, where eight systems are classified with Moor's levels. Colab notebook: Sections 1 and 2, which show why the order of rules matters.
+
+**Example.** A hospital triage assistant that ranks patients by urgency is an implicit ethical agent: Its designers built safety rules into the ranking, but the system does not reason with ethical principles. Wrong rankings for rare conditions would be a question for AI safety.
+
+**What to submit.** About 400 words that cite at least three works from this week's references in square brackets, and the Colab notebook with Exercises 1 and 2 completed.
+
+The weekly task supports self-learning and builds a personal portfolio. In an active semester, students who follow the course with the instructor can send their work for evaluation to utkukose@sdu.edu.tr or utkukose@gmail.com. The e-mail contains the items that the task lists under What to submit. It also includes the learning log exported from the interactive lab (tab: Reflect and submit).
 
 ## Research and report assignment (optional)
 
-**Definitions in practice.** Compare how an international organisation, a national AI strategy and one AI developer define AI safety and the ethics of AI systems [19, 20]. Identify what each definition includes and leaves out, and relate the differences to the distinctions of this week.
+**Definitions in practice.** How do official documents define AI safety and the ethics of AI systems?
 
-This research assignment is optional and supports self-learning. When the related weeks are followed within the course during an active semester, the report can be sent to utkukose@sdu.edu.tr or utkukose@gmail.com for evaluation. Unless the assignment states otherwise, a report has 1500 to 2500 words, follows the structure of an academic paper, cites at least six scholarly or official sources in square brackets and ends with a reference list.
+**What to do.** Compare three definitions: one from an international organisation [19], one from a national AI strategy [20] and one from an AI developer. Identify what each definition includes and what it leaves out. Then relate the differences to the distinctions between machine ethics, AI safety, AI security and AI alignment.
+
+**Where to start.** Lecture section "Two fields with a shared origin", the OECD Recommendation on AI and the National Artificial Intelligence Strategy of Türkiye [19, 20]. The developer's definition can come from its published safety or responsible AI policy.
+
+**Example focus.** The OECD principles name robustness, security and safety together, while a developer may define safety mainly as the prevention of misuse of its models.
+
+This research assignment is optional and supports self-learning. In an active semester, students who follow these weeks with the instructor can send the report for evaluation to utkukose@sdu.edu.tr or utkukose@gmail.com. The report has 1500 to 2500 words and follows the structure of an academic paper. It cites at least six scholarly or official sources in square brackets and ends with a reference list. The [report template](https://github.com/utkukose/machine-ethics-ai-safety-NB-lecture/blob/main/exams/REPORT_TEMPLATE.md) shows a suitable structure.
 
 ## References
 
@@ -205,4 +217,4 @@ This research assignment is optional and supports self-learning. When the relate
 
 ---
 
-<sub>Machine Ethics and Artificial Intelligence Safety. Prof. Dr. Utku Kose, Süleyman Demirel University. ORCID [0000-0002-9652-6415](https://orcid.org/0000-0002-9652-6415). Content licensed under CC BY 4.0. This course is updated in line with current developments in the field. Last update: September 2026.</sub>
+<sub>Machine Ethics and Artificial Intelligence Safety. Prof. Dr. Utku Kose, Süleyman Demirel University. ORCID [0000-0002-9652-6415](https://orcid.org/0000-0002-9652-6415). Content licensed under CC BY 4.0. This course is updated in line with current developments in the field. First version: September 2026. Last update: October 2026.</sub>
